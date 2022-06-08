@@ -14,7 +14,7 @@ function Footer () {
         <footer>
             <ul>
                 <li><a href =" " class="init" onClick={() => { scrollToTop() }}>Inicio</a></li>
-                <li><a href="about.html">Sobre</a></li>
+                <li><a href="/about">Sobre</a></li>
                 <li>Created by: <a href="https://julian87nicolas.github.io/">Julián Camargo</a></li>
             </ul>       
         </footer>

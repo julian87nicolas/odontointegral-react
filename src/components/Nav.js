@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import "./styles/nav.css"
 
+
 function Nav () {
 
     const [navBar, setNavBar] = useState(true);
