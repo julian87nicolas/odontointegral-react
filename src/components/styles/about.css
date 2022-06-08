@@ -1,0 +1,71 @@
+:root{
+    --dark: #364182;
+    --mddark: #e07dd1;
+    --medium: #EDAAF0;
+    --light: white;
+    /*--light: #fcd6d6;*/
+    /*--light: #fac2c2;*/
+    --red: #ff5757;
+    --orange: #ff5789;
+    /*--sans: 'Oxygen', sans-serif;*/
+
+    --sans: 'League Spartan', sans-serif;
+    --mono: 'Oxygen Mono', monospace;
+}
+
+
+/* About page */
+
+.about img{
+    width: 40%;
+    border-radius: 50%;
+}
+
+.about h3{
+    color: var(--red);
+}
+
+.about ul{
+    list-style: none;
+    padding: 0;
+}
+
+.resume-download{
+    display: flex;
+    justify-content: center;
+}
+
+.resume-download a{
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--red);
+    padding: 1rem;
+    margin: 0 0 2rem 0;
+    color: var(--light);
+    
+    text-decoration: none;
+    font-family: var(--sans);
+    font-size: 1rem;
+    transition: all 0.5s;
+}
+.resume-download a:hover{
+    background-color: var(--mddark);
+}
+
+.resume-download a:active{
+    background-color: var(--dark);
+}
+
+.content.first.about:hover {
+    box-shadow: none;
+}
+
+
+
+@media (max-width: 800px){
+    .about img{
+        width: 80%;
+        border-bottom: var(--dark) 2px solid;
+        border-right: var(--dark) 2px solid;
+    } 
+}
