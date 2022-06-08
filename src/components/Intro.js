@@ -9,7 +9,7 @@ import "./styles/intro.css"
 
 function Intro () {
 
-    const OS = (["Avalian", "America Servicios", "Caja forense", "Conferencia episcopal argentina",
+    let OS = (["Avalian", "America Servicios", "Caja forense", "Conferencia episcopal argentina",
              "DASUTEN", "DAMSU", "Docthos", "Federada Salud", "Galeno", "Gerdanna Salud", "HOPE",
              "Jerarquicos Salud", "Luis Pasteur", "Medicus", "OPDEA", "OSDIPP", "OSJERA", "OSPIL",
              "OSPJN", "OSSACRA", "OSTV", "OSAPM", "OSSEG", "Policia Federal", "Prevencion Salud",
@@ -21,6 +21,11 @@ function Intro () {
 
     const [showOS, setShowOS] = useState(false)
     const [showTr, setShowTr] = useState(false)
+    const [search, setSearch] = useState("");
+
+    const busqueda = (event) => {
+        setSearch(event.target.value)
+    }
 
     return (
         <>
@@ -33,11 +38,13 @@ function Intro () {
                     y equipamiento acorde, nos caracterizamos por una atención distinguida.
                 </p>
                 <div className="list-section">
-                    <input type="text" id="search" placeholder="buscá tu obra social..." autocomplete="off"/>
+                    <input type="text" id="search" placeholder="buscá tu obra social..." autoComplete="off" value={search} onInput={ busqueda } />
                     <div className="list-button" onClick={() => setShowOS(!showOS)}>
                         Obras sociales
                         <div className="lista">
-                        { showOS && <Lista lista={OS} /> }
+                        { showOS && <Lista lista={OS.filter(item => item.toLowerCase().includes(search.toLowerCase()))} />}
+                        
+                        {/* { showOS && <Lista lista={OS} />} */}
                         </div>
                     </div>
                     <div className="treatments list-button" onClick={() => setShowTr(!showTr)}>
