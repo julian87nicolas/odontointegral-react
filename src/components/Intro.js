@@ -50,7 +50,7 @@ function Intro () {
                     <div className="treatments list-button" onClick={() => setShowTr(!showTr)}>
                         Tratamientos
                         <div className="treatments lista">
-                            { showTr && <Lista lista={tratamientos} /> }
+                            { showTr && <Lista lista={tratamientos} className="treatments"/> }
                             
                         </div>
                     </div>
