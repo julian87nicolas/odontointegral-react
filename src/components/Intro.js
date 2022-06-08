@@ -9,7 +9,7 @@ import "./styles/intro.css"
 
 function Intro () {
 
-    let OS = (["Avalian", "America Servicios", "Caja forense", "Conferencia episcopal argentina",
+    const OS = (["Avalian", "America Servicios", "Caja forense", "Conferencia episcopal argentina",
              "DASUTEN", "DAMSU", "Docthos", "Federada Salud", "Galeno", "Gerdanna Salud", "HOPE",
              "Jerarquicos Salud", "Luis Pasteur", "Medicus", "OPDEA", "OSDIPP", "OSJERA", "OSPIL",
              "OSPJN", "OSSACRA", "OSTV", "OSAPM", "OSSEG", "Policia Federal", "Prevencion Salud",
@@ -42,8 +42,8 @@ function Intro () {
                     <div className="list-button" onClick={() => setShowOS(!showOS)}>
                         Obras sociales
                         <div className="lista">
-                        { showOS && <Lista lista={OS.filter(item => item.toLowerCase().includes(search.toLowerCase()))} />}
-                        
+                        { showOS && <Lista lista={OS.filter(item => item.toLowerCase().includes(search.toLowerCase()))} className="OS"/>}
+                        {/* { showOS && <Lista lista={OS} search={search} className="OS"/>} */}
                         {/* { showOS && <Lista lista={OS} />} */}
                         </div>
                     </div>

@@ -65,10 +65,10 @@
     top: 14rem;
     background-color: var(--light);
     z-index: 1;
-    transition: height 0.5s;
+    transition: all 0.5s;
 }
 
-.lista ul{
+/* .lista ul{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -76,7 +76,7 @@
 
     list-style-type: none;
     justify-content: center;
-}
+} */
 
 input#search{
     height: fit-content;
