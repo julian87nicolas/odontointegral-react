@@ -142,3 +142,48 @@ input#search{
         top: 25rem;
     }
 }
+@media (max-width: 350px){
+
+    .list-button{
+        font-size: 1rem;
+        padding: 1rem 0rem;
+        margin: 1rem 0 ;
+        width: fit-content;
+    }
+
+    .button-name{
+        padding: 0.2rem 2rem; 
+    }
+
+    .lista{
+        width: fit-content;
+        border-radius: 0.5rem;
+        position: absolute;
+        top: 17rem;
+        background-color: var(--light);
+        z-index: 1;
+        transition: all 0.5s;
+    }
+    
+    .lista ul {
+        max-height: 200px;
+        padding-top:0;
+        padding-bottom: 0;
+    }
+
+    .lista li{
+        width: 100px;
+        line-height: normal;
+        margin-bottom: 0.5rem;
+    }
+
+    .lista.treatments{
+        width: max-content;
+        top: 22rem;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        justify-content: center;
+        align-items: center;
+    }
+    
+}

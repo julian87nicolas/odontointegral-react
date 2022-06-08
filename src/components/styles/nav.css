@@ -165,7 +165,6 @@
     .nav ul{
         padding: 0;
         width: 100%;
-        /*justify-content: space-around;*/
     }
     .nav ul li i{
         font-size: auto;
@@ -185,26 +184,32 @@
     }
 }
 
-@media (max-width: 280px){
-    .nav ul{
-        display: flex;
-        flex-direction: row;
-        padding: 0;
-        flex-wrap: wrap;
-        flex-basis: 100%;
-        justify-content: center;
-        gap: 1rem;
-    }
-    .nav ul li i{
-        font-size: 3rem;
+@media (max-width: 350px){
+
+    .nav{
+        width: 100%;
     }
 
+    .nav ul{
+        flex-wrap: wrap;
+        flex-basis: 100%;
+        width: 80%;
+        justify-content: center;
+        gap: 0.25rem;
+
+        padding: 0;
+        margin: 0;
+    }
+    .nav ul li i{
+        margin: 0;
+        font-size: 1.25rem;
+    }
     .nav h2 a{
         display: flex;
         width: 100%;
         margin: 0;
-        font-size: 1.6rem;
-        padding: 1rem 0 1rem 0;
+        font-size: 1.5rem;
+        padding: 0;
         justify-items: center;
     }
 }

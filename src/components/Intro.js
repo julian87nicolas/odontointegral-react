@@ -40,18 +40,15 @@ function Intro () {
                 <div className="list-section">
                     <input type="text" id="search" placeholder="buscá tu obra social..." autoComplete="off" value={search} onInput={ busqueda } />
                     <div className="list-button" onClick={() => setShowOS(!showOS)}>
-                        Obras sociales
+                        <span className="button-name">Obras sociales</span>
                         <div className="lista">
                         { showOS && <Lista lista={OS.filter(item => item.toLowerCase().includes(search.toLowerCase()))} className="OS"/>}
-                        {/* { showOS && <Lista lista={OS} search={search} className="OS"/>} */}
-                        {/* { showOS && <Lista lista={OS} />} */}
                         </div>
                     </div>
                     <div className="treatments list-button" onClick={() => setShowTr(!showTr)}>
-                        Tratamientos
+                    <span className="button-name">Tratamientos</span>
                         <div className="treatments lista">
                             { showTr && <Lista lista={tratamientos} className="treatments"/> }
-                            
                         </div>
                     </div>
                 </div>

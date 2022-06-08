@@ -67,5 +67,8 @@
         width: 80%;
         border-bottom: var(--dark) 2px solid;
         border-right: var(--dark) 2px solid;
-    } 
+    }
+    .content.first.about{
+        margin-top: 3rem;
+    }
 }
