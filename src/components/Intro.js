@@ -13,7 +13,7 @@ function Intro () {
              "DASUTEN", "DAMSU", "Docthos", "Federada Salud", "Galeno", "Gerdanna Salud", "HOPE",
              "Jerarquicos Salud", "Luis Pasteur", "Medicus", "OPDEA", "OSDIPP", "OSJERA", "OSPIL",
              "OSPJN", "OSSACRA", "OSTV", "OSAPM", "OSSEG", "Policia Federal", "Prevencion Salud",
-             "Swiss Medical", "Sancor Salud", "SCIS", "SADAIC", "Unimed", "OSEP"]).sort();
+             "Swiss Medical", "Sancor Salud", "SCIS", "SADAIC", "Unimed", "OSEP", "OSADEF"]).sort();
     
     const tratamientos = ["Extracciones", "Tratamiento de conducto", "Blanqueamiento", "Limpieza dental",
                 "Urgencias", "Caries", "Placas de relajación", "Protesis", "Implantes", "Perno-coronas"].sort();
