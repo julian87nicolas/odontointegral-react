@@ -5,50 +5,49 @@ function About () {
         <>
             <section className="content first about">
                 <article>
-                <h2>Florencia Sconfienza</h2>
-                <h3>Odontóloga</h3>
-                    Tengo 24 años, con buena
-                    capacidad para relacionarme ya sea
-                    con pacientes o con un equipo de
-                    trabajo. Pretendo seguir formándome
-                    para ser una mejor profesional y
-                    poder brindar un buen servicio.
+                <h2>Florencia Sconfienza - Odontóloga</h2>
                     <h3>Educación</h3>
-                    <ul>
-                        <li><b>Universidad de Mendoza</b></li>
-                        <li>Facultad de ciencias de la salud</li>
-                        <li>Odontología
-                            2016 – 2021</li>
-                    </ul>
-
+                    
+                        <b>Universidad de Mendoza</b> - Facultad de ciencias de la salud
+                        <br />
+                        Odontología
+                            2016 – 2021
                     <h3>Experiencia laboral</h3>
-                    <ul>
+                    <ul className="about-list">
                         <li>
                             <b>OdontoSalud</b>, clínica odontológica privada (Gutenberg 123, ciudad)
-                            Trabajando actualmente
-                        </li> <hr />
+                            <div className="job-state">Trabajando actualmente</div>
+                        </li>
                         <li>
                             <b>Casa de la Salud</b>, centro médico (Carril Ponce 248, Rodeo de la cruz)
-                            Trabajando actualmente
-                        </li> <hr />
-                        <li><b>Hospital Doctor Domingo Sicoli</b>, Prácticas Profesionales Supervisadas
-                            Año 2021
-                            Atención general de niños y adultos
-                        </li> <hr />
+                            <div className="job-state">Trabajando actualmente</div>
+                        </li>
+                        <li>
+                            <b>Odontomás</b>
+                            , clínica odontológica integral (Paseo de compras Hipermercado Libertad - Godoy Cruz)
+                            <div className="job-state">Trabajando actualmente</div> 
+                        </li>
+                        <li><b>Hospital Doctor Domingo Sicoli</b>
+                        , Prácticas Profesionales Supervisadas
+                            <div className="job-state">Año 2021</div>
+                        </li>
                     </ul>
                     
                     <h3>Cursos y especializaciones</h3>
-                    <ul>
+                    <ul className="about-list">
                         <li>
-                            <b>Diplomatura en cirugía dentoalveolar – Universidad de Mendoza</b> <br /> Cursando actualmente
-                        </li> <hr />
+                            <b>Diplomatura en cirugía dentoalveolar – Universidad de Mendoza</b>
+                            <div className="job-state">Cursando actualmente</div>
+                        </li>
                         <li>
                             <b>Curso de Ortodoncia Preventiva e interceptiva – Dra Rayane Pinto
-                            (Brasil)</b> <br /> Año 2022
-                        </li> <hr />
+                            (Brasil)</b>
+                            <div className="job-state">Año 2022</div>
+                        </li>
                         <li>
-                            <b>Lactancia materna – Edulacta</b> <br /> Año 2021
-                        </li> <hr />
+                            <b>Lactancia materna – Edulacta</b>
+                            <div className="job-state">Año 2021</div>
+                        </li>
                     </ul>
                 </article>
                 <img src="images/profile.webp" alt="foto de perfil" width="400px" />
