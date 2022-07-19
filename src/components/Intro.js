@@ -11,7 +11,7 @@ function Intro () {
 
     const OS = (["Avalian", "America Servicios", "Caja forense", "Conferencia episcopal argentina",
              "DASUTEN", "DAMSU", "Docthos", "Federada Salud", "Galeno", "Gerdanna Salud", "HOPE",
-             "Jerarquicos Salud", "Luis Pasteur", "Medicus", "OPDEA", "OSDIPP", "OSJERA", "OSPIL",
+             "Jerarquicos Salud", "Luis Pasteur", "Medicus", "OPDEA", "OSDIPP", "OSPIL",
              "OSPJN", "OSSACRA", "OSTV", "OSAPM", "OSSEG", "Policia Federal", "Prevencion Salud",
              "Swiss Medical", "Sancor Salud", "SCIS", "SADAIC", "Unimed", "OSEP", "OSADEF"]).sort();
     
