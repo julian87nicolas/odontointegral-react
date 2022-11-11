@@ -8,10 +8,12 @@ function Content () {
                     <h2>Atención</h2>
                     <hr/ >
                     Tratamiento odontológico general para:
-                    <li>Niños</li>
-                    <li>Adolescentes</li>
-                    <li>Adultos</li>
-                    <li>Embarazadas</li>  
+                    <ul>
+                        <li>Niños</li>
+                        <li>Adolescentes</li>
+                        <li>Adultos</li>
+                        <li>Embarazadas</li>
+                    </ul>  
                 </article>    
                 <img src="./images/pacientes.webp" alt="imagen de siluetas humanas" width="400px" />
             </section>
@@ -19,11 +21,13 @@ function Content () {
             <div className="sep rev"></div>
             <section className="content rev">
                 <article>
-                    <h2>Ubicación</h2>
+                    <h2>Ubicaciónes</h2>
                     <hr />
                     <ul>
                         <li>OdontoSalud - Calle Gutenberg 123 Mendoza, Ciudad. <a className="maps" href="https://g.page/OdontoSalud-Mendoza?share" target="__blank">Maps</a></li>
                         <li>La casa de la salud - Carril Ponce 248 Mendoza, Rodeo de la Cruz <a className="maps" href="https://goo.gl/maps/X43oZSE6MMAN7J7cA" target="__blank">Maps</a> </li>
+                        <li>Denticlick - Av. Godoy Cruz 370, Mendoza <a className="maps" href="https://goo.gl/maps/juNLShKh5fhG2Uuj9" target="__blank">Maps</a> </li>
+                        <li>Pulsos - San Juan 752, Mendoza <a className="maps" href="https://g.page/Pulsos?share" target="__blank">Maps</a> </li>
                     </ul>
                     
                 </article>    
