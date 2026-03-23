@@ -67,16 +67,16 @@ function ContactForm() {
 
       <form className="contact-form" onSubmit={onSubmit} noValidate>
         <label htmlFor="name">Nombre</label>
-        <input id="name" name="name" type="text" value={formData.name} onChange={onChange} />
-        {errors.name && <span className="field-error">{errors.name}</span>}
+        <input id="name" name="name" type="text" value={formData.name} onChange={onChange} autoComplete="name" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} />
+        {errors.name && <span id="name-error" className="field-error">{errors.name}</span>}
 
         <label htmlFor="phone">Telefono</label>
-        <input id="phone" name="phone" type="tel" value={formData.phone} onChange={onChange} />
-        {errors.phone && <span className="field-error">{errors.phone}</span>}
+        <input id="phone" name="phone" type="tel" value={formData.phone} onChange={onChange} inputMode="tel" autoComplete="tel" aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? "phone-error" : undefined} />
+        {errors.phone && <span id="phone-error" className="field-error">{errors.phone}</span>}
 
         <label htmlFor="message">Mensaje</label>
-        <textarea id="message" name="message" rows="5" value={formData.message} onChange={onChange} />
-        {errors.message && <span className="field-error">{errors.message}</span>}
+        <textarea id="message" name="message" rows="5" value={formData.message} onChange={onChange} minLength={10} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} />
+        {errors.message && <span id="message-error" className="field-error">{errors.message}</span>}
 
         <div className="contact-actions">
           <button type="submit">Enviar por WhatsApp</button>

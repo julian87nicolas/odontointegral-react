@@ -3,12 +3,12 @@ import { useClinic } from "../context/ClinicContext";
 import "./styles/testimonials.css";
 
 function Testimonials() {
-  const { testimonials, googlePlaceQuery, mapsUrl } = useClinic();
+  const { testimonials, googlePlaceQuery, googlePlaceId, mapsUrl } = useClinic();
   const [googleTestimonials, setGoogleTestimonials] = useState([]);
   const [source, setSource] = useState("local");
 
   useEffect(() => {
-    let isMounted = true;
+    const controller = new AbortController();
 
     async function loadGoogleReviews() {
       const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -18,35 +18,41 @@ function Testimonials() {
       }
 
       try {
-        const searchResponse = await fetch("https://places.googleapis.com/v1/places:searchText", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Goog-Api-Key": apiKey,
-            "X-Goog-FieldMask": "places.id",
-          },
-          body: JSON.stringify({
-            textQuery: googlePlaceQuery,
-            languageCode: "es",
-          }),
-        });
+        let resolvedPlaceId = googlePlaceId;
 
-        if (!searchResponse.ok) {
+        if (!resolvedPlaceId) {
+          const searchResponse = await fetch("https://places.googleapis.com/v1/places:searchText", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Goog-Api-Key": apiKey,
+              "X-Goog-FieldMask": "places.id",
+            },
+            body: JSON.stringify({
+              textQuery: googlePlaceQuery,
+              languageCode: "es",
+            }),
+            signal: controller.signal,
+          });
+
+          if (!searchResponse.ok) {
+            return;
+          }
+
+          const searchData = await searchResponse.json();
+          resolvedPlaceId = searchData?.places?.[0]?.id;
+        }
+
+        if (!resolvedPlaceId) {
           return;
         }
 
-        const searchData = await searchResponse.json();
-        const placeId = searchData?.places?.[0]?.id;
-
-        if (!placeId) {
-          return;
-        }
-
-        const detailsResponse = await fetch(`https://places.googleapis.com/v1/places/${placeId}`, {
+        const detailsResponse = await fetch(`https://places.googleapis.com/v1/${resolvedPlaceId}`, {
           headers: {
             "X-Goog-Api-Key": apiKey,
-            "X-Goog-FieldMask": "reviews",
+            "X-Goog-FieldMask": "reviews.rating,reviews.text,reviews.originalText,reviews.publishTime,reviews.authorAttribution.displayName,reviews.name",
           },
+          signal: controller.signal,
         });
 
         if (!detailsResponse.ok) {
@@ -68,11 +74,14 @@ function Testimonials() {
           .sort((a, b) => b.publishedAt - a.publishedAt)
           .slice(0, 5);
 
-        if (isMounted && normalized.length > 0) {
+        if (normalized.length > 0) {
           setGoogleTestimonials(normalized);
           setSource("google");
         }
       } catch (error) {
+        if (error.name === "AbortError") {
+          return;
+        }
         // Fallback a testimonios locales si la API no esta configurada o falla.
       }
     }
@@ -80,9 +89,9 @@ function Testimonials() {
     loadGoogleReviews();
 
     return () => {
-      isMounted = false;
+      controller.abort();
     };
-  }, [googlePlaceQuery]);
+  }, [googlePlaceId, googlePlaceQuery]);
 
   const visibleTestimonials = useMemo(() => {
     if (source === "google" && googleTestimonials.length > 0) {

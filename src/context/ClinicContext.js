@@ -9,6 +9,7 @@ const clinicData = {
   address: "Balcarce 36, Godoy Cruz, Mendoza",
   mapsUrl:
     "https://www.google.com/maps/place/AURA+Odontolog%C3%ADa/@-32.9244217,-68.845515,17z/data=!4m8!3m7!1s0x967e093713e41fe7:0x25ca5b3efba3fe3a!8m2!3d-32.9244262!4d-68.8429401!9m1!1b1!16s%2Fg%2F11xytbnl11",
+  googlePlaceId: "places/ChIJ5x_kEzcJfpYRov6j-z5byiU",
   googlePlaceQuery: "AURA Odontologia Balcarce 36 Godoy Cruz Mendoza",
   testimonials: [
     {
