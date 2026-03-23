@@ -13,10 +13,19 @@ function App() {
   useEffect(() => {
     const revealElements = document.querySelectorAll(".reveal");
 
+    if (!revealElements.length) {
+      return;
+    }
+
+    revealElements.forEach((element) => {
+      element.classList.add("reveal-pending");
+    });
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            entry.target.classList.remove("reveal-pending");
             entry.target.classList.add("is-visible");
             observer.unobserve(entry.target);
           }
@@ -29,7 +38,17 @@ function App() {
 
     revealElements.forEach((element) => observer.observe(element));
 
-    return () => observer.disconnect();
+    const fallbackTimer = window.setTimeout(() => {
+      revealElements.forEach((element) => {
+        element.classList.remove("reveal-pending");
+        element.classList.add("is-visible");
+      });
+    }, 1200);
+
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, []);
 
   return (
