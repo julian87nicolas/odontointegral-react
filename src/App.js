@@ -54,16 +54,18 @@ function App() {
 
   return (
     <ClinicProvider>
-      <div className="App">
-        <Nav />
-        <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/about" element={<About />}/>
-        </Routes>
-        </BrowserRouter>
-        <Footer />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Nav />
+          <main>
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/about" element={<About />}/>
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </BrowserRouter>
     </ClinicProvider>
   );
 }

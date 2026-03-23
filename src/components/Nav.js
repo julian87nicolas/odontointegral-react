@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 import "./styles/nav.css"
 
@@ -32,17 +33,17 @@ function Nav () {
         <>
         <div className={navBar ? "nav" : "nav white"}>
             <div className="nav-content">
-                <a href="/" className="brand" aria-label="Ir a la página principal de Aura Odontología">
+                <Link to="/" className="brand" aria-label="Ir a la página principal de Aura Odontología">
                     <img src="/images/aura.jpg" alt="Logo de Aura Odontología" className="logo" />
                     <span className="brand-text">Aura Odontología</span>
-                </a>
+                </Link>
                 <nav className="nav-links" aria-label="Navegación principal">
-                    <a href="/" className="nav-item home" title="Ir a la página principal" aria-label="Página principal">
+                    <NavLink to="/" className="nav-item home" title="Ir a la página principal" aria-label="Página principal">
                         <i className="fa-solid fa-house" aria-hidden="true"></i>
-                    </a>
-                    <a href="about" className="nav-item about" title="Conocer sobre la dentista" aria-label="Sobre nosotros">
+                    </NavLink>
+                    <NavLink to="/about" className="nav-item about" title="Conocer sobre la dentista" aria-label="Sobre nosotros">
                         <i className="fa-solid fa-circle-question" aria-hidden="true"></i>
-                    </a>
+                    </NavLink>
                     <a href="https://api.whatsapp.com/send?phone=542617528107" target="_blank" rel="noreferrer" className="nav-item whatsapp" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp">
                         <i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
                     </a>
