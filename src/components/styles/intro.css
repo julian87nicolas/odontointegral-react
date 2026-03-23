@@ -1,195 +1,170 @@
 /*-------------------------Intro -------------------------*/
 
 .intro{
-    font-size: 2rem;
-    font-family: var(--sans);
-    color: var(--text-on-image);
-    /*margin-top: 6rem;*/
+    width: min(1100px, calc(100% - 2rem));
+    margin: 0 auto;
+    margin-top: 0.5rem;
     padding: 2rem;
-    padding-top: 6rem;
-    display: flex;
-    justify-content: space-evenly;
-    margin: 0;
-    background-image: url("./tools.webp");
-    background-size: cover;
-}
-.intro p{
-    text-align: center;
-    flex-basis: 50%;
-    line-height: 150%;
-    text-shadow: 0 0 1rem var(--dark);
-    transition: all 0.5s
+    min-height: 70vh;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+    gap: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    background:
+      linear-gradient(140deg, rgba(5, 77, 132, 0.78), rgba(10, 177, 191, 0.68)),
+      url("./tools.webp") center/cover no-repeat;
 }
 
-.intro p:hover{
-    text-shadow: 0 0 1rem black;
+.intro-copy{
+    color: var(--text-on-image);
+    align-self: end;
+    max-width: 45rem;
+}
+
+.eyebrow{
+    margin: 0;
+    font-size: 0.95rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.86;
+}
+
+.intro h1{
+    margin: 0.35rem 0 0.8rem;
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: 0.95;
+    text-wrap: balance;
+}
+
+.lead{
+    margin: 0;
+    font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+    line-height: 1.35;
+}
+
+.support-copy{
+    margin-top: 0.8rem;
+    font-size: 1.05rem;
+    opacity: 0.93;
+}
+
+.intro-actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.2rem;
+}
+
+.intro-action{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.62rem 1rem;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.intro-action.primary{
+    background-color: #ffffff;
+    color: var(--brand-strong);
+    box-shadow: var(--shadow-sm);
+}
+
+.intro-action.secondary{
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.intro-action:hover{
+    transform: translateY(-1px);
+}
+
+.intro-action.secondary:hover{
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .list-section{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-xl);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+}
+
+input#search{
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.86);
+    color: var(--ink);
+    padding: 0.68rem 0.95rem;
+    font: inherit;
 }
 
 .list-button{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5rem;
-    background-color: var(--light);
-    color: var(--dark);
-    padding: 2rem;
-    margin: 0 0 2rem 0;
-
-    font-size: 1.5rem;
-
-    height: fit-content;
-    width: 18rem;
+    gap: 0.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--ink);
+    padding: 0.85rem;
     cursor: pointer;
+    transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
 
-    transition: background-color 0.5s;
+.button-name{
+    font-weight: 700;
 }
 
 .list-button:hover{
-    background-color: var(--light-hover);
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.75);
+    box-shadow: var(--shadow-sm);
 }
 
 .list-button:focus-visible,
 input#search:focus-visible{
-    outline: 2px solid var(--cyan);
+    outline: 2px solid var(--brand);
     outline-offset: 2px;
 }
 
 .lista{
-    width: 20rem;
-    border-radius: 0.5rem;
-    position: absolute;
-    top: 14rem;
-    background-color: var(--light);
-    z-index: 1;
-    transition: all 0.5s;
+    position: static;
+    width: 100%;
+    border-radius: var(--radius-md);
+    background-color: var(--surface-soft);
 }
 
-
-input#search{
-    height: fit-content;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    margin: 0.5rem;
-    justify-content: center;
-    border: none;
-}
-
-.treatments.lista{
-    top: 21.5rem;
-}
-
-/* width */
 ::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 5rem;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5rem;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--orange);
-  }
-
-/* .list-button.treatments{
-    margin: 1rem;
-    background-color: var(--red);
-    color: var(--light);
+    width: 8px;
 }
 
-.treatments.list-button:hover{
-    background-color: var(--orange);
-    color: var(--light);
+::-webkit-scrollbar-thumb {
+    background: var(--brand);
+    border-radius: 999px;
 }
 
-.treatments.lista{
-    color: black;
-    top: 32rem;
-} */
-
-@media (max-width: 800px){
+@media (max-width: 940px){
     .intro{
-        /*margin-top: 8rem;*/
-        font-size: 1.5rem;
-        padding: 1rem;
-        padding-top: 10rem;
-        flex-direction: column-reverse;
-        position: relative;
-        z-index: 0;
-    }
-    .intro p{
-        position: relative;
-        z-index: -1;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: var(--orange);
-        border-radius: 5rem;
-    }
-    .lista{
-        top: 18rem;
-    }
-    .treatments.lista{
-        top: 25rem;
-    }
-}
-@media (max-width: 350px){
-
-    .list-button{
-        font-size: 1rem;
-        padding: 1rem 0rem;
-        margin: 1rem 0 ;
-        width: fit-content;
+        min-height: auto;
+        padding: 1.2rem;
+        grid-template-columns: 1fr;
     }
 
-    .button-name{
-        padding: 0.2rem 2rem; 
+    .intro-copy{
+        align-self: start;
     }
 
-    .lista{
-        width: fit-content;
-        border-radius: 0.5rem;
-        position: absolute;
-        top: 17rem;
-        background-color: var(--light);
-        z-index: 1;
-        transition: all 0.5s;
+    .intro-actions{
+        margin-bottom: 0.35rem;
     }
-    
-    .lista ul {
-        max-height: 200px;
-        padding-top:0;
-        padding-bottom: 0;
-    }
-
-    .lista li{
-        width: 100px;
-        line-height: normal;
-        margin-bottom: 0.5rem;
-    }
-
-    .lista.treatments{
-        width: max-content;
-        top: 22rem;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        justify-content: center;
-        align-items: center;
-    }
-    
 }

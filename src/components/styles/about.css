@@ -1,13 +1,27 @@
 
 /* About page */
 
+.content.first.about {
+    width: min(1100px, calc(100% - 2rem));
+    margin: 1.2rem auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+}
+
 .about img{
-    width: 40%;
-    border-radius: 50%;
+    width: 100%;
+    max-width: 320px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--line);
+    object-fit: cover;
 }
 
 .about h3{
-    color: var(--red);
+    color: var(--brand-strong);
+    margin-bottom: 0.5rem;
 }
 
 .about ul{
@@ -21,21 +35,23 @@
 }
 
 .job-state {
-    color: rgb(100, 100, 100);
+    color: var(--ink-soft);
+    font-size: 0.95rem;
 }
 
 .resume-download{
     display: flex;
     justify-content: center;
+    margin-top: 0.5rem;
 }
 
 .resume-download a{
     border: none;
-    border-radius: 0.5rem;
-    background-color: var(--red);
-    padding: 1rem;
+    border-radius: var(--radius-full);
+    background-color: var(--brand-strong);
+    padding: 0.8rem 1.1rem;
     margin: 0 0 2rem 0;
-    color: var(--light);
+    color: #ffffff;
     
     text-decoration: none;
     font-family: var(--sans);
@@ -43,11 +59,11 @@
     transition: all 0.5s;
 }
 .resume-download a:hover{
-    background-color: var(--mddark);
+    background-color: var(--brand);
 }
 
 .resume-download a:active{
-    background-color: var(--dark);
+    background-color: var(--accent);
 }
 
 .content.first.about:hover {
@@ -58,11 +74,10 @@
 
 @media (max-width: 800px){
     .about img{
-        width: 80%;
-        border-bottom: var(--dark) 2px solid;
-        border-right: var(--dark) 2px solid;
+        max-width: 100%;
     }
     .content.first.about{
-        margin-top: 3rem;
+        margin-top: 0.8rem;
+        padding: 1rem;
     }
 }

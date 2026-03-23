@@ -10,7 +10,7 @@ function Content () {
                 <article>
                     <h2>Atención</h2>
                     <hr/ >
-                    Tratamiento odontológico general para:
+                    <p className="content-lead">Tratamiento odontologico general para:</p>
                     <ul>
                         <li>Niños</li>
                         <li>Adolescentes</li>
@@ -27,7 +27,7 @@ function Content () {
                     <h2>Ubicación</h2>
                     <hr />
                     <ul>
-                        <li>{address}<a className="maps" href="https://maps.app.goo.gl/yNnJ3mpCqJ4SXjDF9" target="_blank" rel="noreferrer">Maps</a></li>
+                        <li>{address} <a className="maps" href="https://maps.app.goo.gl/yNnJ3mpCqJ4SXjDF9" target="_blank" rel="noreferrer">Ver mapa</a></li>
                     </ul>
                     
                 </article>    

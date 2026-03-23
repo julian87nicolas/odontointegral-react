@@ -1,75 +1,120 @@
 
 :root{
-  /* Colores primarios - Aura Odontología */
-  --dark: #054d84;
-  --mddark: #fb8975;
-  --medium: #e7f1f3;
-  --light: white;
-  --cyan: #0ab1bf;
-  
-  /* Colores secundarios */
-  --red: #ff5757;
-  --orange: #ff5789;
-  --light-hover: rgb(219, 219, 219);
-  
-  /* Tipografía */
-  --sans: 'League Spartan', sans-serif;
+  --ink: #143041;
+  --ink-soft: #3b6075;
+  --surface: #ffffff;
+  --surface-soft: #eff6f8;
+  --canvas: #f7fbfc;
+  --brand: #0ab1bf;
+  --brand-strong: #054d84;
+  --accent: #fb8975;
+  --line: rgba(20, 48, 65, 0.14);
+  --line-strong: rgba(20, 48, 65, 0.28);
+  --text-on-image: #f9feff;
+
+  --sans: 'Plus Jakarta Sans', sans-serif;
+  --display: 'Cormorant Garamond', serif;
   --mono: 'Oxygen Mono', monospace;
-  
-  /* Tamaños de fuente estándar */
+
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
   --font-size-xl: 1.25rem;
   --font-size-2xl: 1.5rem;
   --font-size-3xl: 1.875rem;
-  
-  /* Espaciado */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  
-  /* Sombras */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
-  
-  /* Border radius */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
+
+  --radius-sm: 0.35rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.1rem;
+  --radius-xl: 1.5rem;
   --radius-full: 9999px;
-  
-  /* Transiciones */
-  --transition-fast: 0.3s ease;
-  --transition-base: 0.5s ease;
-  --transition-slow: 0.7s ease;
-  --text-on-image: #ffffff;
+
+  --shadow-sm: 0 6px 20px rgba(20, 48, 65, 0.06);
+  --shadow-md: 0 12px 32px rgba(20, 48, 65, 0.12);
+  --shadow-lg: 0 22px 46px rgba(20, 48, 65, 0.17);
+
+  --transition-fast: 0.24s ease;
+  --transition-base: 0.45s ease;
+
+  /* Alias legacy */
+  --dark: var(--ink);
+  --light: var(--surface);
+  --medium: var(--surface-soft);
+  --mddark: var(--accent);
+  --cyan: var(--brand);
+  --red: var(--accent);
+  --orange: var(--brand-strong);
+  --light-hover: var(--surface-soft);
 }
 
 :root[data-theme="dark"]{
-  --dark: #d7ecff;
-  --mddark: #ff9d8d;
-  --medium: #0f2331;
-  --light: #091720;
-  --cyan: #25d1de;
-  --red: #ff8f8f;
-  --orange: #ffae94;
-  --light-hover: #173243;
-  --text-on-image: #f4fbff;
+  --ink: #e2f0f6;
+  --ink-soft: #b2cad6;
+  --surface: #102230;
+  --surface-soft: #193547;
+  --canvas: #0b1822;
+  --brand: #1ec7d4;
+  --brand-strong: #5bb8ff;
+  --accent: #ffad97;
+  --line: rgba(220, 239, 248, 0.18);
+  --line-strong: rgba(220, 239, 248, 0.34);
+  --text-on-image: #f1fbff;
+
+  --dark: var(--ink);
+  --light: var(--surface);
+  --medium: var(--surface-soft);
+  --mddark: var(--accent);
+  --cyan: var(--brand);
+  --red: var(--accent);
+  --orange: var(--brand-strong);
+  --light-hover: var(--surface-soft);
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+.App {
+  min-height: 100%;
+}
 
 body{
   font-family: var(--sans);
-  padding: 0;
   margin: 0;
-  background-color: var(--light);
-  color: var(--dark);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(10, 177, 191, 0.13), transparent 34%),
+    radial-gradient(circle at 85% 5%, rgba(251, 137, 117, 0.11), transparent 36%),
+    var(--canvas);
   transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  letter-spacing: 0.01em;
+}
+
+p,
+li,
+label,
+input,
+textarea,
+button,
+a {
+  font-family: var(--sans);
+}
+
+::selection {
+  background: rgba(10, 177, 191, 0.25);
+}
+
+a {
+  color: inherit;
 }
 
 .reveal{
@@ -79,7 +124,7 @@ body{
 
 .reveal.reveal-pending{
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(20px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
@@ -92,59 +137,31 @@ body{
   .reveal,
   .reveal.reveal-pending,
   .reveal.is-visible{
-      opacity: 1;
-      transform: none;
-      transition: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
-
 .sep{
-  background: var(--light);
-  background: linear-gradient(90deg, var(--light) 33%, var(--dark) 66%);
-  height: 2px;
-  margin: 0;
-  padding: 0;
+  width: min(1100px, calc(100% - 2rem));
+  height: 1px;
+  margin: 0 auto;
+  border: none;
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
 }
 
 .sep.rev{
-  background: var(--light);
-  background: linear-gradient(90deg, var(--dark) 33%, var(--light) 66%);
-  height: 2px;
-  margin: 0;
-  padding: 0;
-}
-
-.sep.fixed{
-  position: fixed;
-  z-index: 2;
-  display: none;
-  height: 2px;
-  width: 100%;
-  top: 5.75rem;
-  padding: 0;
+  background: linear-gradient(90deg, transparent, var(--brand), transparent);
 }
 
 .content.first.about{
-  padding-top: 6rem;
+  padding-top: 7rem;
 }
 
 @media (max-width: 800px){
-  body{
-      width: 100%;
-      height: 100%;
-  }
-  
-  .sep.fixed{
-      display: none;
-  }
-  
-}
-
-@media (max-width: 280px){
-  body{
-      width: 100%;
-      height: 100%;
+  .content.first.about{
+    padding-top: 6rem;
   }
 }
 

@@ -1,17 +1,23 @@
 .contact-section {
-  margin: 1rem;
-  padding: 2rem;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(160deg, var(--medium), var(--light));
+  width: min(1100px, calc(100% - 2rem));
+  margin: 1.2rem auto 2rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--line);
+  background: linear-gradient(165deg, var(--surface), var(--surface-soft));
+  box-shadow: var(--shadow-sm);
 }
 
 .contact-section h2 {
   margin-top: 0;
-  font-size: 2rem;
+  margin-bottom: 0.2rem;
+  font-size: clamp(1.45rem, 2vw, 2rem);
 }
 
 .contact-lead {
-  margin-bottom: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--ink-soft);
 }
 
 .contact-form {
@@ -19,19 +25,24 @@
   gap: 0.5rem;
 }
 
+.contact-form label {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
 .contact-form input,
 .contact-form textarea {
-  border: 1px solid rgba(5, 77, 132, 0.35);
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-md);
   padding: 0.75rem;
   font: inherit;
-  background-color: var(--light);
-  color: var(--dark);
+  background-color: var(--surface);
+  color: var(--ink);
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  outline: 2px solid var(--cyan);
+  outline: 2px solid var(--brand);
   border-color: transparent;
 }
 
@@ -55,21 +66,28 @@
   padding: 0.75rem 1rem;
   font-weight: 700;
   cursor: pointer;
+  transition: transform var(--transition-fast), filter var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .contact-actions button {
-  background-color: var(--dark);
-  color: var(--light);
+  background-color: var(--brand-strong);
+  color: #ffffff;
 }
 
 .contact-actions button:hover {
-  background-color: var(--cyan);
-  color: #01263f;
+  background-color: var(--brand);
+  color: #08222f;
+  transform: translateY(-1px);
 }
 
 .contact-mail-link {
-  background-color: var(--mddark);
+  background-color: var(--accent);
   color: #ffffff;
+}
+
+.contact-mail-link:hover {
+  filter: brightness(0.96);
+  transform: translateY(-1px);
 }
 
 .contact-success {
