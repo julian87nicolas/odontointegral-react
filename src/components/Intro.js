@@ -12,13 +12,13 @@ function Intro () {
     const { whatsapp, mapsUrl } = useClinic();
 
     const OS = (["Avalian", "America Servicios", "Caja forense", "Conferencia episcopal argentina",
-             "DASUTEN", "DAMSU", "Docthos", "Federada Salud", "Galeno", "Gerdanna Salud", "HOPE",
+             "DASUTEN", "Docthos", "Federada Salud", "Galeno", "Gerdanna Salud", "HOPE",
              "Jerarquicos Salud", "Luis Pasteur", "Medicus", "OPDEA", "OSDIPP", "OSPIL",
-             "OSPJN", "OSSACRA", "OSTV", "OSAPM", "OSSEG", "Policia Federal", "Prevencion Salud",
-             "Swiss Medical", "Sancor Salud", "SCIS", "SADAIC", "Unimed", "OSEP", "OSADEF"]).sort();
+             "OSPJN", "OSSACRA", "OSTV", "OSAPM", "OSSEG", "Prevencion Salud",
+             "Swiss Medical", "Sancor Salud", "SCIS", "SADAIC", "Unimed", "Nobis", "OSADEF"]).sort();
     
     const tratamientos = ["Extracciones", "Tratamiento de conducto", "Blanqueamiento", "Limpieza dental",
-                "Urgencias", "Caries", "Placas de relajación", "Protesis", "Implantes", "Perno-coronas"].sort();
+                "Urgencias", "Caries", "Placas de relajación", "Protesis", "Implantes", "Perno-coronas", "Ortodoncia"].sort();
                 
 
     const [showOS, setShowOS] = useState(false)

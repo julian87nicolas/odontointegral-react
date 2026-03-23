@@ -46,7 +46,7 @@ function Content () {
                     <h2>Días y horarios</h2>
                     <hr />
                     <ul>
-                        <li>Lunes a Viernes de 9:00 a 18:00</li>
+                        <li>Lunes a Viernes de 9:00 a 20:00</li>
                         <li>Turnos: {phone}</li>
                     </ul>
                 </article>

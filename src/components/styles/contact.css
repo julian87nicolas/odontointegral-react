@@ -90,6 +90,13 @@
   transform: translateY(-1px);
 }
 
+.contact-mail-link:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+  filter: none;
+}
+
 .contact-success {
   margin-top: 1rem;
   font-weight: 700;

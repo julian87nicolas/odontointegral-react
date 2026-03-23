@@ -13,6 +13,8 @@ function ContactForm() {
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [sent, setSent] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailSending, setEmailSending] = useState(false);
 
   const validate = () => {
     const nextErrors = {};
@@ -40,6 +42,8 @@ function ContactForm() {
   const onChange = (event) => {
     const { name, value } = event.target;
     setSent(false);
+    setEmailSent(false);
+    setErrors((prev) => ({ ...prev, form: undefined }));
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -56,8 +60,70 @@ function ContactForm() {
 
     window.open(`https://api.whatsapp.com/send?phone=${whatsapp}&text=${text}`, "_blank", "noopener,noreferrer");
     setSent(true);
+    setEmailSent(false);
     setFormData(initialForm);
     setErrors({});
+  };
+
+  const onEmailSubmit = async () => {
+    if (!validate()) {
+      return;
+    }
+
+    setEmailSending(true);
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${email}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          message: formData.message,
+          _subject: "Consulta desde la web - Aura Odontologia",
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+
+      const raw = await response.text();
+      let data = {};
+
+      try {
+        data = JSON.parse(raw);
+      } catch (error) {
+        data = { message: raw };
+      }
+
+      if (!response.ok || data.success === "false") {
+        throw new Error(data.message || "No se pudo enviar el email.");
+      }
+
+      setEmailSent(true);
+      setSent(false);
+      setFormData(initialForm);
+      setErrors({});
+    } catch (error) {
+      const message = String(error?.message || "").toLowerCase();
+      const activationMessage =
+        "FormSubmit todavía no tiene activado este correo. Revisa la bandeja de auradentalmza@gmail.com y confirma el email de activación del servicio.";
+
+      setErrors((prev) => ({
+        ...prev,
+        form:
+          message.includes("activate") ||
+          message.includes("activation") ||
+          message.includes("confirm") ||
+          message.includes("unable to submit form")
+            ? activationMessage
+            : "No se pudo enviar el email ahora. Intenta nuevamente en unos minutos.",
+      }));
+    } finally {
+      setEmailSending(false);
+    }
   };
 
   return (
@@ -80,11 +146,15 @@ function ContactForm() {
 
         <div className="contact-actions">
           <button type="submit">Enviar por WhatsApp</button>
-          <a href={`mailto:${email}`} className="contact-mail-link">Enviar email</a>
+          <button type="button" className="contact-mail-link" onClick={onEmailSubmit} disabled={emailSending}>
+            {emailSending ? "Enviando..." : "Enviar email"}
+          </button>
         </div>
       </form>
 
       {sent && <p className="contact-success">Mensaje enviado. Te responderemos a la brevedad.</p>}
+      {emailSent && <p className="contact-success">Email enviado correctamente. Te responderemos a la brevedad.</p>}
+      {errors.form && <p className="field-error">{errors.form}</p>}
     </section>
   );
 }

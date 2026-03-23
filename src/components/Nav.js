@@ -6,10 +6,11 @@ import "./styles/nav.css"
 
 
 function Nav () {
-    const { name } = useClinic();
+    const { name, email } = useClinic();
 
     const [navBar, setNavBar] = useState(true);
     const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
+    const [emailCopied, setEmailCopied] = useState(false);
 
     useEffect(() => {
         const onScroll = () => {
@@ -29,6 +30,26 @@ function Nav () {
 
     const toggleTheme = () => {
         setTheme((current) => (current === "light" ? "dark" : "light"));
+    };
+
+    const copyEmail = async () => {
+        try {
+            if (navigator.clipboard?.writeText) {
+                await navigator.clipboard.writeText(email);
+            } else {
+                const input = document.createElement("input");
+                input.value = email;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand("copy");
+                document.body.removeChild(input);
+            }
+
+            setEmailCopied(true);
+            window.setTimeout(() => setEmailCopied(false), 1800);
+        } catch (error) {
+            window.prompt("Copia este email:", email);
+        }
     };
 
     const brandLogo = theme === "dark" ? "/images/aura-dark.png" : "/images/aura-light.png";
@@ -51,9 +72,15 @@ function Nav () {
                     <a href="https://www.instagram.com/odontologia_aura/" target="_blank" rel="noreferrer" className="nav-item instagram" title="Seguir en Instagram" aria-label="Seguir en Instagram">
                         <i className="fa-brands fa-instagram" aria-hidden="true"></i>
                     </a>
-                    <a href="mailto:auradentalmza@gmail.com" target="_blank" rel="noreferrer" className="nav-item email" title="Enviar email" aria-label="Enviar email">
+                    <button
+                        type="button"
+                        className="nav-item email"
+                        title={emailCopied ? "Email copiado" : "Copiar email"}
+                        aria-label={emailCopied ? "Email copiado" : "Copiar email"}
+                        onClick={copyEmail}
+                    >
                         <i className="fa-solid fa-envelope" aria-hidden="true"></i>
-                    </a>
+                    </button>
                     <button type="button" className="nav-item theme-toggle" title="Alternar tema" aria-label="Alternar tema claro u oscuro" onClick={toggleTheme}>
                         <i className={`fa-solid ${theme === "light" ? "fa-moon" : "fa-sun"}`} aria-hidden="true"></i>
                     </button>

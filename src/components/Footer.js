@@ -14,7 +14,7 @@ function Footer () {
         <footer>
             <ul>
                 <li><a href="#top" className="init" onClick={(event) => { event.preventDefault(); scrollToTop(); }}>Inicio</a></li>
-                <li>Created by: <a href="https://julian87nicolas.github.io/" target="_blank" rel="noreferrer">Julián Camargo</a></li>
+                <li><a href="https://julian-camargo.onrender.com/" target="_blank" rel="noreferrer">Page creator</a></li>
             </ul>       
         </footer>
     )

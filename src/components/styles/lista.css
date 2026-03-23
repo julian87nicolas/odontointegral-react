@@ -11,6 +11,19 @@ ul.OS, ul.treatments {
     padding: 0.8rem;
     text-align: left;
     margin: 0;
+    color: inherit;
+}
+
+ul.OS li, ul.treatments li {
+    width: 100%;
+    color: inherit;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.35rem;
+}
+
+:root[data-theme="dark"] ul.OS li:hover,
+:root[data-theme="dark"] ul.treatments li:hover {
+    background: rgba(91, 184, 255, 0.12);
 }
 
 /* ul.treatments {

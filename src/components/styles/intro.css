@@ -143,6 +143,38 @@ input#search:focus-visible{
     width: 100%;
     border-radius: var(--radius-md);
     background-color: var(--surface-soft);
+    color: inherit;
+}
+
+:root[data-theme="dark"] .list-section{
+    border-color: rgba(220, 239, 248, 0.22);
+    background: rgba(9, 22, 31, 0.42);
+}
+
+:root[data-theme="dark"] input#search{
+    border-color: rgba(220, 239, 248, 0.24);
+    background: rgba(16, 34, 48, 0.92);
+    color: var(--ink);
+}
+
+:root[data-theme="dark"] input#search::placeholder{
+    color: rgba(226, 240, 246, 0.72);
+}
+
+:root[data-theme="dark"] .list-button{
+    border-color: rgba(220, 239, 248, 0.2);
+    background: rgba(16, 34, 48, 0.94);
+    color: var(--ink);
+}
+
+:root[data-theme="dark"] .list-button:hover{
+    border-color: rgba(91, 184, 255, 0.45);
+    background: rgba(25, 53, 71, 0.98);
+}
+
+:root[data-theme="dark"] .lista{
+    background: rgba(25, 53, 71, 0.95);
+    border: 1px solid rgba(220, 239, 248, 0.14);
 }
 
 ::-webkit-scrollbar {
