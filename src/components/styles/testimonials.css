@@ -9,6 +9,17 @@
   color: var(--dark);
 }
 
+.testimonials-source {
+  margin-top: -0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.testimonials-source a {
+  margin-left: 0.25rem;
+  color: var(--dark);
+  font-weight: 700;
+}
+
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(220px, 1fr));

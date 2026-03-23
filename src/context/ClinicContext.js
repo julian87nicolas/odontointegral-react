@@ -7,23 +7,26 @@ const clinicData = {
   email: "auradentalmza@gmail.com",
   instagram: "https://www.instagram.com/odontologia_aura/",
   address: "Balcarce 36, Godoy Cruz, Mendoza",
+  mapsUrl:
+    "https://www.google.com/maps/place/AURA+Odontolog%C3%ADa/@-32.9244217,-68.845515,17z/data=!4m8!3m7!1s0x967e093713e41fe7:0x25ca5b3efba3fe3a!8m2!3d-32.9244262!4d-68.8429401!9m1!1b1!16s%2Fg%2F11xytbnl11",
+  googlePlaceQuery: "AURA Odontologia Balcarce 36 Godoy Cruz Mendoza",
   testimonials: [
     {
       id: 1,
-      author: "Carla M.",
-      text: "Excelente atencion y mucha calidez. Me explicaron todo con paciencia y quede feliz con el resultado.",
+      author: "Celeste Modarelli",
+      text: "Mejor imposible la atencion de Florencia. Muy muy amable y se ve que esta re contra capacitada, me brindo atencion incluso estando fuera de su horario laboral. En cuanto al espacio es muy limpio y ordenado. Te agradezco mucho Flor por todo.",
       rating: 5,
     },
     {
       id: 2,
-      author: "Nicolas R.",
-      text: "Puntuales, profesionales y con muy buena tecnologia. Super recomendable.",
+      author: "Antonella De Simone",
+      text: "Hace 2 anos que Julieta me mantiene la boca sana y sin caries. Una genia y super amorosa. Hermoso lugar.",
       rating: 5,
     },
     {
       id: 3,
-      author: "Lucia A.",
-      text: "Mi experiencia fue muy buena. El seguimiento posterior tambien fue impecable.",
+      author: "Rodrigo Rubio",
+      text: "Hace 3 meses. Excelente atencion, muy buena ubicacion y el consultorio impecable. 100% recomendable.",
       rating: 5,
     },
   ],
