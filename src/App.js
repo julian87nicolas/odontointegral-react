@@ -1,12 +1,11 @@
 // libraries
 import { useEffect } from "react";
-import {Routes, Route, BrowserRouter} from "react-router-dom"
+import {Routes, Route, BrowserRouter, Navigate} from "react-router-dom"
 
 // components
 import Nav from "./components/Nav";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
-import About from "./components/About";
 import { ClinicProvider } from "./context/ClinicContext";
 // styles
 
@@ -60,7 +59,7 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={<Main />} />
-              <Route path="/about" element={<About />}/>
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
           <Footer />

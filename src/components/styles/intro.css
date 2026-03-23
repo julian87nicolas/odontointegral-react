@@ -35,6 +35,7 @@
     margin: 0.35rem 0 0.8rem;
     font-size: clamp(2rem, 4vw, 4rem);
     line-height: 0.95;
+    letter-spacing: -0.03em;
     text-wrap: balance;
 }
 

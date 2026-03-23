@@ -3,6 +3,7 @@ import { useClinic } from "../context/ClinicContext";
 
 function Content () {
     const { address, phone } = useClinic();
+    const mapEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 
     return (
         <>
@@ -18,11 +19,10 @@ function Content () {
                         <li>Embarazadas</li>
                     </ul>  
                 </article>    
-                <img src="./images/pacientes.webp" alt="Siluetas de pacientes - atención odontológica para niños, adolescentes, adultos y embarazadas" width="400" loading="lazy" decoding="async" />
             </section>
 
             <div className="sep rev"></div>
-            <section className="content rev reveal">
+            <section className="content rev has-image reveal">
                 <article>
                     <h2>Ubicación</h2>
                     <hr />
@@ -30,20 +30,26 @@ function Content () {
                         <li>{address} <a className="maps" href="https://maps.app.goo.gl/yNnJ3mpCqJ4SXjDF9" target="_blank" rel="noreferrer">Ver mapa</a></li>
                     </ul>
                     
-                </article>    
-                <img src="./images/ubication.webp" alt="Mapa de ubicaciones - clínicas asociadas en Mendoza" width="400" loading="lazy" decoding="async" />
+                </article>
+                <div className="map-embed" aria-hidden="true">
+                    <iframe
+                        title="Mapa de ubicación de Aura Odontología"
+                        src={mapEmbedSrc}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    />
+                </div>
             </section>
             <div className="sep"></div>
             <section className="content reveal">
                 <article>
-                    <h2>Días y horarios de atención</h2>
+                    <h2>Días y horarios</h2>
                     <hr />
                     <ul>
                         <li>Lunes a Viernes de 9:00 a 18:00</li>
                         <li>Turnos: {phone}</li>
                     </ul>
-                </article>    
-                <img src="./images/calendar.webp" alt="Calendario - días y horarios de atención odontológica" width="400" loading="lazy" decoding="async" />
+                </article>
             </section>
             <div className="sep"></div>
         </>

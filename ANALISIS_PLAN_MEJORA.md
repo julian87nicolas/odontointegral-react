@@ -16,7 +16,7 @@
 
 ### DEBILIDADES 🔴
 1. **Inconsistencia de estilos** - `index.css` aún contiene colores antiguos
-2. **Código duplicado** - Variables CSS definidas en múltiples archivos (nav.css, about.css)
+2. **Código duplicado** - Variables CSS definidas en múltiples archivos de estilos
 3. **Sin animaciones de scroll** - Transiciones abruptas entre secciones
 4. **Imágenes sin optimización** - Falta lazy loading y responsive images
 5. **Sin estado global** - Cada componente es independiente
@@ -40,7 +40,7 @@
 
 #### 1.1 Consolidación de estilos
 - [ ] Centralizar todas las variables CSS en `index.css`
-- [ ] Eliminar duplicados en nav.css y about.css
+- [ ] Eliminar duplicados en los archivos de estilos
 - [ ] Crear archivo `variables.css` reutilizable
 - [ ] Usar CSS modules para evitar conflictos
 
@@ -100,7 +100,7 @@
 - [ ] Consistencia de hover effects
 - [ ] Loading skeletons
 - [ ] Tooltips informativos
-- [ ] Breadcrumbs en About
+- [ ] Breadcrumbs en secciones secundarias si vuelven a incorporarse
 
 #### RESULTADO ESPERADO
 🌟 Interfaz moderna, fluida, profesional y agradable

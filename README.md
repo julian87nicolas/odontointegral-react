@@ -58,7 +58,6 @@ src/
 │   ├── Main.js             # Página principal
 │   ├── Intro.js            # Sección introductoria
 │   ├── Content.js          # Contenido principal
-│   ├── About.js            # Página sobre la doctora
 │   ├── Footer.js           # Pie de página
 │   └── styles/             # Estilos CSS
 ├── App.js                  # Componente raíz

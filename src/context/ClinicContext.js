@@ -15,7 +15,7 @@ const clinicData = {
     {
       id: 1,
       author: "Celeste Modarelli",
-      text: "Mejor imposible la atencion de Florencia. Muy muy amable y se ve que esta re contra capacitada, me brindo atencion incluso estando fuera de su horario laboral. En cuanto al espacio es muy limpio y ordenado. Te agradezco mucho Flor por todo.",
+      text: "Mejor imposible la atencion del equipo. Muy amables y se nota la capacitacion profesional. Me brindaron atencion incluso fuera del horario habitual. El espacio es muy limpio y ordenado. Muchas gracias por todo.",
       rating: 5,
     },
     {

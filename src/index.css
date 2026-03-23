@@ -13,7 +13,7 @@
   --text-on-image: #f9feff;
 
   --sans: 'Plus Jakarta Sans', sans-serif;
-  --display: 'Cormorant Garamond', serif;
+  --display: 'Outfit', sans-serif;
   --mono: 'Oxygen Mono', monospace;
 
   --font-size-sm: 0.875rem;
@@ -155,13 +155,4 @@ a {
   background: linear-gradient(90deg, transparent, var(--brand), transparent);
 }
 
-.content.first.about{
-  padding-top: 7rem;
-}
-
-@media (max-width: 800px){
-  .content.first.about{
-    padding-top: 6rem;
-  }
-}
 

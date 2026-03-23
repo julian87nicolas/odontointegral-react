@@ -40,20 +40,26 @@
 }
 
 .logo{
-    width: 2.8rem;
-    height: 2.8rem;
-    border-radius: 50%;
+    width: clamp(3.2rem, 6vw, 3.9rem);
+    height: clamp(3.2rem, 6vw, 3.9rem);
     object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 50%;
     border: 1px solid var(--line-strong);
     box-shadow: var(--shadow-sm);
+}
+
+:root[data-theme="dark"] .logo{
+    border-color: var(--line-strong);
 }
 
 .brand-text{
     font-family: var(--display);
     color: var(--ink);
-    font-size: 1.6rem;
+    font-size: 1.35rem;
     font-weight: 600;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
     white-space: nowrap;
 }
 

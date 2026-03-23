@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useClinic } from "../context/ClinicContext";
 
 import "./styles/nav.css"
 
 
 function Nav () {
+    const { name } = useClinic();
 
     const [navBar, setNavBar] = useState(true);
     const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
@@ -29,20 +31,19 @@ function Nav () {
         setTheme((current) => (current === "light" ? "dark" : "light"));
     };
 
+    const brandLogo = theme === "dark" ? "/images/aura-dark.png" : "/images/aura-light.png";
+
     return (
         <>
         <div className={navBar ? "nav" : "nav white"}>
             <div className="nav-content">
-                <Link to="/" className="brand" aria-label="Ir a la página principal de Aura Odontología">
-                    <img src="/images/aura.jpg" alt="Logo de Aura Odontología" className="logo" />
-                    <span className="brand-text">Aura Odontología</span>
+                <Link to="/" className="brand" aria-label={`Ir a la página principal de ${name}`}>
+                    <img src={brandLogo} alt={`Logo de ${name}`} className="logo" />
+                    <span className="brand-text">{name}</span>
                 </Link>
                 <nav className="nav-links" aria-label="Navegación principal">
                     <NavLink to="/" className="nav-item home" title="Ir a la página principal" aria-label="Página principal">
                         <i className="fa-solid fa-house" aria-hidden="true"></i>
-                    </NavLink>
-                    <NavLink to="/about" className="nav-item about" title="Conocer sobre la dentista" aria-label="Sobre nosotros">
-                        <i className="fa-solid fa-circle-question" aria-hidden="true"></i>
                     </NavLink>
                     <a href="https://api.whatsapp.com/send?phone=542617528107" target="_blank" rel="noreferrer" className="nav-item whatsapp" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp">
                         <i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
