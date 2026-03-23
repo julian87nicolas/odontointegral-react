@@ -1,6 +1,9 @@
 import "./styles/content.css"
+import { useClinic } from "../context/ClinicContext";
 
 function Content () {
+    const { address, phone } = useClinic();
+
     return (
         <>
             <section className="content first reveal">
@@ -24,7 +27,7 @@ function Content () {
                     <h2>Ubicación</h2>
                     <hr />
                     <ul>
-                        <li>Balcarce 36, M5501 Godoy Cruz, Mendoza<a className="maps" href="https://maps.app.goo.gl/yNnJ3mpCqJ4SXjDF9" target="_blank" rel="noreferrer">Maps</a></li>
+                        <li>{address}<a className="maps" href="https://maps.app.goo.gl/yNnJ3mpCqJ4SXjDF9" target="_blank" rel="noreferrer">Maps</a></li>
                     </ul>
                     
                 </article>    
@@ -37,7 +40,7 @@ function Content () {
                     <hr />
                     <ul>
                         <li>Lunes a Viernes de 9:00 a 18:00</li>
-                        <li>Turnos: 02617528107</li>
+                        <li>Turnos: {phone}</li>
                     </ul>
                 </article>    
                 <img src="./images/calendar.webp" alt="Calendario - días y horarios de atención odontológica" width="400" loading="lazy" decoding="async" />
