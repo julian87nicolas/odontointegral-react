@@ -19,25 +19,31 @@ function Nav () {
     return (
         <>
         <div className={navBar ? "nav" : "nav white"}>
-        <div className="nav-row">
-            <h2>
-                <a href="/">
-                Odo<span className="underline">ntoInteg</span>ral
+            <div className="nav-content">
+                <a href="/" className="brand" aria-label="Ir a la página principal de Aura Odontología">
+                    <img src="/images/aura.jpg" alt="Logo de Aura Odontología" className="logo" />
+                    <span className="brand-text">Aura Odontología</span>
                 </a>
-                <div className="und"></div>
-            </h2>
-            <ul id="contact">
-                <li> <a href="/"> <i className="fa-solid fa-house"> <p className="sr-only">Página principal</p> </i> </a> </li>
-                <li><a href="https://api.whatsapp.com/send?phone=542615738683" target="blank"><i className="fa-brands fa-whatsapp"></i> <p className="sr-only">Whatsapp</p> </a></li>
-                <li><a href="https://www.instagram.com/odonto.integral.sf/" target="blank"><i className="fa-brands fa-instagram"></i> <p className="sr-only">Instagram</p> </a></li>
-                <li><a href="mailto:florsconfienza@gmail.com" target="blank"><i className="fa-solid fa-envelope"></i></a></li>
-                <li><a href="https://www.facebook.com/Odontolog%C3%ADa-Integral-107837708498792/" target="blank"><i className="fa-brands fa-facebook"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/florenciasconfienza/" target="blank"><i className="fa-brands fa-linkedin-in"></i></a></li>
-                <li><a href="about"><i className="fa-solid fa-circle-question"></i></a></li>
-            </ul>
+                <nav className="nav-links" aria-label="Navegación principal">
+                    <a href="/" className="nav-item home" title="Ir a la página principal" aria-label="Página principal">
+                        <i className="fa-solid fa-house" aria-hidden="true"></i>
+                    </a>
+                    <a href="about" className="nav-item about" title="Conocer sobre la dentista" aria-label="Sobre nosotros">
+                        <i className="fa-solid fa-circle-question" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://api.whatsapp.com/send?phone=542617528107" target="blank" className="nav-item whatsapp" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp">
+                        <i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.instagram.com/odontologia_aura/" target="blank" className="nav-item instagram" title="Seguir en Instagram" aria-label="Seguir en Instagram">
+                        <i className="fa-brands fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="mailto:auradentalmza@gmail.com" target="blank" className="nav-item email" title="Enviar email" aria-label="Enviar email">
+                        <i className="fa-solid fa-envelope" aria-hidden="true"></i>
+                    </a>
+                </nav>
+            </div>
         </div>
-    </div>
-    </>  
+        </>  
     )
 }
 

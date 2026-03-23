@@ -15,7 +15,7 @@ function Content () {
                         <li>Embarazadas</li>
                     </ul>  
                 </article>    
-                <img src="./images/pacientes.webp" alt="imagen de siluetas humanas" width="400px" />
+                <img src="./images/pacientes.webp" alt="Siluetas de pacientes - atención odontológica para niños, adolescentes, adultos y embarazadas" width="400px" />
             </section>
 
             <div className="sep rev"></div>
@@ -31,7 +31,7 @@ function Content () {
                     </ul>
                     
                 </article>    
-                <img src="./images/ubication.webp" alt="imagen de mapa" width="400px" />
+                <img src="./images/ubication.webp" alt="Mapa de ubicaciones - clínicas asociadas en Mendoza" width="400px" />
             </section>
             <div className="sep"></div>
             <section className="content">
@@ -43,7 +43,7 @@ function Content () {
                         <li>La Casa de la Salud - 14 a 19 hs</li>
                     </ul>
                 </article>    
-                <img src="./images/calendar.webp" alt="imagen de calendario" width="400px" />
+                <img src="./images/calendar.webp" alt="Calendario - días y horarios de atención odontológica" width="400px" />
             </section>
             <div className="sep"></div>
         </>

@@ -1,19 +1,52 @@
 
 :root{
-  --dark: #364182;
-  --mddark: #e07dd1;
-  --medium: #EDAAF0;
+  /* Colores primarios - Aura Odontología */
+  --dark: #054d84;
+  --mddark: #fb8975;
+  --medium: #e7f1f3;
   --light: white;
-  --light-hover: rgb(219, 219, 219);
-
-  /*--light: #fcd6d6;*/
-  /*--light: #fac2c2;*/
+  --cyan: #0ab1bf;
+  
+  /* Colores secundarios */
   --red: #ff5757;
   --orange: #ff5789;
-  /*--sans: 'Oxygen', sans-serif;*/
-
+  --light-hover: rgb(219, 219, 219);
+  
+  /* Tipografía */
   --sans: 'League Spartan', sans-serif;
   --mono: 'Oxygen Mono', monospace;
+  
+  /* Tamaños de fuente estándar */
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  
+  /* Espaciado */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+  
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+  
+  /* Transiciones */
+  --transition-fast: 0.3s ease;
+  --transition-base: 0.5s ease;
+  --transition-slow: 0.7s ease;
 }
 
 
@@ -27,7 +60,7 @@ body{
 
 .sep{
   background: var(--light);
-  background: linear-gradient(90deg, var(--light) 33%, rgba(54,65,130,1) 66%);
+  background: linear-gradient(90deg, var(--light) 33%, var(--dark) 66%);
   height: 2px;
   margin: 0;
   padding: 0;
@@ -35,7 +68,7 @@ body{
 
 .sep.rev{
   background: var(--light);
-  background: linear-gradient(90deg, rgba(54,65,130,1) 33%, var(--light) 66%);
+  background: linear-gradient(90deg, var(--dark) 33%, var(--light) 66%);
   height: 2px;
   margin: 0;
   padding: 0;
