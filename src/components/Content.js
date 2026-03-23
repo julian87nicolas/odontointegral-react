@@ -1,13 +1,17 @@
 import "./styles/content.css"
+import { useClinic } from "../context/ClinicContext";
 
 function Content () {
+    const { address, phone } = useClinic();
+    const mapEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
     return (
         <>
-            <section className="content first">
+            <section className="content first reveal">
                 <article>
                     <h2>Atención</h2>
                     <hr/ >
-                    Tratamiento odontológico general para:
+                    <p className="content-lead">Tratamiento odontologico general para:</p>
                     <ul>
                         <li>Niños</li>
                         <li>Adolescentes</li>
@@ -15,35 +19,37 @@ function Content () {
                         <li>Embarazadas</li>
                     </ul>  
                 </article>    
-                <img src="./images/pacientes.webp" alt="imagen de siluetas humanas" width="400px" />
             </section>
 
             <div className="sep rev"></div>
-            <section className="content rev">
+            <section className="content rev has-image reveal">
                 <article>
-                    <h2>Ubicaciónes</h2>
+                    <h2>Ubicación</h2>
                     <hr />
                     <ul>
-                        <li>OdontoSalud - Calle Gutenberg 123 Mendoza, Ciudad. <a className="maps" href="https://g.page/OdontoSalud-Mendoza?share" target="__blank">Maps</a></li>
-                        <li>La casa de la salud - Carril Ponce 248 Mendoza, Rodeo de la Cruz <a className="maps" href="https://goo.gl/maps/X43oZSE6MMAN7J7cA" target="__blank">Maps</a> </li>
-                        <li>Denticlick - Av. Godoy Cruz 370, Mendoza <a className="maps" href="https://goo.gl/maps/juNLShKh5fhG2Uuj9" target="__blank">Maps</a> </li>
-                        <li>Pulsos - San Juan 752, Mendoza <a className="maps" href="https://g.page/Pulsos?share" target="__blank">Maps</a> </li>
+                        <li>{address} <a className="maps" href="https://maps.app.goo.gl/yNnJ3mpCqJ4SXjDF9" target="_blank" rel="noreferrer">Ver mapa</a></li>
                     </ul>
                     
-                </article>    
-                <img src="./images/ubication.webp" alt="imagen de mapa" width="400px" />
+                </article>
+                <div className="map-embed" aria-hidden="true">
+                    <iframe
+                        title="Mapa de ubicación de Aura Odontología"
+                        src={mapEmbedSrc}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    />
+                </div>
             </section>
             <div className="sep"></div>
-            <section className="content">
+            <section className="content reveal">
                 <article>
-                    <h2>Días y horarios de atención</h2>
+                    <h2>Días y horarios</h2>
                     <hr />
                     <ul>
-                        <li>OdontoSalud - 9 a 14 hs</li>
-                        <li>La Casa de la Salud - 14 a 19 hs</li>
+                        <li>Lunes a Viernes de 9:00 a 18:00</li>
+                        <li>Turnos: {phone}</li>
                     </ul>
-                </article>    
-                <img src="./images/calendar.webp" alt="imagen de calendario" width="400px" />
+                </article>
             </section>
             <div className="sep"></div>
         </>

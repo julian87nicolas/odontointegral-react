@@ -1,6 +1,7 @@
 {
-  "name": "odontointegral",
-  "version": "0.1.0",
+  "name": "aura-odontologia",
+  "version": "1.0.0",
+  "description": "Clínica odontológica profesional - Aura Odontología. Sitio web de contacto, información de servicios y ubicaciones.",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",

@@ -1,0 +1,44 @@
+import { createContext, useContext } from "react";
+
+const clinicData = {
+  name: "Aura Odontologia",
+  phone: "02617528107",
+  whatsapp: "542617528107",
+  email: "auradentalmza@gmail.com",
+  instagram: "https://www.instagram.com/odontologia_aura/",
+  address: "Balcarce 36, Godoy Cruz, Mendoza",
+  mapsUrl:
+    "https://www.google.com/maps/place/AURA+Odontolog%C3%ADa/@-32.9244217,-68.845515,17z/data=!4m8!3m7!1s0x967e093713e41fe7:0x25ca5b3efba3fe3a!8m2!3d-32.9244262!4d-68.8429401!9m1!1b1!16s%2Fg%2F11xytbnl11",
+  googlePlaceId: "places/ChIJ5x_kEzcJfpYRov6j-z5byiU",
+  googlePlaceQuery: "AURA Odontologia Balcarce 36 Godoy Cruz Mendoza",
+  testimonials: [
+    {
+      id: 1,
+      author: "Celeste Modarelli",
+      text: "Mejor imposible la atencion del equipo. Muy amables y se nota la capacitacion profesional. Me brindaron atencion incluso fuera del horario habitual. El espacio es muy limpio y ordenado. Muchas gracias por todo.",
+      rating: 5,
+    },
+    {
+      id: 2,
+      author: "Antonella De Simone",
+      text: "Hace 2 anos que Julieta me mantiene la boca sana y sin caries. Una genia y super amorosa. Hermoso lugar.",
+      rating: 5,
+    },
+    {
+      id: 3,
+      author: "Rodrigo Rubio",
+      text: "Hace 3 meses. Excelente atencion, muy buena ubicacion y el consultorio impecable. 100% recomendable.",
+      rating: 5,
+    },
+  ],
+};
+
+const ClinicContext = createContext(clinicData);
+
+export function ClinicProvider({ children }) {
+  return <ClinicContext.Provider value={clinicData}>{children}</ClinicContext.Provider>;
+}
+
+export function useClinic() {
+  return useContext(ClinicContext);
+}

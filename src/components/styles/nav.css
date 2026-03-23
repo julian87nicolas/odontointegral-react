@@ -1,215 +1,120 @@
-:root{
-    --dark: #364182;
-    --mddark: #e07dd1;
-    --medium: #EDAAF0;
-    --light: white;
-  
-    --red: #ff5757;
-    --orange: #ff5789;
-    /*--sans: 'Oxygen', sans-serif;*/
-
-    --sans: 'League Spartan', sans-serif;
-    --mono: 'Oxygen Mono', monospace;
-}
-
 /*-------------------------Navigator bar-------------------------*/
 
 .nav{
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    z-index: 2;
+    position: sticky;
     top: 0;
-    margin: 0;
-    padding: 0;
+    z-index: 10;
     width: 100%;
-    align-items: flex-start;
-    background-color: transparent;
-    transition: all 0.5s;
+    padding: 1rem 0;
+    transition: padding var(--transition-fast);
 }
 
 .nav.white {
-    background-color: var(--light);
-    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    padding: 0.65rem 0;
 }
 
-.nav-row{
+.nav-content{
+    width: min(1100px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 0.65rem 1rem;
     display: flex;
-    flex-direction: row;
-    width: 100%;
     align-items: center;
-    padding: 0 0 0 1em;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.84);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
 }
-.nav a{
+
+:root[data-theme="dark"] .nav-content{
+    background: rgba(16, 34, 48, 0.86);
+}
+
+.brand{
     display: flex;
-    color: var(--dark);
+    align-items: center;
+    gap: 0.75rem;
     text-decoration: none;
-    padding: 1rem;
-    margin: 0;
-    
-    text-shadow: 0 0 1rem var(--light);
-
-    transition: all 0.5s;
-}
-.nav a:hover{
-    color: var(--mddark);
 }
 
-.nav ul li a{
-    padding: 2rem;
-    border-radius: 0.5rem;
-    transition: all 0.5s;
+.logo{
+    width: clamp(3.2rem, 6vw, 3.9rem);
+    height: clamp(3.2rem, 6vw, 3.9rem);
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-sm);
 }
 
-.nav ul li a:hover{
-    color: var(--light);
-    background-color: var(--red);
+:root[data-theme="dark"] .logo{
+    border-color: var(--line-strong);
 }
 
-.nav h2{
+.brand-text{
+    font-family: var(--display);
+    color: var(--ink);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.nav-links{
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-size: 3rem;
-    flex-basis: 100%;
-    margin: 0;
-    text-transform: uppercase;
-    padding: 0;
-}
-
-
-.underline{
-    text-decoration: underline;
-    text-underline-offset: 0.75rem;
-    text-decoration-color: var(--mddark);
-}
-
-.underline:hover{
-    text-decoration-color: var(--dark);
-}
-
-
-.nav ul{
-    display: flex;
-    flex-basis: 100%;
-    justify-content: space-around;
+    gap: 0.4rem;
     align-items: center;
-    margin: 0; 
-    padding: 0;
-    overflow-x: hidden;
 }
 
-.nav ul li{
-    /* gap: 1rem; */
-    list-style: none;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
+.nav-item{
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-soft);
+    text-decoration: none;
+    background: transparent;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
 }
 
-.nav i{
-    font-size: 1.8rem;
+.theme-toggle{
+    border: 1px solid transparent;
+    background: transparent;
 }
 
-@media (max-width: 1200px){
-    .nav h2{
-        display: flex;
-        margin: 0;
-        font-size: 3rem;
-        padding: 1rem 0 1rem 0;
-        flex-basis: 100%;
-    }
-    .nav ul li a{
-        padding: 1.2rem;
-    }
-
+.nav-item:hover{
+    transform: translateY(-2px);
+    color: var(--brand-strong);
+    border-color: var(--line-strong);
+    background-color: var(--surface-soft);
 }
 
-@media (max-width: 1000px){
-    .nav h2{
-        display: flex;
-        margin: 0;
-        font-size: 2.5rem;
-        padding: 1rem 0 1rem 0;
-        flex-basis: 100%;
-    }
-    .nav ul li a{
-        padding: 1rem;
-    }
-
-
-    .nav i{
-        font-size: 1.5rem;
-    }
-
+.nav-item.active{
+    color: var(--brand-strong);
+    border-color: var(--line-strong);
+    background-color: var(--surface-soft);
 }
 
-@media (max-width: 800px){
-    .nav{
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        padding: 2rem 0 1rem 0;
-        justify-items: center;
-        width: 100%;
-        /* border-bottom: var(--dark) 3px solid; */
-    }
-    .nav-row{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-        margin: 0;
-        padding: 0;
-    }
-    .nav ul{
-        padding: 0;
-        width: 100%;
-    }
-    .nav ul li i{
-        font-size: auto;
-        padding: 0;
-    }
-    .nav ul li a{
-        margin: 0;
-        padding: 0.5rem;
-    }
-    .nav h2 a{
-        display: flex;
-        width: 100%;
-        margin: 0;
-        font-size: 2rem;
-        padding: 1rem 0 1rem 0;
-        justify-items: center;
-    }
+.nav-item:focus-visible,
+.brand:focus-visible{
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
 }
 
-@media (max-width: 350px){
-
-    .nav{
-        width: 100%;
+@media (max-width: 860px){
+    .brand-text{
+        display: none;
     }
 
-    .nav ul{
-        flex-wrap: wrap;
-        flex-basis: 100%;
-        width: 80%;
-        justify-content: center;
-        gap: 0.25rem;
-
-        padding: 0;
-        margin: 0;
-    }
-    .nav ul li i{
-        margin: 0;
-        font-size: 1.25rem;
-    }
-    .nav h2 a{
-        display: flex;
-        width: 100%;
-        margin: 0;
-        font-size: 1.5rem;
-        padding: 0;
-        justify-items: center;
+    .nav-content{
+        padding: 0.55rem 0.7rem;
     }
 }
