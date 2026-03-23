@@ -3,7 +3,7 @@ import "./styles/content.css"
 function Content () {
     return (
         <>
-            <section className="content first">
+            <section className="content first reveal">
                 <article>
                     <h2>Atención</h2>
                     <hr/ >
@@ -15,26 +15,26 @@ function Content () {
                         <li>Embarazadas</li>
                     </ul>  
                 </article>    
-                <img src="./images/pacientes.webp" alt="Siluetas de pacientes - atención odontológica para niños, adolescentes, adultos y embarazadas" width="400px" />
+                <img src="./images/pacientes.webp" alt="Siluetas de pacientes - atención odontológica para niños, adolescentes, adultos y embarazadas" width="400" loading="lazy" decoding="async" />
             </section>
 
             <div className="sep rev"></div>
-            <section className="content rev">
+            <section className="content rev reveal">
                 <article>
                     <h2>Ubicaciónes</h2>
                     <hr />
                     <ul>
-                        <li>OdontoSalud - Calle Gutenberg 123 Mendoza, Ciudad. <a className="maps" href="https://g.page/OdontoSalud-Mendoza?share" target="__blank">Maps</a></li>
-                        <li>La casa de la salud - Carril Ponce 248 Mendoza, Rodeo de la Cruz <a className="maps" href="https://goo.gl/maps/X43oZSE6MMAN7J7cA" target="__blank">Maps</a> </li>
-                        <li>Denticlick - Av. Godoy Cruz 370, Mendoza <a className="maps" href="https://goo.gl/maps/juNLShKh5fhG2Uuj9" target="__blank">Maps</a> </li>
-                        <li>Pulsos - San Juan 752, Mendoza <a className="maps" href="https://g.page/Pulsos?share" target="__blank">Maps</a> </li>
+                        <li>OdontoSalud - Calle Gutenberg 123 Mendoza, Ciudad. <a className="maps" href="https://g.page/OdontoSalud-Mendoza?share" target="_blank" rel="noreferrer">Maps</a></li>
+                        <li>La casa de la salud - Carril Ponce 248 Mendoza, Rodeo de la Cruz <a className="maps" href="https://goo.gl/maps/X43oZSE6MMAN7J7cA" target="_blank" rel="noreferrer">Maps</a> </li>
+                        <li>Denticlick - Av. Godoy Cruz 370, Mendoza <a className="maps" href="https://goo.gl/maps/juNLShKh5fhG2Uuj9" target="_blank" rel="noreferrer">Maps</a> </li>
+                        <li>Pulsos - San Juan 752, Mendoza <a className="maps" href="https://g.page/Pulsos?share" target="_blank" rel="noreferrer">Maps</a> </li>
                     </ul>
                     
                 </article>    
-                <img src="./images/ubication.webp" alt="Mapa de ubicaciones - clínicas asociadas en Mendoza" width="400px" />
+                <img src="./images/ubication.webp" alt="Mapa de ubicaciones - clínicas asociadas en Mendoza" width="400" loading="lazy" decoding="async" />
             </section>
             <div className="sep"></div>
-            <section className="content">
+            <section className="content reveal">
                 <article>
                     <h2>Días y horarios de atención</h2>
                     <hr />
@@ -43,7 +43,7 @@ function Content () {
                         <li>La Casa de la Salud - 14 a 19 hs</li>
                     </ul>
                 </article>    
-                <img src="./images/calendar.webp" alt="Calendario - días y horarios de atención odontológica" width="400px" />
+                <img src="./images/calendar.webp" alt="Calendario - días y horarios de atención odontológica" width="400" loading="lazy" decoding="async" />
             </section>
             <div className="sep"></div>
         </>

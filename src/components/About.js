@@ -3,7 +3,7 @@ import "./styles/about.css";
 function About () {
     return (
         <>
-            <section className="content first about">
+            <section className="content first about reveal">
                 <article>
                 <h2>Florencia Sconfienza - Odontóloga</h2>
                     <h3>Educación</h3>
@@ -50,11 +50,11 @@ function About () {
                         </li>
                     </ul>
                 </article>
-                <img src="images/profile.webp" alt="foto de perfil" width="400px" />
+                <img src="images/profile.webp" alt="Foto de perfil profesional de la odontóloga" width="400" loading="lazy" decoding="async" />
             </section>
 
-            <div className="resume-download">
-                <a href="res/CV.pdf" target="__blank">Descargar CV</a>
+            <div className="resume-download reveal">
+                <a href="res/CV.pdf" target="_blank" rel="noreferrer">Descargar CV</a>
             </div>
         </>
     )

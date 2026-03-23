@@ -3,7 +3,7 @@
 .intro{
     font-size: 2rem;
     font-family: var(--sans);
-    color: var(--light);
+    color: var(--text-on-image);
     /*margin-top: 6rem;*/
     padding: 2rem;
     padding-top: 6rem;
@@ -53,6 +53,12 @@
 
 .list-button:hover{
     background-color: var(--light-hover);
+}
+
+.list-button:focus-visible,
+input#search:focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
 }
 
 .lista{

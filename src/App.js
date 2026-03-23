@@ -1,4 +1,5 @@
 // libraries
+import { useEffect } from "react";
 import {Routes, Route, BrowserRouter} from "react-router-dom"
 
 // components
@@ -9,6 +10,28 @@ import About from "./components/About";
 // styles
 
 function App() {
+  useEffect(() => {
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+      }
+    );
+
+    revealElements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="App">
       <Nav />

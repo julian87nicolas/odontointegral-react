@@ -90,6 +90,12 @@
     text-shadow: 0 0 1rem var(--light);
 }
 
+.theme-toggle{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
 .nav.white .nav-item{
     text-shadow: none;
 }
@@ -98,6 +104,12 @@
     background-color: var(--mddark);
     color: var(--light);
     transform: scale(1.1);
+}
+
+.nav-item:focus-visible,
+.brand:focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
 }
 
 @media (max-width: 800px){

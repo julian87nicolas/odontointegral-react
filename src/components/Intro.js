@@ -40,13 +40,13 @@ function Intro () {
                 </p>
                 <div className="list-section">
                     <input type="text" id="search" placeholder="buscá tu obra social..." autoComplete="off" value={search} onInput={ busqueda } />
-                <div className="list-button" onClick={() => setShowOS(!showOS)} role=\"button\" tabIndex=\"0\" aria-label="Mostrar lista de obras sociales" aria-expanded={showOS} onKeyPress={(e) => { if(e.key === 'Enter') setShowOS(!showOS) }}>
+                <div className="list-button" onClick={() => setShowOS(!showOS)} role="button" tabIndex="0" aria-label="Mostrar lista de obras sociales" aria-expanded={showOS} onKeyPress={(e) => { if(e.key === 'Enter') setShowOS(!showOS) }}>
                         <span className="button-name">Obras sociales</span>
                         <div className="lista">
                         { showOS && <Lista lista={OS.filter(item => item.toLowerCase().includes(search.toLowerCase()))} className="OS"/>}
                         </div>
                     </div>
-                    <div className=\"treatments list-button\" onClick={() => setShowTr(!showTr)} role=\"button\" tabIndex=\"0\" aria-label=\"Mostrar lista de tratamientos\" aria-expanded={showTr} onKeyPress={(e) => { if(e.key === 'Enter') setShowTr(!showTr) }}>
+                    <div className="treatments list-button" onClick={() => setShowTr(!showTr)} role="button" tabIndex="0" aria-label="Mostrar lista de tratamientos" aria-expanded={showTr} onKeyPress={(e) => { if(e.key === 'Enter') setShowTr(!showTr) }}>
                     <span className="button-name">Tratamientos</span>
                         <div className="treatments lista">
                             { showTr && <Lista lista={tratamientos} className="treatments"/> }
