@@ -7,67 +7,88 @@
     <link rel="icon" href="%PUBLIC_URL%/images/aura-dark.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#054d84" />
-    
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.auraodontologia.com/" />
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="Aura Odontología - Clínica odontológica profesional en Mendoza. Tratamientos dentales de calidad, atención especializada, múltiples ubicaciones." />
     <meta name="keywords" content="odontología, dentista, cuidado dental, tratamientos dentales, Mendoza" />
     <meta name="author" content="Aura Odontología" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="Spanish" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.auraodontologia.com" />
+    <meta property="og:url" content="https://www.auraodontologia.com/" />
     <meta property="og:title" content="Aura Odontología - Clínica Dental Profesional" />
     <meta property="og:description" content="Clínica odontológica profesional con múltiples ubicaciones en Mendoza. Tratamientos especializados y atención de calidad." />
-    <meta property="og:image" content="%PUBLIC_URL%/images/aura-dark.png" />
+    <meta property="og:image" content="https://www.auraodontologia.com/images/aura-dark.png" />
     <meta property="og:site_name" content="Aura Odontología" />
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://www.auraodontologia.com" />
+    <meta name="twitter:url" content="https://www.auraodontologia.com/" />
     <meta name="twitter:title" content="Aura Odontología - Clínica Dental Profesional" />
     <meta name="twitter:description" content="Clínica odontológica profesional con múltiples ubicaciones en Mendoza. Tratamientos especializados y atención de calidad." />
-    <meta name="twitter:image" content="%PUBLIC_URL%/images/aura-dark.png" />
+    <meta name="twitter:image" content="https://www.auraodontologia.com/images/aura-dark.png" />
 
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/images/aura-dark.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
+    <!-- Preconnect for critical third-party origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin />
+
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- Icons -->
-    <script src="https://kit.fontawesome.com/fd8927d7fc.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/fd8927d7fc.js" crossorigin="anonymous" defer></script>
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": "Dentist",
       "name": "Aura Odontología",
-      "image": "%PUBLIC_URL%/images/aura-dark.png",
-      "description": "Clínica odontológica profesional con atención especializada",
+      "image": "https://www.auraodontologia.com/images/aura-dark.png",
+      "description": "Clínica odontológica profesional con atención especializada en Mendoza. Odontología general para niños, adolescentes, adultos y embarazadas.",
       "url": "https://www.auraodontologia.com",
       "telephone": "+54261752-8107",
       "email": "auradentalmza@gmail.com",
       "sameAs": ["https://www.instagram.com/odontologia_aura/"],
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Mendoza",
+        "streetAddress": "Balcarce 36",
+        "addressLocality": "Godoy Cruz",
         "addressRegion": "Mendoza",
         "addressCountry": "AR"
-      }
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -32.9244262,
+        "longitude": -68.8429401
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "20:00"
+        }
+      ],
+      "priceRange": "$$",
+      "medicalSpecialty": "Dentistry"
     }
     </script>
 
     <title>Aura Odontología - Clínica Dental Profesional</title>
   </head>
   <body>
-
+    <noscript>Para usar este sitio, por favor habilitá JavaScript en tu navegador.</noscript>
     <div id="root"></div>
-
   </body>
 </html>
