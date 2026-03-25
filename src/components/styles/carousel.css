@@ -75,6 +75,11 @@
     overflow: hidden;
 }
 
+.carousel-card__image i{
+    position: relative;
+    z-index: 1;
+}
+
 /* Subtle decorative circle behind icon */
 .carousel-card__image::before{
     content: "";
