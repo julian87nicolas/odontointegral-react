@@ -8,6 +8,11 @@ const initialForm = {
   message: "",
 };
 
+const buildDefaultMessage = (name) => {
+  const trimmedName = name.trim();
+  return trimmedName ? `Hola, soy ${trimmedName} y quiero consultar por un turno.` : "";
+};
+
 function ContactForm() {
   const { whatsapp, email } = useClinic();
   const [formData, setFormData] = useState(initialForm);
@@ -15,6 +20,7 @@ function ContactForm() {
   const [sent, setSent] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const [emailSending, setEmailSending] = useState(false);
+  const messagePlaceholder = "Coloque su consulta...";
 
   const validate = () => {
     const nextErrors = {};
@@ -44,6 +50,21 @@ function ContactForm() {
     setSent(false);
     setEmailSent(false);
     setErrors((prev) => ({ ...prev, form: undefined }));
+
+    if (name === "name") {
+      setFormData((prev) => {
+        const previousAutoMessage = buildDefaultMessage(prev.name);
+        const shouldUpdateMessage = !prev.message.trim() || prev.message === previousAutoMessage;
+
+        return {
+          ...prev,
+          name: value,
+          message: shouldUpdateMessage ? buildDefaultMessage(value) : prev.message,
+        };
+      });
+      return;
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -54,9 +75,7 @@ function ContactForm() {
       return;
     }
 
-    const text = encodeURIComponent(
-      `Hola, soy ${formData.name}. Mi telefono es ${formData.phone}.\n\n${formData.message}`
-    );
+    const text = encodeURIComponent(formData.message.trim());
 
     window.open(`https://api.whatsapp.com/send?phone=${whatsapp}&text=${text}`, "_blank", "noopener,noreferrer");
     setSent(true);
@@ -141,7 +160,7 @@ function ContactForm() {
         {errors.phone && <span id="phone-error" className="field-error">{errors.phone}</span>}
 
         <label htmlFor="message">Mensaje</label>
-        <textarea id="message" name="message" rows="5" value={formData.message} onChange={onChange} minLength={10} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} />
+        <textarea id="message" name="message" rows="5" value={formData.message} onChange={onChange} placeholder={messagePlaceholder} minLength={10} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} />
         {errors.message && <span id="message-error" className="field-error">{errors.message}</span>}
 
         <div className="contact-actions">
