@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./styles/content.css"
 import { useClinic } from "../context/ClinicContext";
 import ServicesCarousel from "./ServicesCarousel";
@@ -7,18 +7,43 @@ function Content () {
     const { address, phone } = useClinic();
     const [phoneCopied, setPhoneCopied] = useState(false);
     const [copyError, setCopyError] = useState(false);
+    const phoneCopiedTimerRef = useRef(null);
+    const copyErrorTimerRef = useRef(null);
     const mapEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
+    useEffect(() => {
+        return () => {
+            if (phoneCopiedTimerRef.current !== null) {
+                window.clearTimeout(phoneCopiedTimerRef.current);
+            }
+            if (copyErrorTimerRef.current !== null) {
+                window.clearTimeout(copyErrorTimerRef.current);
+            }
+        };
+    }, []);
 
     const onCopyPhone = async () => {
         const showSuccess = () => {
             setPhoneCopied(true);
             setCopyError(false);
-            window.setTimeout(() => setPhoneCopied(false), 1800);
+            if (phoneCopiedTimerRef.current !== null) {
+                window.clearTimeout(phoneCopiedTimerRef.current);
+            }
+            phoneCopiedTimerRef.current = window.setTimeout(() => {
+                setPhoneCopied(false);
+                phoneCopiedTimerRef.current = null;
+            }, 1800);
         };
         const showError = () => {
             setPhoneCopied(false);
             setCopyError(true);
-            window.setTimeout(() => setCopyError(false), 1800);
+            if (copyErrorTimerRef.current !== null) {
+                window.clearTimeout(copyErrorTimerRef.current);
+            }
+            copyErrorTimerRef.current = window.setTimeout(() => {
+                setCopyError(false);
+                copyErrorTimerRef.current = null;
+            }, 1800);
         };
 
         if (navigator.clipboard?.writeText) {
