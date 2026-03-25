@@ -1,114 +1,117 @@
-# Aura Odontología - Sitio Web
+# Sitio Web en React
 
-Sitio web profesional de **Aura Odontología**, clínica odontológica con sede en Mendoza, Argentina.
+Aplicación web institucional desarrollada con React. Este repositorio documenta únicamente aspectos técnicos de implementación, estructura y ejecución del proyecto.
 
-## 🦷 Características
+## Características técnicas
 
-- **Información de servicios**: Detalles sobre tratamientos odontológicos
-- **Ubicaciones**: Múltiples sedes con mapas de ubicación
-- **Horarios de atención**: Información actualizada de horarios
-- **Obras sociales**: Listado de obras sociales aceptadas
-- **Contacto directo**: Integración con WhatsApp e Instagram
-- **Sobre la doctora**: Información profesional y de experiencia
-- **Responsive Design**: Optimizado para móvil, tablet y desktop
+- Single Page Application (SPA) con enrutamiento en cliente.
+- Componentes reutilizables organizados por dominio visual.
+- Estilos modulares por componente y variables globales CSS.
+- Modo responsive para móvil, tablet y escritorio.
+- Integración de assets estáticos (imágenes, favicons y manifest).
+- Build optimizada para producción con Create React App.
 
-## 🛠️ Tecnologías
+## Stack tecnológico
 
-- **React 18** - Framework UI
-- **React Router v6** - Enrutamiento
-- **CSS3** - Estilos con variables CSS centralizadas
-- **Font Awesome** - Iconografía
-- **WebP** - Optimización de imágenes
+- React 18
+- React DOM 18
+- React Router DOM 6
+- React Scripts 5 (Create React App)
+- Testing Library (Jest DOM, React, User Event)
+- CSS3
 
-## 📋 Requisitos previos
+## Requisitos
 
-- Node.js (v14+)
-- npm o yarn
+- Node.js 16 o superior (recomendado LTS actual)
+- npm 8 o superior
 
-## 🚀 Instalación y uso
+## Scripts disponibles
 
-1. **Clonar el repositorio**
-```bash
-git clone <repositorio>
-cd aura-odontologia-react
-```
+En [package.json](package.json) se encuentran definidos los siguientes scripts:
 
-2. **Instalar dependencias**
+- npm start: inicia el servidor de desarrollo en modo local.
+- npm run build: genera una compilación optimizada para producción en [build/](build/).
+- npm test: ejecuta pruebas en modo interactivo.
+- npm run eject: expone la configuración interna de CRA (acción irreversible).
+
+## Instalación y ejecución
+
+1. Instalar dependencias:
+
 ```bash
 npm install
 ```
 
-3. **Ejecutar en modo desarrollo**
+2. Ejecutar en desarrollo:
+
 ```bash
 npm start
 ```
-La aplicación abrirá en `http://localhost:3000`
 
-4. **Compilar para producción**
+3. Generar build de producción:
+
 ```bash
 npm run build
 ```
 
-## 📂 Estructura del proyecto
+## Estructura del proyecto
 
+```text
+.
+├── public/
+│   ├── images/
+│   │   └── icon/
+│   ├── index.html
+│   └── manifest.json
+├── src/
+│   ├── components/
+│   │   ├── styles/
+│   │   ├── ContactForm.js
+│   │   ├── Content.js
+│   │   ├── Footer.js
+│   │   ├── Intro.js
+│   │   ├── Lista.js
+│   │   ├── Main.js
+│   │   ├── Nav.js
+│   │   ├── ServicesCarousel.js
+│   │   └── Testimonials.js
+│   ├── context/
+│   │   └── ClinicContext.js
+│   ├── App.js
+│   ├── index.css
+│   └── index.js
+├── build/
+├── package.json
+└── README.md
 ```
-src/
-├── components/
-│   ├── Nav.js              # Barra de navegación
-│   ├── Main.js             # Página principal
-│   ├── Intro.js            # Sección introductoria
-│   ├── Content.js          # Contenido principal
-│   ├── Footer.js           # Pie de página
-│   └── styles/             # Estilos CSS
-├── App.js                  # Componente raíz
-├── index.js                # Punto de entrada
-└── index.css               # Estilos globales
-```
 
-## 🎨 Paleta de colores (Aura Odontología)
+## Arquitectura frontend
 
-- **Azul oscuro**: #054d84
-- **Coral**: #fb8975
-- **Cian**: #0ab1bf
-- **Gris claro**: #e7f1f3
-- **Blanco**: #ffffff
+- [src/App.js](src/App.js): composición principal de layout y secciones.
+- [src/components/Main.js](src/components/Main.js): contenedor de la página principal.
+- [src/components/ServicesCarousel.js](src/components/ServicesCarousel.js): carrusel horizontal con animación continua y controles.
+- [src/components/ContactForm.js](src/components/ContactForm.js): formulario con validación de campos y flujos de envío.
+- [src/context/ClinicContext.js](src/context/ClinicContext.js): datos compartidos consumidos por componentes.
+- [src/index.css](src/index.css): tokens globales de diseño (variables, tipografía, base responsive).
 
-## 📱 Responsive Design
+## Estilos y diseño
 
-- **Mobile**: < 600px
-- **Tablet**: 600px - 1024px
-- **Desktop**: > 1024px
+- Variables CSS centralizadas en [src/index.css](src/index.css).
+- Estilos por componente en [src/components/styles/](src/components/styles/).
+- Soporte de tema mediante atributos de datos en el documento.
+- Transiciones y animaciones suaves con respeto por prefers-reduced-motion.
 
-## 📞 Contacto
+## Activos web y PWA
 
-- **WhatsApp**: +54 261 752-8107
-- **Instagram**: [@odontologia_aura](https://www.instagram.com/odontologia_aura/)
-- **Email**: auradentalmza@gmail.com
+- Favicon SVG y PNG en [public/images/icon/](public/images/icon/).
+- Manifest principal en [public/manifest.json](public/manifest.json).
+- Manifest de íconos en [public/images/icon/site.webmanifest](public/images/icon/site.webmanifest).
 
-## 📋 Pendiente (Plan de mejora 2026)
+## Pruebas
 
-### Etapa 1 ✅ (Completada)
-- [x] Consolidar variables CSS
-- [x] Meta tags SEO y Open Graph
-- [x] Accesibilidad mejorada
-- [x] Actualización de documentación
+- Configuración base en [src/setupTests.js](src/setupTests.js).
+- Prueba de ejemplo en [src/App.test.js](src/App.test.js).
 
-### Etapa 2 (En progreso)
-- [ ] Dark mode
-- [ ] Animaciones de scroll
-- [ ] Componentes reutilizables
+## Licencia
 
-### Etapa 3 (Próximamente)
-- [ ] Formulario de contacto con validación
-- [ ] Sistema de citas
-- [ ] Blog y testimonios
-- [ ] Analytics
-
-## 👨‍💻 Créditos
-
-**Desarrollado por**: Julián Camargo  
-**Portfolio**: https://julian87nicolas.github.io/
-
-## 📄 Licencia
-
-Proyecto privado - Aura Odontología © 2024
+Proyecto privado.
