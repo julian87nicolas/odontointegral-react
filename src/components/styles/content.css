@@ -147,6 +147,10 @@
     color: var(--brand-strong);
 }
 
+.copy-phone-error{
+    color: var(--accent);
+}
+
 /*-- Services section --*/
 
 .services-section{
