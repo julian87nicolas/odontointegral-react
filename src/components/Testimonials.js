@@ -6,6 +6,7 @@ function Testimonials() {
   const { testimonials, googlePlaceQuery, googlePlaceId, mapsUrl } = useClinic();
   const [googleTestimonials, setGoogleTestimonials] = useState([]);
   const [source, setSource] = useState("local");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -16,6 +17,8 @@ function Testimonials() {
       if (!apiKey) {
         return;
       }
+
+      setLoading(true);
 
       try {
         let resolvedPlaceId = googlePlaceId;
@@ -83,6 +86,8 @@ function Testimonials() {
           return;
         }
         // Fallback a testimonios locales si la API no esta configurada o falla.
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -112,16 +117,28 @@ function Testimonials() {
           Ver en Google Maps
         </a>
       </p>
-      <div className="testimonials-grid">
-        {visibleTestimonials.map((item) => (
-          <article className="testimonial-card" key={item.id}>
-            <p className="testimonial-text">"{item.text}"</p>
-            <p className="testimonial-author">- {item.author}</p>
-            <p className="testimonial-rating" aria-label={`${item.rating} de 5 estrellas`}>
-              {"★".repeat(item.rating)}
-            </p>
-          </article>
-        ))}
+      <div className="testimonials-grid" aria-live="polite" aria-busy={loading}>
+        {loading ? (
+          <>
+            {[1, 2, 3].map((n) => (
+              <div key={n} className="testimonial-card testimonial-skeleton" aria-hidden="true">
+                <div className="skeleton-line skeleton-line--long" />
+                <div className="skeleton-line skeleton-line--medium" />
+                <div className="skeleton-line skeleton-line--short" />
+              </div>
+            ))}
+          </>
+        ) : (
+          visibleTestimonials.map((item) => (
+            <article className="testimonial-card" key={item.id}>
+              <p className="testimonial-text">"{item.text}"</p>
+              <p className="testimonial-author">- {item.author}</p>
+              <p className="testimonial-rating" aria-label={`${item.rating} de 5 estrellas`}>
+                {"★".repeat(item.rating)}
+              </p>
+            </article>
+          ))
+        )}
       </div>
     </section>
   );

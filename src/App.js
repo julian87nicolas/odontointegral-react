@@ -56,7 +56,7 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <Nav />
-          <main>
+          <main id="main-content">
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="*" element={<Navigate to="/" replace />} />

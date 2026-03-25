@@ -56,6 +56,7 @@ function Nav () {
 
     return (
         <>
+        <a href="#main-content" className="skip-to-content">Saltar al contenido principal</a>
         <div className={navBar ? "nav" : "nav white"}>
             <div className="nav-content">
                 <Link to="/" className="brand" aria-label={`Ir a la página principal de ${name}`}>

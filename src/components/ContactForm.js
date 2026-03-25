@@ -152,9 +152,9 @@ function ContactForm() {
         </div>
       </form>
 
-      {sent && <p className="contact-success">Mensaje enviado. Te responderemos a la brevedad.</p>}
-      {emailSent && <p className="contact-success">Email enviado correctamente. Te responderemos a la brevedad.</p>}
-      {errors.form && <p className="field-error">{errors.form}</p>}
+      {sent && <p className="contact-success" role="status" aria-live="polite">Mensaje enviado. Te responderemos a la brevedad.</p>}
+      {emailSent && <p className="contact-success" role="status" aria-live="polite">Email enviado correctamente. Te responderemos a la brevedad.</p>}
+      {errors.form && <p className="field-error" role="alert" aria-live="assertive">{errors.form}</p>}
     </section>
   );
 }

@@ -5,21 +5,9 @@ import { useClinic } from "../context/ClinicContext";
 
 import "./styles/intro.css"
 
-// import "./script.js"
-
 
 function Intro () {
-    const { whatsapp, mapsUrl } = useClinic();
-
-    const OS = (["Avalian", "America Servicios", "Caja forense", "Conferencia episcopal argentina",
-             "DASUTEN", "Docthos", "Federada Salud", "Galeno", "Gerdanna Salud", "HOPE",
-             "Jerarquicos Salud", "Luis Pasteur", "Medicus", "OPDEA", "OSDIPP", "OSPIL",
-             "OSPJN", "OSSACRA", "OSTV", "OSAPM", "OSSEG", "Prevencion Salud",
-             "Swiss Medical", "Sancor Salud", "SCIS", "SADAIC", "Unimed", "Nobis", "OSADEF"]).sort();
-    
-    const tratamientos = ["Extracciones", "Tratamiento de conducto", "Blanqueamiento", "Limpieza dental",
-                "Urgencias", "Caries", "Placas de relajación", "Protesis", "Implantes", "Perno-coronas", "Ortodoncia"].sort();
-                
+    const { whatsapp, mapsUrl, insurers, treatments } = useClinic();
 
     const [showOS, setShowOS] = useState(false)
     const [showTr, setShowTr] = useState(false)
@@ -59,13 +47,13 @@ function Intro () {
                 <div className="list-button" onClick={() => setShowOS(!showOS)} role="button" tabIndex={0} aria-label="Mostrar lista de obras sociales" aria-expanded={showOS} onKeyDown={(event) => handleToggleWithKeyboard(event, setShowOS, showOS)}>
                         <span className="button-name">Obras sociales</span>
                         <div className="lista">
-                        { showOS && <Lista lista={OS.filter(item => item.toLowerCase().includes(search.toLowerCase()))} className="OS"/>}
+                        { showOS && <Lista lista={insurers.filter(item => item.toLowerCase().includes(search.toLowerCase()))} className="OS"/>}
                         </div>
                     </div>
                     <div className="treatments list-button" onClick={() => setShowTr(!showTr)} role="button" tabIndex={0} aria-label="Mostrar lista de tratamientos" aria-expanded={showTr} onKeyDown={(event) => handleToggleWithKeyboard(event, setShowTr, showTr)}>
                     <span className="button-name">Tratamientos</span>
                         <div className="treatments lista">
-                            { showTr && <Lista lista={tratamientos} className="treatments"/> }
+                            { showTr && <Lista lista={treatments} className="treatments"/> }
                         </div>
                     </div>
                 </div>

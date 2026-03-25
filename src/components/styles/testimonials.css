@@ -77,6 +77,40 @@
   color: #c78f00;
 }
 
+/* Skeleton loading */
+.testimonial-skeleton::before {
+  display: none;
+}
+
+.skeleton-line {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--line) 25%,
+    var(--line-strong) 50%,
+    var(--line) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  height: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+.skeleton-line--long  { width: 90%; }
+.skeleton-line--medium { width: 65%; }
+.skeleton-line--short  { width: 40%; }
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-line {
+    animation: none;
+  }
+}
+
 @media (max-width: 900px) {
   .testimonials-grid {
     grid-template-columns: 1fr;
