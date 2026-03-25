@@ -76,6 +76,8 @@ const SCROLL_SPEED = 0.5;
 const GAP = 16;
 const COPIES = 3;
 
+const supportsScrollEnd = typeof window !== "undefined" && "onscrollend" in window;
+
 function ServicesCarousel() {
     const viewportRef = useRef(null);
     const animRef = useRef(null);
@@ -84,6 +86,9 @@ function ServicesCarousel() {
     const isPointerDownRef = useRef(false);
     const isAutoScrollSourceRef = useRef(false);
     const singleSetWidthRef = useRef(0);
+    const normalizeTimerRef = useRef(null);
+    const normalizeScrollEndHandlerRef = useRef(null);
+    const prefersReducedMotionRef = useRef(false);
     const [cardWidth, setCardWidth] = useState(0);
     const [activeServiceIdx, setActiveServiceIdx] = useState(0);
     const [activeCardKey, setActiveCardKey] = useState(() => `${services[0].id}-1`);
@@ -142,17 +147,50 @@ function ServicesCarousel() {
         updateActiveServiceFromScroll(viewport.scrollLeft);
     }, [cardWidth, updateActiveServiceFromScroll]);
 
+    /* ---- Track prefers-reduced-motion preference ---- */
+    useEffect(() => {
+        const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+        prefersReducedMotionRef.current = mql.matches;
+        const onChange = (e) => { prefersReducedMotionRef.current = e.matches; };
+        mql.addEventListener("change", onChange);
+        return () => mql.removeEventListener("change", onChange);
+    }, []);
+
+    /* Schedule circular normalization after a scroll settles.
+       Uses `scrollend` when supported; falls back to a timeout stored in a ref
+       so it can be cancelled on unmount or before rescheduling. */
+    const scheduleNormalize = useCallback((viewport) => {
+        if (!viewport) return;
+        if (supportsScrollEnd) {
+            /* Remove any previous one-shot listener before adding a new one */
+            if (normalizeScrollEndHandlerRef.current) {
+                viewport.removeEventListener("scrollend", normalizeScrollEndHandlerRef.current);
+            }
+            const handler = () => {
+                normalizeScrollEndHandlerRef.current = null;
+                if (viewportRef.current) normalizeCircularScroll(viewportRef.current);
+            };
+            normalizeScrollEndHandlerRef.current = handler;
+            viewport.addEventListener("scrollend", handler, { once: true });
+        } else {
+            if (normalizeTimerRef.current !== null) {
+                clearTimeout(normalizeTimerRef.current);
+            }
+            normalizeTimerRef.current = window.setTimeout(() => {
+                normalizeTimerRef.current = null;
+                if (viewportRef.current) normalizeCircularScroll(viewportRef.current);
+            }, 300);
+        }
+    }, [normalizeCircularScroll]);
+
     /* ---- Continuous smooth scroll via requestAnimationFrame ---- */
     useEffect(() => {
-        /* Respect reduced-motion preference */
-        const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const prefersReducedMotion = () => mql.matches;
         const AUTO_RESUME_DELAY = 800;
 
         const tick = () => {
             const viewport = viewportRef.current;
             const isIdle = Date.now() - lastInteractionAtRef.current > AUTO_RESUME_DELAY;
-            if (viewport && !isPointerDownRef.current && isIdle && !prefersReducedMotion() && singleSetWidthRef.current > 0) {
+            if (viewport && !isPointerDownRef.current && isIdle && !prefersReducedMotionRef.current && singleSetWidthRef.current > 0) {
                 isAutoScrollSourceRef.current = true;
                 viewport.scrollLeft += SCROLL_SPEED;
                 normalizeCircularScroll(viewport);
@@ -168,9 +206,15 @@ function ServicesCarousel() {
         };
 
         animRef.current = requestAnimationFrame(tick);
+        const viewportOnUnmount = viewportRef.current;
         return () => {
             if (animRef.current) cancelAnimationFrame(animRef.current);
             if (resetAutoSourceRef.current) cancelAnimationFrame(resetAutoSourceRef.current);
+            if (normalizeTimerRef.current !== null) clearTimeout(normalizeTimerRef.current);
+            if (normalizeScrollEndHandlerRef.current && viewportOnUnmount) {
+                viewportOnUnmount.removeEventListener("scrollend", normalizeScrollEndHandlerRef.current);
+                normalizeScrollEndHandlerRef.current = null;
+            }
         };
     }, [normalizeCircularScroll]);
 
@@ -181,11 +225,9 @@ function ServicesCarousel() {
         if (!viewport || step <= 0 || singleSetWidthRef.current <= 0) return;
         registerInteraction();
         const target = Math.round(viewport.scrollLeft / step) * step + step;
-        viewport.scrollTo({ left: target, behavior: "smooth" });
-        window.setTimeout(() => {
-            if (viewportRef.current) normalizeCircularScroll(viewportRef.current);
-        }, 250);
-    }, [cardWidth, normalizeCircularScroll, registerInteraction]);
+        viewport.scrollTo({ left: target, behavior: prefersReducedMotionRef.current ? "auto" : "smooth" });
+        scheduleNormalize(viewport);
+    }, [cardWidth, scheduleNormalize, registerInteraction]);
 
     const prev = useCallback(() => {
         const step = cardWidth + GAP;
@@ -193,11 +235,9 @@ function ServicesCarousel() {
         if (!viewport || step <= 0 || singleSetWidthRef.current <= 0) return;
         registerInteraction();
         const target = Math.round(viewport.scrollLeft / step) * step - step;
-        viewport.scrollTo({ left: target, behavior: "smooth" });
-        window.setTimeout(() => {
-            if (viewportRef.current) normalizeCircularScroll(viewportRef.current);
-        }, 250);
-    }, [cardWidth, normalizeCircularScroll, registerInteraction]);
+        viewport.scrollTo({ left: target, behavior: prefersReducedMotionRef.current ? "auto" : "smooth" });
+        scheduleNormalize(viewport);
+    }, [cardWidth, scheduleNormalize, registerInteraction]);
 
     const goToService = useCallback((idx) => {
         const viewport = viewportRef.current;
@@ -205,11 +245,9 @@ function ServicesCarousel() {
         if (!viewport || step <= 0 || singleSetWidthRef.current <= 0) return;
         registerInteraction();
         const target = singleSetWidthRef.current + idx * step;
-        viewport.scrollTo({ left: target, behavior: "smooth" });
-        window.setTimeout(() => {
-            if (viewportRef.current) normalizeCircularScroll(viewportRef.current);
-        }, 250);
-    }, [cardWidth, normalizeCircularScroll, registerInteraction]);
+        viewport.scrollTo({ left: target, behavior: prefersReducedMotionRef.current ? "auto" : "smooth" });
+        scheduleNormalize(viewport);
+    }, [cardWidth, scheduleNormalize, registerInteraction]);
 
     const onScroll = useCallback(() => {
         const viewport = viewportRef.current;
@@ -221,8 +259,9 @@ function ServicesCarousel() {
         }
     }, [normalizeCircularScroll, registerInteraction, updateActiveServiceFromScroll]);
 
-    const onPointerDown = useCallback(() => {
+    const onPointerDown = useCallback((e) => {
         isPointerDownRef.current = true;
+        e.currentTarget.setPointerCapture(e.pointerId);
         registerInteraction();
     }, [registerInteraction]);
 
