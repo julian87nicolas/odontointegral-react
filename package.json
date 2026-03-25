@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Clínica odontológica profesional - Aura Odontología. Sitio web de contacto, información de servicios y ubicaciones.",
   "private": true,
+  "engines": {
+    "node": ">=18.18.0",
+    "npm": ">=9"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
