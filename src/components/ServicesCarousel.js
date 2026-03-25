@@ -74,20 +74,56 @@ const services = [
 /* Speed in pixels per frame (~0.5 px/frame ≈ 30 px/s at 60 fps) */
 const SCROLL_SPEED = 0.5;
 const GAP = 16;
+const COPIES = 3;
+
+const supportsScrollEnd = typeof window !== "undefined" && "onscrollend" in window;
 
 function ServicesCarousel() {
-    const trackRef = useRef(null);
+    const viewportRef = useRef(null);
     const animRef = useRef(null);
-    const scrollPosRef = useRef(0);
-    const isPausedRef = useRef(false);
-    const totalWidthRef = useRef(0);
+    const resetAutoSourceRef = useRef(null);
+    const lastInteractionAtRef = useRef(0);
+    const isPointerDownRef = useRef(false);
+    const isAutoScrollSourceRef = useRef(false);
+    const singleSetWidthRef = useRef(0);
+    const normalizeTimerRef = useRef(null);
+    const normalizeScrollEndHandlerRef = useRef(null);
+    const prefersReducedMotionRef = useRef(false);
     const [cardWidth, setCardWidth] = useState(0);
+    const [activeServiceIdx, setActiveServiceIdx] = useState(0);
+    const [activeCardKey, setActiveCardKey] = useState(() => `${services[0].id}-1`);
+
+    const registerInteraction = useCallback(() => {
+        lastInteractionAtRef.current = Date.now();
+    }, []);
+
+    const updateActiveServiceFromScroll = useCallback((scrollLeft) => {
+        const viewport = viewportRef.current;
+        if (!viewport || cardWidth <= 0 || singleSetWidthRef.current <= 0) return;
+        const step = cardWidth + GAP;
+        const totalCards = services.length * COPIES;
+        const centeredOffset = scrollLeft + viewport.offsetWidth / 2 - cardWidth / 2;
+        const rawIndex = Math.round(centeredOffset / step);
+        const normalizedIndex = ((rawIndex % totalCards) + totalCards) % totalCards;
+        const idx = normalizedIndex % services.length;
+        const copy = Math.floor(normalizedIndex / services.length);
+        setActiveServiceIdx(idx);
+        setActiveCardKey(`${services[idx].id}-${copy}`);
+    }, [cardWidth]);
+
+    const normalizeCircularScroll = useCallback((viewport) => {
+        if (!viewport || singleSetWidthRef.current <= 0) return;
+        const single = singleSetWidthRef.current;
+        if (viewport.scrollLeft >= single * 1.5) {
+            viewport.scrollLeft -= single;
+        } else if (viewport.scrollLeft <= single * 0.5) {
+            viewport.scrollLeft += single;
+        }
+    }, []);
 
     /* ---- Measure card width & total track width ---- */
     const measure = useCallback(() => {
-        const track = trackRef.current;
-        if (!track) return;
-        const viewport = track.parentElement;
+        const viewport = viewportRef.current;
         if (!viewport) return;
         const vw = viewport.offsetWidth;
         let cols = 3;
@@ -95,7 +131,7 @@ function ServicesCarousel() {
         else if (vw < 960) cols = 2;
         const cw = (vw - GAP * (cols - 1)) / cols;
         setCardWidth(cw);
-        totalWidthRef.current = services.length * (cw + GAP);
+        singleSetWidthRef.current = services.length * (cw + GAP);
     }, []);
 
     useEffect(() => {
@@ -104,63 +140,154 @@ function ServicesCarousel() {
         return () => window.removeEventListener("resize", measure);
     }, [measure]);
 
+    useEffect(() => {
+        const viewport = viewportRef.current;
+        if (!viewport || singleSetWidthRef.current <= 0) return;
+        viewport.scrollLeft = singleSetWidthRef.current;
+        updateActiveServiceFromScroll(viewport.scrollLeft);
+    }, [cardWidth, updateActiveServiceFromScroll]);
+
+    /* ---- Track prefers-reduced-motion preference ---- */
+    useEffect(() => {
+        const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+        prefersReducedMotionRef.current = mql.matches;
+        const onChange = (e) => { prefersReducedMotionRef.current = e.matches; };
+        mql.addEventListener("change", onChange);
+        return () => mql.removeEventListener("change", onChange);
+    }, []);
+
+    /* Schedule circular normalization after a scroll settles.
+       Uses `scrollend` when supported; falls back to a timeout stored in a ref
+       so it can be cancelled on unmount or before rescheduling. */
+    const scheduleNormalize = useCallback((viewport) => {
+        if (!viewport) return;
+        if (supportsScrollEnd) {
+            /* Remove any previous one-shot listener before adding a new one */
+            if (normalizeScrollEndHandlerRef.current) {
+                viewport.removeEventListener("scrollend", normalizeScrollEndHandlerRef.current);
+            }
+            const handler = () => {
+                normalizeScrollEndHandlerRef.current = null;
+                if (viewportRef.current) normalizeCircularScroll(viewportRef.current);
+            };
+            normalizeScrollEndHandlerRef.current = handler;
+            viewport.addEventListener("scrollend", handler, { once: true });
+        } else {
+            if (normalizeTimerRef.current !== null) {
+                clearTimeout(normalizeTimerRef.current);
+            }
+            normalizeTimerRef.current = window.setTimeout(() => {
+                normalizeTimerRef.current = null;
+                if (viewportRef.current) normalizeCircularScroll(viewportRef.current);
+            }, 300);
+        }
+    }, [normalizeCircularScroll]);
+
     /* ---- Continuous smooth scroll via requestAnimationFrame ---- */
     useEffect(() => {
-        /* Respect reduced-motion preference */
-        const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const prefersReducedMotion = () => mql.matches;
+        const AUTO_RESUME_DELAY = 800;
 
         const tick = () => {
-            if (!isPausedRef.current && !prefersReducedMotion() && totalWidthRef.current > 0) {
-                scrollPosRef.current += SCROLL_SPEED;
-                if (scrollPosRef.current >= totalWidthRef.current) {
-                    scrollPosRef.current -= totalWidthRef.current;
+            const viewport = viewportRef.current;
+            const isIdle = Date.now() - lastInteractionAtRef.current > AUTO_RESUME_DELAY;
+            if (viewport && !isPointerDownRef.current && isIdle && !prefersReducedMotionRef.current && singleSetWidthRef.current > 0) {
+                isAutoScrollSourceRef.current = true;
+                viewport.scrollLeft += SCROLL_SPEED;
+                normalizeCircularScroll(viewport);
+
+                if (resetAutoSourceRef.current) {
+                    cancelAnimationFrame(resetAutoSourceRef.current);
                 }
-                if (trackRef.current) {
-                    trackRef.current.style.transform = `translateX(-${scrollPosRef.current}px)`;
-                }
+                resetAutoSourceRef.current = requestAnimationFrame(() => {
+                    isAutoScrollSourceRef.current = false;
+                });
             }
             animRef.current = requestAnimationFrame(tick);
         };
+
         animRef.current = requestAnimationFrame(tick);
+        const viewportOnUnmount = viewportRef.current;
         return () => {
             if (animRef.current) cancelAnimationFrame(animRef.current);
+            if (resetAutoSourceRef.current) cancelAnimationFrame(resetAutoSourceRef.current);
+            if (normalizeTimerRef.current !== null) clearTimeout(normalizeTimerRef.current);
+            if (normalizeScrollEndHandlerRef.current && viewportOnUnmount) {
+                viewportOnUnmount.removeEventListener("scrollend", normalizeScrollEndHandlerRef.current);
+                normalizeScrollEndHandlerRef.current = null;
+            }
         };
-    }, []);
+    }, [normalizeCircularScroll]);
 
     /* ---- Arrow navigation ---- */
     const next = useCallback(() => {
         const step = cardWidth + GAP;
-        if (step <= 0 || totalWidthRef.current <= 0) return;
-        scrollPosRef.current = Math.round(scrollPosRef.current / step) * step + step;
-        if (scrollPosRef.current >= totalWidthRef.current) {
-            scrollPosRef.current -= totalWidthRef.current;
-        }
-    }, [cardWidth]);
+        const viewport = viewportRef.current;
+        if (!viewport || step <= 0 || singleSetWidthRef.current <= 0) return;
+        registerInteraction();
+        const target = Math.round(viewport.scrollLeft / step) * step + step;
+        viewport.scrollTo({ left: target, behavior: prefersReducedMotionRef.current ? "auto" : "smooth" });
+        scheduleNormalize(viewport);
+    }, [cardWidth, scheduleNormalize, registerInteraction]);
 
     const prev = useCallback(() => {
         const step = cardWidth + GAP;
-        if (step <= 0 || totalWidthRef.current <= 0) return;
-        scrollPosRef.current = Math.round(scrollPosRef.current / step) * step - step;
-        if (scrollPosRef.current < 0) {
-            scrollPosRef.current += totalWidthRef.current;
-        }
-    }, [cardWidth]);
+        const viewport = viewportRef.current;
+        if (!viewport || step <= 0 || singleSetWidthRef.current <= 0) return;
+        registerInteraction();
+        const target = Math.round(viewport.scrollLeft / step) * step - step;
+        viewport.scrollTo({ left: target, behavior: prefersReducedMotionRef.current ? "auto" : "smooth" });
+        scheduleNormalize(viewport);
+    }, [cardWidth, scheduleNormalize, registerInteraction]);
 
-    /* ---- Pause / resume ---- */
-    const pause = useCallback(() => { isPausedRef.current = true; }, []);
-    const resume = useCallback(() => { isPausedRef.current = false; }, []);
+    const goToService = useCallback((idx) => {
+        const viewport = viewportRef.current;
+        const step = cardWidth + GAP;
+        if (!viewport || step <= 0 || singleSetWidthRef.current <= 0) return;
+        registerInteraction();
+        const target = singleSetWidthRef.current + idx * step;
+        viewport.scrollTo({ left: target, behavior: prefersReducedMotionRef.current ? "auto" : "smooth" });
+        scheduleNormalize(viewport);
+    }, [cardWidth, scheduleNormalize, registerInteraction]);
+
+    const onScroll = useCallback(() => {
+        const viewport = viewportRef.current;
+        if (!viewport || singleSetWidthRef.current <= 0) return;
+        normalizeCircularScroll(viewport);
+        updateActiveServiceFromScroll(viewport.scrollLeft);
+        if (!isAutoScrollSourceRef.current) {
+            registerInteraction();
+        }
+    }, [normalizeCircularScroll, registerInteraction, updateActiveServiceFromScroll]);
+
+    const onPointerDown = useCallback((e) => {
+        isPointerDownRef.current = true;
+        e.currentTarget.setPointerCapture(e.pointerId);
+        registerInteraction();
+    }, [registerInteraction]);
+
+    const onPointerUp = useCallback(() => {
+        isPointerDownRef.current = false;
+        registerInteraction();
+    }, [registerInteraction]);
+
+    const onPointerMove = useCallback(() => {
+        if (isPointerDownRef.current) {
+            registerInteraction();
+        }
+    }, [registerInteraction]);
+
+    const onWheel = useCallback(() => {
+        registerInteraction();
+    }, [registerInteraction]);
 
     /* Duplicate cards for seamless infinite loop (memoized) */
-    const allCards = useMemo(() => services.map((s, i) => ({ ...s, key: `${s.id}-0`, idx: i }))
-        .concat(services.map((s, i) => ({ ...s, key: `${s.id}-1`, idx: i }))), []);
+    const allCards = useMemo(() =>
+        Array.from({ length: COPIES }, (_, copy) =>
+            services.map((s, i) => ({ ...s, key: `${s.id}-${copy}`, idx: i }))
+        ).flat(), []);
 
     return (
-        <div
-            className="carousel-wrapper"
-            onMouseEnter={pause}
-            onMouseLeave={resume}
-        >
+        <div className="carousel-wrapper">
             <button
                 className="carousel-arrow carousel-arrow--left"
                 onClick={prev}
@@ -169,16 +296,24 @@ function ServicesCarousel() {
                 <i className="fa-solid fa-chevron-left" aria-hidden="true"></i>
             </button>
 
-            <div className="carousel-viewport">
+            <div
+                className="carousel-viewport"
+                ref={viewportRef}
+                onScroll={onScroll}
+                onPointerDown={onPointerDown}
+                onPointerMove={onPointerMove}
+                onPointerUp={onPointerUp}
+                onPointerCancel={onPointerUp}
+                onWheel={onWheel}
+            >
                 <div
                     className="carousel-track"
-                    ref={trackRef}
                     style={{ gap: `${GAP}px` }}
                 >
                     {allCards.map((s) => (
                         <article
                             key={s.key}
-                            className={`carousel-card${s.urgent ? " carousel-card--urgent" : ""}`}
+                            className={`carousel-card${s.urgent ? " carousel-card--urgent" : ""}${s.key === activeCardKey ? " carousel-card--focus" : ""}`}
                             style={{ width: cardWidth > 0 ? `${cardWidth}px` : undefined }}
                         >
                             <div className={`carousel-card__image carousel-card__image--${s.id}`}>
@@ -200,6 +335,19 @@ function ServicesCarousel() {
             >
                 <i className="fa-solid fa-chevron-right" aria-hidden="true"></i>
             </button>
+
+            <div className="carousel-progress" aria-label="Navegación de servicios">
+                {services.map((service, idx) => (
+                    <button
+                        key={service.id}
+                        type="button"
+                        className={`carousel-progress__item${idx === activeServiceIdx ? " is-active" : ""}`}
+                        onClick={() => goToService(idx)}
+                        aria-label={`Ir a ${service.title}`}
+                        aria-current={idx === activeServiceIdx ? "true" : undefined}
+                    />
+                ))}
+            </div>
         </div>
     );
 }

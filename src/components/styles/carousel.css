@@ -8,14 +8,27 @@
 
 /* Viewport clips the track */
 .carousel-viewport{
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     border-radius: var(--radius-lg);
+    padding-top: 0.9rem;
+    padding-bottom: 0.45rem;
+    scrollbar-gutter: stable;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
+    will-change: scroll-position;
+}
+
+.carousel-viewport::-webkit-scrollbar{
+    display: none;
 }
 
 /* Track holds all cards in a row */
 .carousel-track{
     display: flex;
-    will-change: transform;
+    width: max-content;
+    padding-bottom: 0.1rem;
 }
 
 /* --- Card --- */
@@ -25,13 +38,25 @@
     border: 1px solid var(--line);
     background: var(--surface);
     overflow: hidden;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    opacity: 0.6;
+    filter: saturate(0.82) brightness(0.96);
+    transform: scale(0.94);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast), filter var(--transition-fast);
 }
 
 .carousel-card:hover{
-    transform: translateY(-4px);
+    transform: translateY(-4px) scale(0.97);
     box-shadow: var(--shadow-md);
     border-color: var(--brand);
+}
+
+.carousel-card--focus{
+    border-color: var(--brand);
+    opacity: 1;
+    filter: saturate(1) brightness(1);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px) scale(1.04);
+    z-index: 1;
 }
 
 /* Image header area */
@@ -45,6 +70,11 @@
     background: linear-gradient(135deg, var(--brand), var(--brand-strong));
     position: relative;
     overflow: hidden;
+}
+
+.carousel-card__image i{
+    position: relative;
+    z-index: 1;
 }
 
 /* Subtle decorative circle behind icon */
@@ -162,8 +192,47 @@
     right: -1.3rem;
 }
 
+.carousel-progress{
+    margin-top: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    gap: 0.35rem;
+}
+
+.carousel-progress__item{
+    height: 0.4rem;
+    border: 0;
+    border-radius: var(--radius-full);
+    background: var(--surface-soft);
+    cursor: pointer;
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.carousel-progress__item:hover{
+    transform: translateY(-1px);
+    background: var(--line-strong);
+}
+
+.carousel-progress__item.is-active{
+    background: linear-gradient(90deg, var(--brand), var(--brand-strong));
+}
+
+.carousel-progress__item:focus-visible{
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+}
+
 /* --- Responsive --- */
 @media (max-width: 800px){
+    .carousel-viewport{
+        padding-top: 0.55rem;
+        padding-bottom: 0.3rem;
+    }
+
+    .carousel-progress{
+        gap: 0.25rem;
+    }
+
     .carousel-arrow{
         width: 2.2rem;
         height: 2.2rem;
@@ -181,5 +250,14 @@
     .carousel-card__image{
         height: 120px;
         font-size: 2.5rem;
+    }
+
+    .carousel-card{
+        opacity: 0.78;
+        transform: scale(0.98);
+    }
+
+    .carousel-card--focus{
+        transform: translateY(-4px) scale(1.02);
     }
 }
