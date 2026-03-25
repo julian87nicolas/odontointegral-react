@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./styles/content.css"
 import { useClinic } from "../context/ClinicContext";
 import ServicesCarousel from "./ServicesCarousel";
@@ -6,13 +6,28 @@ import ServicesCarousel from "./ServicesCarousel";
 function Content () {
     const { address, phone } = useClinic();
     const [phoneCopied, setPhoneCopied] = useState(false);
+    const phoneCopiedTimerRef = useRef(null);
     const mapEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
+    useEffect(() => {
+        return () => {
+            if (phoneCopiedTimerRef.current !== null) {
+                window.clearTimeout(phoneCopiedTimerRef.current);
+            }
+        };
+    }, []);
 
     const onCopyPhone = async () => {
         try {
             await navigator.clipboard.writeText(phone);
             setPhoneCopied(true);
-            window.setTimeout(() => setPhoneCopied(false), 1800);
+            if (phoneCopiedTimerRef.current !== null) {
+                window.clearTimeout(phoneCopiedTimerRef.current);
+            }
+            phoneCopiedTimerRef.current = window.setTimeout(() => {
+                setPhoneCopied(false);
+                phoneCopiedTimerRef.current = null;
+            }, 1800);
         } catch (error) {
             setPhoneCopied(false);
         }
