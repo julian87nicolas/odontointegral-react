@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import "./styles/carousel.css";
 
 const services = [
@@ -77,30 +77,31 @@ const services = [
     },
 ];
 
-const AUTO_SCROLL_MS = 4000;
+/* Speed in pixels per frame (~0.5 px/frame ≈ 30 px/s at 60 fps) */
+const SCROLL_SPEED = 0.5;
+const GAP = 16;
 
 function ServicesCarousel() {
     const trackRef = useRef(null);
-    const intervalRef = useRef(null);
-    const [offset, setOffset] = useState(0);
+    const animRef = useRef(null);
+    const scrollPosRef = useRef(0);
+    const isPausedRef = useRef(false);
+    const totalWidthRef = useRef(0);
     const [cardWidth, setCardWidth] = useState(0);
-    const [visibleCount, setVisibleCount] = useState(3);
 
-    const maxOffset = Math.max(0, services.length - visibleCount);
-
+    /* ---- Measure card width & total track width ---- */
     const measure = useCallback(() => {
         const track = trackRef.current;
         if (!track) return;
         const viewport = track.parentElement;
         if (!viewport) return;
         const vw = viewport.offsetWidth;
-        const gap = 16;
         let cols = 3;
         if (vw < 640) cols = 1;
         else if (vw < 960) cols = 2;
-        const cw = (vw - gap * (cols - 1)) / cols;
+        const cw = (vw - GAP * (cols - 1)) / cols;
         setCardWidth(cw);
-        setVisibleCount(cols);
+        totalWidthRef.current = services.length * (cw + GAP);
     }, []);
 
     useEffect(() => {
@@ -109,55 +110,62 @@ function ServicesCarousel() {
         return () => window.removeEventListener("resize", measure);
     }, [measure]);
 
-    const goTo = useCallback(
-        (idx) => {
-            const clamped = Math.max(0, Math.min(idx, maxOffset));
-            setOffset(clamped);
-        },
-        [maxOffset]
-    );
+    /* ---- Continuous smooth scroll via requestAnimationFrame ---- */
+    useEffect(() => {
+        /* Respect reduced-motion preference */
+        const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const prefersReducedMotion = () => mql.matches;
 
-    const next = useCallback(() => {
-        if (maxOffset <= 0) return;
-        setOffset((prev) => (prev >= maxOffset ? 0 : prev + 1));
-    }, [maxOffset]);
-
-    const prev = useCallback(() => {
-        if (maxOffset <= 0) return;
-        setOffset((prev) => (prev <= 0 ? maxOffset : prev - 1));
-    }, [maxOffset]);
-
-    /* Auto-scroll */
-    const stopAutoScroll = useCallback(() => {
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-        }
+        const tick = () => {
+            if (!isPausedRef.current && !prefersReducedMotion() && totalWidthRef.current > 0) {
+                scrollPosRef.current += SCROLL_SPEED;
+                if (scrollPosRef.current >= totalWidthRef.current) {
+                    scrollPosRef.current -= totalWidthRef.current;
+                }
+                if (trackRef.current) {
+                    trackRef.current.style.transform = `translateX(-${scrollPosRef.current}px)`;
+                }
+            }
+            animRef.current = requestAnimationFrame(tick);
+        };
+        animRef.current = requestAnimationFrame(tick);
+        return () => {
+            if (animRef.current) cancelAnimationFrame(animRef.current);
+        };
     }, []);
 
-    const startAutoScroll = useCallback(() => {
-        stopAutoScroll();
-        intervalRef.current = setInterval(next, AUTO_SCROLL_MS);
-    }, [next, stopAutoScroll]);
+    /* ---- Arrow navigation ---- */
+    const next = useCallback(() => {
+        const step = cardWidth + GAP;
+        if (step <= 0 || totalWidthRef.current <= 0) return;
+        scrollPosRef.current = Math.round(scrollPosRef.current / step) * step + step;
+        if (scrollPosRef.current >= totalWidthRef.current) {
+            scrollPosRef.current -= totalWidthRef.current;
+        }
+    }, [cardWidth]);
 
-    useEffect(() => {
-        startAutoScroll();
-        return stopAutoScroll;
-    }, [startAutoScroll, stopAutoScroll]);
+    const prev = useCallback(() => {
+        const step = cardWidth + GAP;
+        if (step <= 0 || totalWidthRef.current <= 0) return;
+        scrollPosRef.current = Math.round(scrollPosRef.current / step) * step - step;
+        if (scrollPosRef.current < 0) {
+            scrollPosRef.current += totalWidthRef.current;
+        }
+    }, [cardWidth]);
 
-    /* Clamp offset when visibleCount changes */
-    useEffect(() => {
-        if (offset > maxOffset) goTo(maxOffset);
-    }, [visibleCount, maxOffset, offset, goTo]);
+    /* ---- Pause / resume ---- */
+    const pause = useCallback(() => { isPausedRef.current = true; }, []);
+    const resume = useCallback(() => { isPausedRef.current = false; }, []);
 
-    const gap = 16;
-    const translateX = offset * (cardWidth + gap);
+    /* Duplicate cards for seamless infinite loop (memoized) */
+    const allCards = useMemo(() => services.map((s, i) => ({ ...s, key: `${s.id}-0`, idx: i }))
+        .concat(services.map((s, i) => ({ ...s, key: `${s.id}-1`, idx: i }))), []);
 
     return (
         <div
             className="carousel-wrapper"
-            onMouseEnter={stopAutoScroll}
-            onMouseLeave={startAutoScroll}
+            onMouseEnter={pause}
+            onMouseLeave={resume}
         >
             <button
                 className="carousel-arrow carousel-arrow--left"
@@ -171,14 +179,11 @@ function ServicesCarousel() {
                 <div
                     className="carousel-track"
                     ref={trackRef}
-                    style={{
-                        transform: `translateX(-${translateX}px)`,
-                        gap: `${gap}px`,
-                    }}
+                    style={{ gap: `${GAP}px` }}
                 >
-                    {services.map((s) => (
+                    {allCards.map((s) => (
                         <article
-                            key={s.id}
+                            key={s.key}
                             className={`carousel-card${s.urgent ? " carousel-card--urgent" : ""}`}
                             style={{ width: cardWidth > 0 ? `${cardWidth}px` : undefined }}
                         >
@@ -201,18 +206,6 @@ function ServicesCarousel() {
             >
                 <i className="fa-solid fa-chevron-right" aria-hidden="true"></i>
             </button>
-
-            <div className="carousel-dots" role="group" aria-label="Navegación de servicios">
-                {services.map((s, i) => (
-                    <button
-                        key={s.id}
-                        className={`carousel-dot${i === offset ? " active" : ""}`}
-                        onClick={() => goTo(i)}
-                        aria-label={`Ir a ${s.title}`}
-                        aria-current={i === offset ? "true" : undefined}
-                    />
-                ))}
-            </div>
         </div>
     );
 }
