@@ -122,8 +122,8 @@
 /*-- Collapsible services list --*/
 
 .services-list{
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.35rem;
     margin-top: 0.5rem;
 }
@@ -195,5 +195,9 @@
 
     .content.has-image .map-embed iframe{
         height: 160px;
+    }
+
+    .services-list{
+        grid-template-columns: 1fr;
     }
 }
