@@ -3,19 +3,16 @@
   "name": "Aura Odontología",
   "icons": [
     {
-      "src": "favicon.png",
-      "sizes": "64x64",
-      "type": "image/png"
+      "src": "images/icon/web-app-manifest-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
-      "src": "logo192.png",
+      "src": "images/icon/web-app-manifest-512x512.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
