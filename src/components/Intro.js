@@ -7,10 +7,9 @@ import "./styles/intro.css"
 
 
 function Intro () {
-    const { whatsapp, mapsUrl, insurers, treatments } = useClinic();
+    const { whatsapp, mapsUrl, insurers } = useClinic();
 
     const [showOS, setShowOS] = useState(false)
-    const [showTr, setShowTr] = useState(false)
     const [search, setSearch] = useState("");
 
     const busqueda = (event) => {
@@ -48,12 +47,6 @@ function Intro () {
                         <span className="button-name">Obras sociales</span>
                         <div className="lista">
                         { showOS && <Lista lista={insurers.filter(item => item.toLowerCase().includes(search.toLowerCase()))} className="OS"/>}
-                        </div>
-                    </div>
-                    <div className="treatments list-button" onClick={() => setShowTr(!showTr)} role="button" tabIndex={0} aria-label="Mostrar lista de tratamientos" aria-expanded={showTr} onKeyDown={(event) => handleToggleWithKeyboard(event, setShowTr, showTr)}>
-                    <span className="button-name">Tratamientos</span>
-                        <div className="treatments lista">
-                            { showTr && <Lista lista={treatments} className="treatments"/> }
                         </div>
                     </div>
                 </div>
