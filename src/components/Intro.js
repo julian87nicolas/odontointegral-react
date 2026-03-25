@@ -28,14 +28,14 @@ function Intro () {
         <>
             <section className="intro">
                 <div className="intro-copy">
-                    <p className="eyebrow">Clinica dental en Mendoza</p>
-                    <h1>Aura Odontologia</h1>
+                    <p className="eyebrow">Odontólogos en Mendoza · Godoy Cruz</p>
+                    <h1>Aura Odontología</h1>
                     <p className="lead">
-                        Odontologia general para ninos y adultos.
-                        Ortodoncia, implantes y protesis con un enfoque cercano y profesional.
+                        Odontología general para niños y adultos en Godoy Cruz, Mendoza.
+                        Tratamiento de conducto, extracciones, implantes, ortodoncia y odontopediatría con un enfoque cercano y profesional.
                     </p>
                     <p className="support-copy">
-                        Cuidamos sonrisas con calidez, seguimiento y atencion personalizada.
+                        Especialistas en muelas de juicio, caries, gingivitis y cuidado de dientes y encías. Atención personalizada con seguimiento y calidez.
                     </p>
                     <div className="intro-actions">
                         <a className="intro-action primary" href={`https://api.whatsapp.com/send?phone=${whatsapp}`} target="_blank" rel="noreferrer">Reservar turno</a>

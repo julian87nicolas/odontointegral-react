@@ -21,6 +21,7 @@ const clinicData = {
   treatments: [
     "Extracciones", "Tratamiento de conducto", "Blanqueamiento", "Limpieza dental",
     "Urgencias", "Caries", "Placas de relajación", "Protesis", "Implantes", "Perno-coronas", "Ortodoncia",
+    "Odontopediatría", "Muelas de juicio", "Gingivitis",
   ].sort(),
   testimonials: [
     {
