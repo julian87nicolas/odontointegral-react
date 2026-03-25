@@ -14,24 +14,21 @@
     padding-top: 0.9rem;
     padding-bottom: 0.45rem;
     scrollbar-gutter: stable;
+    scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x pan-y;
-}
-
-/* Track holds all cards in a row */
-.carousel-track{
-    display: flex;
-    width: max-content;
     will-change: scroll-position;
-    padding-bottom: 0.1rem;
 }
 
 .carousel-viewport::-webkit-scrollbar{
     display: none;
 }
 
-.carousel-viewport{
-    scrollbar-width: none;
+/* Track holds all cards in a row */
+.carousel-track{
+    display: flex;
+    width: max-content;
+    padding-bottom: 0.1rem;
 }
 
 /* --- Card --- */
