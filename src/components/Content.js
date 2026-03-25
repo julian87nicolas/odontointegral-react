@@ -26,7 +26,7 @@ function Content () {
             <section className="services-section reveal" id="servicios">
                 <h2>Servicios y tratamientos</h2>
                 <hr />
-                <p className="content-lead">Nuestros odontólogos en Godoy Cruz, Mendoza ofrecen una amplia variedad de tratamientos dentales:</p>
+                <p className="content-lead">Amplia variedad de tratamientos dentales:</p>
                 <ServicesCarousel />
             </section>
 
