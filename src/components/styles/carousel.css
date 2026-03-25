@@ -15,7 +15,7 @@
     padding-bottom: 0.45rem;
     scrollbar-gutter: stable;
     -webkit-overflow-scrolling: touch;
-    touch-action: pan-x;
+    touch-action: pan-x pan-y;
 }
 
 /* Track holds all cards in a row */
