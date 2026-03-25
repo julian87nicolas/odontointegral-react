@@ -8,6 +8,11 @@ const initialForm = {
   message: "",
 };
 
+const buildDefaultMessage = (name) => {
+  const trimmedName = name.trim();
+  return trimmedName ? `Hola, soy ${trimmedName} y quiero consultar por un turno.` : "";
+};
+
 function ContactForm() {
   const { whatsapp, email } = useClinic();
   const [formData, setFormData] = useState(initialForm);
@@ -15,9 +20,7 @@ function ContactForm() {
   const [sent, setSent] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const [emailSending, setEmailSending] = useState(false);
-  const messagePlaceholder = formData.name.trim()
-    ? `Hola, soy ${formData.name.trim()} y quiero consultar por un turno.`
-    : "Hola, soy [tu nombre] y quiero consultar por un turno.";
+  const messagePlaceholder = "Coloque su consulta...";
 
   const validate = () => {
     const nextErrors = {};
@@ -47,6 +50,21 @@ function ContactForm() {
     setSent(false);
     setEmailSent(false);
     setErrors((prev) => ({ ...prev, form: undefined }));
+
+    if (name === "name") {
+      setFormData((prev) => {
+        const previousAutoMessage = buildDefaultMessage(prev.name);
+        const shouldUpdateMessage = !prev.message.trim() || prev.message === previousAutoMessage;
+
+        return {
+          ...prev,
+          name: value,
+          message: shouldUpdateMessage ? buildDefaultMessage(value) : prev.message,
+        };
+      });
+      return;
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
