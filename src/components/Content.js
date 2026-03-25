@@ -1,5 +1,6 @@
 import "./styles/content.css"
 import { useClinic } from "../context/ClinicContext";
+import ServicesCarousel from "./ServicesCarousel";
 
 function Content () {
     const { address, phone } = useClinic();
@@ -9,11 +10,11 @@ function Content () {
         <>
             <section className="content first reveal">
                 <article>
-                    <h2>Atención</h2>
+                    <h2>Atención odontológica en Mendoza</h2>
                     <hr/ >
-                    <p className="content-lead">Tratamiento odontologico general para:</p>
+                    <p className="content-lead">Tratamiento odontológico general para:</p>
                     <ul>
-                        <li>Niños</li>
+                        <li>Niños (odontopediatría)</li>
                         <li>Adolescentes</li>
                         <li>Adultos</li>
                         <li>Embarazadas</li>
@@ -22,7 +23,15 @@ function Content () {
             </section>
 
             <div className="sep rev"></div>
-            <section className="content rev has-image reveal">
+            <section className="services-section reveal" id="servicios">
+                <h2>Servicios y tratamientos</h2>
+                <hr />
+                <p className="content-lead">Amplia variedad de tratamientos dentales:</p>
+                <ServicesCarousel />
+            </section>
+
+            <div className="sep"></div>
+            <section className="content has-image reveal">
                 <article>
                     <h2>Ubicación</h2>
                     <hr />
@@ -33,7 +42,7 @@ function Content () {
                 </article>
                 <div className="map-embed" aria-hidden="true">
                     <iframe
-                        title="Mapa de ubicación de Aura Odontología"
+                        title="Mapa de ubicación de Aura Odontología en Godoy Cruz, Mendoza"
                         src={mapEmbedSrc}
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"

@@ -119,6 +119,31 @@
     transform: translateY(-1px);
 }
 
+/*-- Services section --*/
+
+.services-section{
+    width: min(1100px, calc(100% - 2rem));
+    margin: 1.25rem auto;
+    padding: 1.6rem 1.15rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.services-section h2{
+    margin: 0;
+    font-size: clamp(1.45rem, 2vw, 2rem);
+    color: var(--ink);
+}
+
+.services-section hr{
+    border: none;
+    height: 1px;
+    margin: 0.75rem 0;
+    background: linear-gradient(90deg, var(--brand), transparent);
+}
+
 @media (max-width: 800px){
     .content{
         grid-template-columns: 1fr;
