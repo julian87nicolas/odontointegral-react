@@ -198,6 +198,14 @@
     line-height: 1.45;
 }
 
+.service-card--urgent{
+    border-color: var(--accent);
+}
+
+.service-card--urgent .service-icon{
+    background: linear-gradient(135deg, var(--accent), #e0533a);
+}
+
 @media (max-width: 800px){
     .content{
         grid-template-columns: 1fr;

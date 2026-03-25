@@ -82,6 +82,11 @@ function Content () {
                         <h3>Prótesis dentales</h3>
                         <p>Prótesis fijas y removibles para restaurar la función dental.</p>
                     </article>
+                    <article className="service-card service-card--urgent">
+                        <div className="service-icon"><i className="fa-solid fa-kit-medical" aria-hidden="true"></i></div>
+                        <h3>Urgencias</h3>
+                        <p>Atención de urgencias dentales: dolor agudo, traumatismos, infecciones y emergencias bucodentales.</p>
+                    </article>
                 </div>
             </section>
 
