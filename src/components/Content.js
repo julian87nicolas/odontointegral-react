@@ -6,7 +6,9 @@ import ServicesCarousel from "./ServicesCarousel";
 function Content () {
     const { address, phone } = useClinic();
     const [phoneCopied, setPhoneCopied] = useState(false);
+    const [copyError, setCopyError] = useState(false);
     const phoneCopiedTimerRef = useRef(null);
+    const copyErrorTimerRef = useRef(null);
     const mapEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 
     useEffect(() => {
@@ -14,13 +16,16 @@ function Content () {
             if (phoneCopiedTimerRef.current !== null) {
                 window.clearTimeout(phoneCopiedTimerRef.current);
             }
+            if (copyErrorTimerRef.current !== null) {
+                window.clearTimeout(copyErrorTimerRef.current);
+            }
         };
     }, []);
 
     const onCopyPhone = async () => {
-        try {
-            await navigator.clipboard.writeText(phone);
+        const showSuccess = () => {
             setPhoneCopied(true);
+            setCopyError(false);
             if (phoneCopiedTimerRef.current !== null) {
                 window.clearTimeout(phoneCopiedTimerRef.current);
             }
@@ -28,8 +33,47 @@ function Content () {
                 setPhoneCopied(false);
                 phoneCopiedTimerRef.current = null;
             }, 1800);
-        } catch (error) {
+        };
+        const showError = () => {
             setPhoneCopied(false);
+            setCopyError(true);
+            if (copyErrorTimerRef.current !== null) {
+                window.clearTimeout(copyErrorTimerRef.current);
+            }
+            copyErrorTimerRef.current = window.setTimeout(() => {
+                setCopyError(false);
+                copyErrorTimerRef.current = null;
+            }, 1800);
+        };
+
+        if (navigator.clipboard?.writeText) {
+            try {
+                await navigator.clipboard.writeText(phone);
+                showSuccess();
+            } catch {
+                showError();
+            }
+        } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = phone;
+            textArea.style.position = 'absolute';
+            textArea.style.left = '-9999px';
+            textArea.setAttribute('aria-hidden', 'true');
+            document.body.appendChild(textArea);
+            try {
+                textArea.focus();
+                textArea.select();
+                const success = document.execCommand('copy');
+                if (success) {
+                    showSuccess();
+                } else {
+                    showError();
+                }
+            } catch {
+                showError();
+            } finally {
+                document.body.removeChild(textArea);
+            }
         }
     };
 
@@ -89,6 +133,7 @@ function Content () {
                                 {phone}
                             </button>
                             {phoneCopied && <span className="copy-phone-status" role="status" aria-live="polite">Copiado</span>}
+                            {copyError && <span className="copy-phone-status copy-phone-error" role="alert" aria-live="assertive">No se pudo copiar</span>}
                         </li>
                     </ul>
                 </article>
