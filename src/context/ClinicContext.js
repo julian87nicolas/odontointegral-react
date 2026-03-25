@@ -14,20 +14,20 @@ const clinicData = {
   testimonials: [
     {
       id: 1,
-      author: "Celeste Modarelli",
-      text: "Mejor imposible la atencion del equipo. Muy amables y se nota la capacitacion profesional. Me brindaron atencion incluso fuera del horario habitual. El espacio es muy limpio y ordenado. Muchas gracias por todo.",
+      author: "Celeste",
+      text: "Mejor imposible la atención de Florencia. Muy muy amable y se ve que está re contra capacitada,me brindo atención incluso estando fuera de su horario laboral.",
       rating: 5,
     },
     {
       id: 2,
-      author: "Antonella De Simone",
-      text: "Hace 2 anos que Julieta me mantiene la boca sana y sin caries. Una genia y super amorosa. Hermoso lugar.",
+      author: "Antonella",
+      text: "Hace 2 años que Julieta me mantiene la boca sana y sin caries! Una genia y súper amorosa.  Hermoso lugar",
       rating: 5,
     },
     {
       id: 3,
       author: "Rodrigo Rubio",
-      text: "Hace 3 meses. Excelente atencion, muy buena ubicacion y el consultorio impecable. 100% recomendable.",
+      text: "Excelente atención, muy buena ubicación y el consultorio impecable. 100% recomendable",
       rating: 5,
     },
   ],
