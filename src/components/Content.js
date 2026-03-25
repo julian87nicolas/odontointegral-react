@@ -1,5 +1,6 @@
 import "./styles/content.css"
 import { useClinic } from "../context/ClinicContext";
+import ServicesCarousel from "./ServicesCarousel";
 
 function Content () {
     const { address, phone } = useClinic();
@@ -26,68 +27,7 @@ function Content () {
                 <h2>Servicios y tratamientos</h2>
                 <hr />
                 <p className="content-lead">Nuestros odontólogos en Godoy Cruz, Mendoza ofrecen una amplia variedad de tratamientos dentales:</p>
-                <div className="services-grid">
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-tooth" aria-hidden="true"></i></div>
-                        <h3>Tratamiento de conducto</h3>
-                        <p>Endodoncia profesional para salvar dientes afectados por infección o daño en la pulpa dental.</p>
-                    </article>
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-hand-holding-medical" aria-hidden="true"></i></div>
-                        <h3>Extracciones</h3>
-                        <p>Extracción de dientes y muelas con técnicas modernas y mínimo dolor.</p>
-                    </article>
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-teeth" aria-hidden="true"></i></div>
-                        <h3>Muelas de juicio</h3>
-                        <p>Extracción segura de terceros molares con seguimiento post-operatorio.</p>
-                    </article>
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></div>
-                        <h3>Implantes dentales</h3>
-                        <p>Reemplazo de piezas dentales perdidas con implantes de alta calidad.</p>
-                    </article>
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-teeth-open" aria-hidden="true"></i></div>
-                        <h3>Ortodoncia</h3>
-                        <p>Corrección de la alineación de dientes y mordida para niños y adultos.</p>
-                    </article>
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-child" aria-hidden="true"></i></div>
-                        <h3>Odontopediatría</h3>
-                        <p>Atención dental especializada para niños y bebés con un enfoque cálido.</p>
-                    </article>
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
-                        <h3>Caries</h3>
-                        <p>Diagnóstico, tratamiento y prevención de caries dentales.</p>
-                    </article>
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-droplet" aria-hidden="true"></i></div>
-                        <h3>Gingivitis y encías</h3>
-                        <p>Tratamiento de gingivitis y enfermedades de las encías para mantener una boca saludable.</p>
-                    </article>
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-broom" aria-hidden="true"></i></div>
-                        <h3>Limpieza dental</h3>
-                        <p>Higiene profesional para dientes y encías.</p>
-                    </article>
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-sun" aria-hidden="true"></i></div>
-                        <h3>Blanqueamiento dental</h3>
-                        <p>Tratamiento estético para una sonrisa más blanca.</p>
-                    </article>
-                    <article className="service-card">
-                        <div className="service-icon"><i className="fa-solid fa-puzzle-piece" aria-hidden="true"></i></div>
-                        <h3>Prótesis dentales</h3>
-                        <p>Prótesis fijas y removibles para restaurar la función dental.</p>
-                    </article>
-                    <article className="service-card service-card--urgent">
-                        <div className="service-icon"><i className="fa-solid fa-kit-medical" aria-hidden="true"></i></div>
-                        <h3>Urgencias</h3>
-                        <p>Atención de urgencias dentales: dolor agudo, traumatismos, infecciones y emergencias bucodentales.</p>
-                    </article>
-                </div>
+                <ServicesCarousel />
             </section>
 
             <div className="sep"></div>

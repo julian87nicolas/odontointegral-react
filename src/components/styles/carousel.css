@@ -1,0 +1,214 @@
+/*-- Services carousel --*/
+
+.carousel-wrapper{
+    position: relative;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Viewport clips the track */
+.carousel-viewport{
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+/* Track holds all cards in a row */
+.carousel-track{
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+}
+
+/* --- Card --- */
+.carousel-card{
+    flex-shrink: 0;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.carousel-card:hover{
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--brand);
+}
+
+/* Image header area */
+.carousel-card__image{
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--brand), var(--brand-strong));
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle decorative circle behind icon */
+.carousel-card__image::before{
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Per-service gradient variations for visual variety */
+.carousel-card__image--conducto{
+    background: linear-gradient(135deg, #0ab1bf, #054d84);
+}
+.carousel-card__image--extracciones{
+    background: linear-gradient(135deg, #0891b2, #0e7490);
+}
+.carousel-card__image--muelas{
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+}
+.carousel-card__image--implantes{
+    background: linear-gradient(135deg, #059669, #047857);
+}
+.carousel-card__image--ortodoncia{
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+}
+.carousel-card__image--odontopediatria{
+    background: linear-gradient(135deg, #ec4899, #db2777);
+}
+.carousel-card__image--caries{
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+.carousel-card__image--gingivitis{
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+.carousel-card__image--limpieza{
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+}
+.carousel-card__image--blanqueamiento{
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+.carousel-card__image--protesis{
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+}
+.carousel-card__image--urgencias{
+    background: linear-gradient(135deg, var(--accent), #e0533a);
+}
+
+/* Card body */
+.carousel-card__body{
+    padding: 1rem 1.1rem 1.2rem;
+}
+
+.carousel-card__body h3{
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+}
+
+.carousel-card__body p{
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+}
+
+/* Urgent card accent border */
+.carousel-card--urgent{
+    border-color: var(--accent);
+}
+
+.carousel-card--urgent:hover{
+    border-color: var(--accent);
+}
+
+/* --- Arrows --- */
+.carousel-arrow{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.carousel-arrow:hover{
+    background: var(--brand);
+    color: #ffffff;
+    box-shadow: var(--shadow-md);
+}
+
+.carousel-arrow--left{
+    left: -1.3rem;
+}
+
+.carousel-arrow--right{
+    right: -1.3rem;
+}
+
+/* --- Dots --- */
+.carousel-dots{
+    display: flex;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 1rem;
+}
+
+.carousel-dot{
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    border: none;
+    background: var(--line-strong);
+    cursor: pointer;
+    padding: 0;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.carousel-dot.active{
+    background: var(--brand);
+    transform: scale(1.3);
+}
+
+.carousel-dot:hover{
+    background: var(--brand);
+}
+
+/* --- Responsive --- */
+@media (max-width: 800px){
+    .carousel-arrow{
+        width: 2.2rem;
+        height: 2.2rem;
+        font-size: 0.85rem;
+    }
+
+    .carousel-arrow--left{
+        left: -0.4rem;
+    }
+
+    .carousel-arrow--right{
+        right: -0.4rem;
+    }
+
+    .carousel-card__image{
+        height: 120px;
+        font-size: 2.5rem;
+    }
+}
