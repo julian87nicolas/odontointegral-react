@@ -2,8 +2,8 @@ import { createContext, useContext } from "react";
 
 const clinicData = {
   name: "Aura Odontologia",
-  phone: "02617528107",
-  whatsapp: "542617528107",
+  phone: "+542617528107",
+  whatsapp: "+542617528107",
   email: "auradentalmza@gmail.com",
   instagram: "https://www.instagram.com/odontologia_aura/",
   address: "Balcarce 36, Godoy Cruz, Mendoza",

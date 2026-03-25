@@ -45,12 +45,6 @@ const services = [
         description: "Diagnóstico, tratamiento y prevención de caries dentales.",
     },
     {
-        id: "gingivitis",
-        icon: "fa-solid fa-droplet",
-        title: "Gingivitis y encías",
-        description: "Tratamiento de gingivitis y enfermedades de las encías para mantener una boca saludable.",
-    },
-    {
         id: "limpieza",
         icon: "fa-solid fa-broom",
         title: "Limpieza dental",

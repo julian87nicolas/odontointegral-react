@@ -1,10 +1,22 @@
+import { useState } from "react";
 import "./styles/content.css"
 import { useClinic } from "../context/ClinicContext";
 import ServicesCarousel from "./ServicesCarousel";
 
 function Content () {
     const { address, phone } = useClinic();
+    const [phoneCopied, setPhoneCopied] = useState(false);
     const mapEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
+    const onCopyPhone = async () => {
+        try {
+            await navigator.clipboard.writeText(phone);
+            setPhoneCopied(true);
+            window.setTimeout(() => setPhoneCopied(false), 1800);
+        } catch (error) {
+            setPhoneCopied(false);
+        }
+    };
 
     return (
         <>
@@ -55,8 +67,14 @@ function Content () {
                     <h2>Días y horarios</h2>
                     <hr />
                     <ul>
-                        <li>Lunes a Viernes de 9:00 a 20:00</li>
-                        <li>Turnos: {phone}</li>
+                        <li>Lunes a Viernes de 9:00 a 20:00hs</li>
+                        <li>
+                            Turnos:
+                            <button type="button" className="copy-phone-btn" onClick={onCopyPhone}>
+                                {phone}
+                            </button>
+                            {phoneCopied && <span className="copy-phone-status" role="status" aria-live="polite">Copiado</span>}
+                        </li>
                     </ul>
                 </article>
             </section>
