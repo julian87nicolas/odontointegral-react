@@ -54,37 +54,6 @@ npm start
 npm run build
 ```
 
-## Estructura del proyecto
-
-```text
-.
-├── public/
-│   ├── images/
-│   │   └── icon/
-│   ├── index.html
-│   └── manifest.json
-├── src/
-│   ├── components/
-│   │   ├── styles/
-│   │   ├── ContactForm.js
-│   │   ├── Content.js
-│   │   ├── Footer.js
-│   │   ├── Intro.js
-│   │   ├── Lista.js
-│   │   ├── Main.js
-│   │   ├── Nav.js
-│   │   ├── ServicesCarousel.js
-│   │   └── Testimonials.js
-│   ├── context/
-│   │   └── ClinicContext.js
-│   ├── App.js
-│   ├── index.css
-│   └── index.js
-├── build/
-├── package.json
-└── README.md
-```
-
 ## Arquitectura frontend
 
 - [src/App.js](src/App.js): composición principal de layout y secciones.
