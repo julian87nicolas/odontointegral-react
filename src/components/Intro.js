@@ -28,10 +28,10 @@ function Intro () {
         <>
             <section className="intro">
                 <div className="intro-copy">
-                    <p className="eyebrow">Odontólogos en Mendoza · Godoy Cruz</p>
+                    <p className="eyebrow">Clínica odontológica en Mendoza</p>
                     <h1>Aura Odontología</h1>
-                    <p className="lead">
-                        Odontología general para niños y adultos en Godoy Cruz, Mendoza.
+                    
+         <p className="lead">
                         Tratamiento de conducto, extracciones, implantes, ortodoncia y odontopediatría con un enfoque cercano y profesional.
                     </p>
                     <p className="support-copy">
