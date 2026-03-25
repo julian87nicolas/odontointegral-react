@@ -74,6 +74,7 @@ const services = [
 /* Speed in pixels per frame (~0.5 px/frame ≈ 30 px/s at 60 fps) */
 const SCROLL_SPEED = 0.5;
 const GAP = 16;
+const COPIES = 3;
 
 function ServicesCarousel() {
     const viewportRef = useRef(null);
@@ -95,7 +96,7 @@ function ServicesCarousel() {
         const viewport = viewportRef.current;
         if (!viewport || cardWidth <= 0 || singleSetWidthRef.current <= 0) return;
         const step = cardWidth + GAP;
-        const totalCards = services.length * 3;
+        const totalCards = services.length * COPIES;
         const centeredOffset = scrollLeft + viewport.offsetWidth / 2 - cardWidth / 2;
         const rawIndex = Math.round(centeredOffset / step);
         const normalizedIndex = ((rawIndex % totalCards) + totalCards) % totalCards;
@@ -241,10 +242,10 @@ function ServicesCarousel() {
     }, [registerInteraction]);
 
     /* Duplicate cards for seamless infinite loop (memoized) */
-    const allCards = useMemo(() => services
-        .map((s, i) => ({ ...s, key: `${s.id}-0`, idx: i }))
-        .concat(services.map((s, i) => ({ ...s, key: `${s.id}-1`, idx: i })))
-        .concat(services.map((s, i) => ({ ...s, key: `${s.id}-2`, idx: i }))), []);
+    const allCards = useMemo(() =>
+        Array.from({ length: COPIES }, (_, copy) =>
+            services.map((s, i) => ({ ...s, key: `${s.id}-${copy}`, idx: i }))
+        ).flat(), []);
 
     return (
         <div className="carousel-wrapper">
