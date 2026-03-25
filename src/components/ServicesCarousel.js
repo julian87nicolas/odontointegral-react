@@ -85,7 +85,7 @@ function ServicesCarousel() {
     const singleSetWidthRef = useRef(0);
     const [cardWidth, setCardWidth] = useState(0);
     const [activeServiceIdx, setActiveServiceIdx] = useState(0);
-    const [activeCardKey, setActiveCardKey] = useState("conducto-1");
+    const [activeCardKey, setActiveCardKey] = useState(() => `${services[0].id}-1`);
 
     const registerInteraction = useCallback(() => {
         lastInteractionAtRef.current = Date.now();
