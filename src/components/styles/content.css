@@ -119,6 +119,38 @@
     transform: translateY(-1px);
 }
 
+.copy-phone-btn{
+    border: 0;
+    background: transparent;
+    color: var(--brand-strong);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 0.35rem;
+}
+
+.copy-phone-btn:hover{
+    text-decoration: underline;
+}
+
+.copy-phone-btn:focus-visible{
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.copy-phone-status{
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--brand-strong);
+}
+
+.copy-phone-error{
+    color: var(--accent);
+}
+
 /*-- Services section --*/
 
 .services-section{
