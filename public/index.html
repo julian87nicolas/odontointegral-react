@@ -56,8 +56,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin />
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Preload LCP hero image -->
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/tools.webp" fetchpriority="high" />
+
+    <!-- Preload default (light) nav logo for fast FCP -->
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/aura-light.png" />
+
+    <!-- Fonts – loaded asynchronously to avoid render blocking -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
 
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/fd8927d7fc.js" crossorigin="anonymous" defer></script>

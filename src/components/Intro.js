@@ -4,6 +4,8 @@ import { useClinic } from "../context/ClinicContext";
 
 import "./styles/intro.css"
 
+const HERO_BG =
+    "linear-gradient(140deg, rgba(5, 77, 132, 0.78), rgba(10, 177, 191, 0.68)), url(/images/tools.webp) center/cover no-repeat";
 
 function Intro () {
     const { whatsapp, mapsUrl, insurers } = useClinic();
@@ -21,7 +23,7 @@ function Intro () {
 
     return (
         <>
-            <section className="intro">
+            <section className="intro" style={{ background: HERO_BG }}>
                 <div className="intro-copy">
                     <p className="eyebrow">Clínica odontológica en Mendoza</p>
                     <h1>Aura Odontología</h1>
