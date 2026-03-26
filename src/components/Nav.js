@@ -60,7 +60,7 @@ function Nav () {
         <div className={navBar ? "nav" : "nav white"}>
             <div className="nav-content">
                 <Link to="/" className="brand" aria-label={`Ir a la página principal de ${name}`}>
-                    <img src={brandLogo} alt={`Logo de ${name}`} className="logo" />
+                    <img src={brandLogo} alt={`Logo de ${name}`} className="logo" fetchpriority="high" />
                     <span className="brand-text">{name}</span>
                 </Link>
                 <nav className="nav-links" aria-label="Navegación principal">
