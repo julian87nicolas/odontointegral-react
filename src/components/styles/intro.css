@@ -92,63 +92,177 @@
 .list-section{
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--radius-xl);
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.2);
+    padding: 0.95rem;
+    background: rgba(255, 255, 255, 0.16);
     backdrop-filter: blur(6px);
-    display: grid;
-    gap: 0.75rem;
-    align-content: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    overflow: hidden;
+    height: 100%;
+    max-height: calc(100vh - 280px);
+    min-height: 0;
+    position: relative;
+    align-self: stretch;
+}
+
+.list-section::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.18) 45%, transparent 75%);
+    transform: translateX(-120%);
+    animation: section-sheen 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes section-sheen{
+    0%, 70%, 100% { transform: translateX(-120%); }
+    85% { transform: translateX(120%); }
 }
 
 input#search{
-    border-radius: var(--radius-full);
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    background: rgba(255, 255, 255, 0.86);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    background: rgba(255, 255, 255, 0.94);
     color: var(--ink);
-    padding: 0.68rem 0.95rem;
+    padding: 0.48rem 0.65rem;
     font: inherit;
+    font-size: 0.84rem;
 }
 
-.list-button{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--ink);
-    padding: 0.85rem;
-    cursor: pointer;
-    transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.button-name{
-    font-weight: 700;
-}
-
-.list-button:hover{
-    transform: translateY(-1px);
-    border-color: rgba(255, 255, 255, 0.75);
-    box-shadow: var(--shadow-sm);
-}
-
-.list-button:focus-visible,
 input#search:focus-visible{
     outline: 2px solid var(--brand);
     outline-offset: 2px;
 }
 
-.lista{
-    position: static;
-    width: 100%;
-    border-radius: var(--radius-md);
-    background-color: var(--surface-soft);
-    color: inherit;
+/* ------ OS Panel ------ */
+
+.os-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+}
+
+.os-title{
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.92);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.os-title::after{
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
+    animation: title-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes title-pulse{
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); }
+    50% { transform: scale(1.25); box-shadow: 0 0 0 7px rgba(255, 255, 255, 0); }
+}
+
+.os-badge{
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.1rem 0.45rem;
+    border-radius: 99px;
+    letter-spacing: 0.03em;
+}
+
+.os-search-wrap{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.os-search-wrap input{
+    flex: 1;
+    min-width: 0;
+}
+
+.os-clear{
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.88);
+    padding: 0.36rem 0.5rem;
+    line-height: 1.1;
+    flex-shrink: 0;
+    transition: background-color 0.15s;
+}
+
+.os-clear:hover{ background: rgba(255, 255, 255, 0.26); }
+
+.os-grid{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0 0.2rem 0.35rem 0;
+    list-style: none;
+    position: relative;
+    z-index: 1;
+    scrollbar-gutter: stable;
+}
+
+.os-item{
+    padding: 0.32rem 0.2rem;
+    border-radius: 0;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    color: rgba(255, 255, 255, 0.94);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    transition: padding-left 0.2s ease, border-bottom-color 0.2s ease, color 0.2s ease;
+}
+
+.os-item:hover{
+    padding-left: 0.42rem;
+    color: #ffffff;
+    border-bottom-color: rgba(255, 255, 255, 0.36);
+}
+
+.os-item:last-child{
+    border-bottom: none;
+}
+
+.os-empty{
+    text-align: center;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.8rem;
+    margin: 0.2rem 0 0;
+    position: relative;
+    z-index: 1;
 }
 
 :root[data-theme="dark"] .list-section{
     border-color: rgba(220, 239, 248, 0.22);
     background: rgba(9, 22, 31, 0.42);
+}
+
+:root[data-theme="dark"] .list-section::before{
+    background: linear-gradient(110deg, transparent 0%, rgba(91, 184, 255, 0.12) 45%, transparent 75%);
 }
 
 :root[data-theme="dark"] input#search{
@@ -158,23 +272,24 @@ input#search:focus-visible{
 }
 
 :root[data-theme="dark"] input#search::placeholder{
-    color: rgba(226, 240, 246, 0.72);
+    color: rgba(226, 240, 246, 0.5);
 }
 
-:root[data-theme="dark"] .list-button{
+:root[data-theme="dark"] .os-clear{
+    color: rgba(226, 240, 246, 0.9);
+    background: rgba(16, 34, 48, 0.9);
     border-color: rgba(220, 239, 248, 0.2);
-    background: rgba(16, 34, 48, 0.94);
+}
+
+:root[data-theme="dark"] .os-item{
+    background: transparent;
     color: var(--ink);
+    border-bottom-color: rgba(220, 239, 248, 0.16);
 }
 
-:root[data-theme="dark"] .list-button:hover{
-    border-color: rgba(91, 184, 255, 0.45);
-    background: rgba(25, 53, 71, 0.98);
-}
-
-:root[data-theme="dark"] .lista{
-    background: rgba(25, 53, 71, 0.95);
-    border: 1px solid rgba(220, 239, 248, 0.14);
+:root[data-theme="dark"] .os-item:hover{
+    color: #eaf6ff;
+    border-bottom-color: rgba(91, 184, 255, 0.4);
 }
 
 ::-webkit-scrollbar {
@@ -199,5 +314,14 @@ input#search:focus-visible{
 
     .intro-actions{
         margin-bottom: 0.35rem;
+    }
+
+    .list-section{
+        height: auto;
+        max-height: none;
+    }
+
+    .os-grid{
+        max-height: 220px;
     }
 }
