@@ -52,7 +52,8 @@ function Nav () {
         }
     };
 
-    const brandLogo = theme === "dark" ? "/images/aura-dark.png" : "/images/aura-light.png";
+    const brandLogoWebp = theme === "dark" ? "/images/aura-dark.webp" : "/images/aura-light.webp";
+    const brandLogoPng = theme === "dark" ? "/images/aura-dark.png" : "/images/aura-light.png";
 
     return (
         <>
@@ -60,7 +61,10 @@ function Nav () {
         <div className={navBar ? "nav" : "nav white"}>
             <div className="nav-content">
                 <Link to="/" className="brand" aria-label={`Ir a la página principal de ${name}`}>
-                    <img src={brandLogo} alt={`Logo de ${name}`} className="logo" fetchpriority="high" />
+                    <picture>
+                        <source srcSet={brandLogoWebp} type="image/webp" />
+                        <img src={brandLogoPng} alt={`Logo de ${name}`} className="logo" fetchpriority="high" width="256" height="144" />
+                    </picture>
                     <span className="brand-text">{name}</span>
                 </Link>
                 <nav className="nav-links" aria-label="Navegación principal">

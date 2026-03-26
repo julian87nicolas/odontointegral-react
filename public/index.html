@@ -56,15 +56,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin />
 
-    <!-- Preload LCP hero image -->
-    <link rel="preload" as="image" href="%PUBLIC_URL%/images/tools.webp" fetchpriority="high" />
+    <!-- Preload LCP hero image – desktop uses 1920px, mobile uses 960px -->
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/tools.webp"
+          imagesrcset="%PUBLIC_URL%/images/tools-960.webp 960w, %PUBLIC_URL%/images/tools.webp 1920w"
+          imagesizes="(max-width: 960px) 960px, 1920px"
+          fetchpriority="high" />
 
     <!-- Preload default (light) nav logo for fast FCP -->
-    <link rel="preload" as="image" href="%PUBLIC_URL%/images/aura-light.png" />
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/aura-light.webp" type="image/webp" fetchpriority="low" />
 
     <!-- Fonts – loaded asynchronously to avoid render blocking -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
+
+    <!-- Inline critical CSS: nav + hero skeleton to avoid FOUC before bundle loads -->
+    <style>
+      :root{--ink:#143041;--ink-soft:#3b6075;--surface:#fff;--surface-soft:#eff6f8;--canvas:#f7fbfc;--brand:#0ab1bf;--brand-strong:#054d84;--accent:#fb8975;--line:rgba(20,48,65,.14);--line-strong:rgba(20,48,65,.28);--sans:'Plus Jakarta Sans',sans-serif;--display:'Outfit',sans-serif;--radius-sm:.35rem;--radius-md:.75rem;--radius-lg:1.1rem;--radius-xl:1.5rem;--radius-full:9999px;--shadow-sm:0 6px 20px rgba(20,48,65,.06);--shadow-md:0 12px 32px rgba(20,48,65,.12);--transition-fast:.24s ease;}
+      *{box-sizing:border-box;}
+      html,body,#root,.App{min-height:100%;}
+      body{font-family:var(--sans);margin:0;color:var(--ink);background:radial-gradient(circle at 10% 10%,rgba(10,177,191,.13),transparent 34%),radial-gradient(circle at 85% 5%,rgba(251,137,117,.11),transparent 36%),var(--canvas);}
+      h1,h2,h3{font-family:var(--display);letter-spacing:.01em;}
+      .nav{position:sticky;top:0;z-index:10;width:100%;padding:1rem 0;}
+      .nav-content{width:min(1100px,calc(100% - 2rem));margin:0 auto;padding:.65rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border:1px solid var(--line);border-radius:var(--radius-xl);background:rgba(255,255,255,.84);backdrop-filter:blur(10px);box-shadow:var(--shadow-sm);}
+      .intro{width:min(1100px,calc(100% - 2rem));margin:0 auto;margin-top:.5rem;padding:2rem;min-height:70vh;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:1.5rem;border:1px solid var(--line);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);background:linear-gradient(140deg,rgba(5,77,132,.78),rgba(10,177,191,.68));}
+      @media(max-width:940px){.intro{min-height:auto;padding:1.2rem;grid-template-columns:1fr;}}
+      .skip-to-content{position:absolute;top:-100%;left:1rem;z-index:100;}
+    </style>
 
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/fd8927d7fc.js" crossorigin="anonymous" defer></script>
