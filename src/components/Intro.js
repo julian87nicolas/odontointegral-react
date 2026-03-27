@@ -46,8 +46,8 @@ function Intro () {
         <>
             <section className="intro" style={{ background: heroBg }}>
                 <div className="intro-copy">
-                    <p className="eyebrow">Clínica odontológica en Mendoza</p>
-                    <h1>Aura Odontología</h1>
+                    <p className="eyebrow">Aura Odontología</p>
+                    <h1>Odontólogos en Mendoza</h1>
                     
          <p className="lead">
                         Tratamiento de conducto, extracciones, implantes, ortodoncia y odontopediatría con un enfoque cercano y profesional.

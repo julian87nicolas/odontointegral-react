@@ -146,7 +146,7 @@ function ContactForm() {
   };
 
   return (
-    <section className="contact-section reveal" aria-label="Formulario de contacto">
+    <section className="contact-section reveal" id="contacto" aria-label="Formulario de contacto">
       <h2>Solicita tu turno</h2>
       <p className="contact-lead">Completa el formulario y te contactamos por WhatsApp.</p>
 

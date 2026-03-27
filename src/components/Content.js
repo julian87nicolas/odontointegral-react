@@ -121,12 +121,15 @@ function Content () {
             </section>
 
             <div className="sep"></div>
-            <section className="content has-image reveal">
+            <section className="content has-image reveal" id="ubicacion">
                 <article>
                     <h2>Ubicación</h2>
                     <hr />
                     <ul>
-                        <li>{address} <a className="maps" href="https://maps.app.goo.gl/yNnJ3mpCqJ4SXjDF9" target="_blank" rel="noreferrer">Ver mapa</a></li>
+                        <li>
+                            <address>{address}</address>
+                            <a className="maps" href="https://maps.app.goo.gl/yNnJ3mpCqJ4SXjDF9" target="_blank" rel="noreferrer">Ver mapa</a>
+                        </li>
                     </ul>
                     
                 </article>
@@ -141,7 +144,7 @@ function Content () {
                 </div>
             </section>
             <div className="sep"></div>
-            <section className="content reveal">
+            <section className="content reveal" id="horarios">
                 <article>
                     <h2>Días y horarios</h2>
                     <hr />
