@@ -1,16 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useClinic } from "../context/ClinicContext";
 
 import "./styles/intro.css"
 
-const HERO_BG =
-    "linear-gradient(140deg, rgba(5, 77, 132, 0.78), rgba(10, 177, 191, 0.68)), url(/images/tools.webp) center/cover no-repeat";
+const HERO_GRADIENT = "linear-gradient(140deg, rgba(5, 77, 132, 0.78), rgba(10, 177, 191, 0.68))";
+const HERO_IMG_DESKTOP = "/images/tools.webp";
+const HERO_IMG_MOBILE = "/images/tools-960.webp";
 
 function Intro () {
     const { whatsapp, mapsUrl, insurers } = useClinic();
 
     const [search, setSearch] = useState("");
+
+    /* Choose the appropriately-sized hero image based on viewport width.
+       This avoids downloading the 1920px image on narrow mobile screens. */
+    const [heroBg, setHeroBg] = useState(
+        () => {
+            const isMobile = typeof window !== "undefined" && window.innerWidth <= 960;
+            const img = isMobile ? HERO_IMG_MOBILE : HERO_IMG_DESKTOP;
+            return `${HERO_GRADIENT}, url(${img}) center/cover no-repeat`;
+        }
+    );
+
+    useEffect(() => {
+        const mql = window.matchMedia("(max-width: 960px)");
+        const update = (e) => {
+            const img = e.matches ? HERO_IMG_MOBILE : HERO_IMG_DESKTOP;
+            setHeroBg(`${HERO_GRADIENT}, url(${img}) center/cover no-repeat`);
+        };
+        mql.addEventListener("change", update);
+        return () => mql.removeEventListener("change", update);
+    }, []);
 
     const busqueda = (event) => {
         setSearch(event.target.value);
@@ -23,7 +44,7 @@ function Intro () {
 
     return (
         <>
-            <section className="intro" style={{ background: HERO_BG }}>
+            <section className="intro" style={{ background: heroBg }}>
                 <div className="intro-copy">
                     <p className="eyebrow">Clínica odontológica en Mendoza</p>
                     <h1>Aura Odontología</h1>

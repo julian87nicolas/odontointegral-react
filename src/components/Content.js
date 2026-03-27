@@ -7,8 +7,10 @@ function Content () {
     const { address, phone } = useClinic();
     const [phoneCopied, setPhoneCopied] = useState(false);
     const [copyError, setCopyError] = useState(false);
+    const [mapVisible, setMapVisible] = useState(false);
     const phoneCopiedTimerRef = useRef(null);
     const copyErrorTimerRef = useRef(null);
+    const mapContainerRef = useRef(null);
     const mapEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 
     useEffect(() => {
@@ -20,6 +22,23 @@ function Content () {
                 window.clearTimeout(copyErrorTimerRef.current);
             }
         };
+    }, []);
+
+    /* Load the Google Maps iframe only when its container enters the viewport */
+    useEffect(() => {
+        const container = mapContainerRef.current;
+        if (!container) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setMapVisible(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: "200px" }
+        );
+        observer.observe(container);
+        return () => observer.disconnect();
     }, []);
 
     const onCopyPhone = async () => {
@@ -111,13 +130,14 @@ function Content () {
                     </ul>
                     
                 </article>
-                <div className="map-embed" aria-hidden="true">
-                    <iframe
-                        title="Mapa de ubicación de Aura Odontología en Godoy Cruz, Mendoza"
-                        src={mapEmbedSrc}
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                    />
+                <div className="map-embed" aria-hidden="true" ref={mapContainerRef}>
+                    {mapVisible && (
+                        <iframe
+                            title="Mapa de ubicación de Aura Odontología en Godoy Cruz, Mendoza"
+                            src={mapEmbedSrc}
+                            referrerPolicy="no-referrer-when-downgrade"
+                        />
+                    )}
                 </div>
             </section>
             <div className="sep"></div>

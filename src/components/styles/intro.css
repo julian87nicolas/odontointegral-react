@@ -112,6 +112,7 @@
     transform: translateX(-120%);
     animation: section-sheen 8s ease-in-out infinite;
     pointer-events: none;
+    will-change: transform;
 }
 
 @keyframes section-sheen{
