@@ -6,6 +6,7 @@ const initialForm = {
   name: "",
   phone: "",
   message: "",
+  _honey: "",
 };
 
 const buildDefaultMessage = (name) => {
@@ -105,6 +106,7 @@ function ContactForm() {
           _subject: "Consulta desde la web - Aura Odontologia",
           _template: "table",
           _captcha: "false",
+          _honey: formData._honey,
         }),
       });
 
@@ -151,6 +153,20 @@ function ContactForm() {
       <p className="contact-lead">Completa el formulario y te contactamos por WhatsApp.</p>
 
       <form className="contact-form" onSubmit={onSubmit} noValidate>
+        {/* Campo honeypot anti-spam: invisible para personas, pero los bots que autocompletan
+            todos los campos lo llenan. FormSubmit descarta en silencio cualquier envio con
+            "_honey" no vacio (ver https://formsubmit.co/documentation, seccion "Honeypot"). */}
+        <input
+          type="text"
+          name="_honey"
+          value={formData._honey}
+          onChange={onChange}
+          style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden", opacity: 0 }}
+          aria-hidden="true"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+
         <label htmlFor="name">Nombre</label>
         <input id="name" name="name" type="text" value={formData.name} onChange={onChange} autoComplete="name" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} />
         {errors.name && <span id="name-error" className="field-error">{errors.name}</span>}
