@@ -4,13 +4,14 @@ import { useClinic } from "../context/ClinicContext";
 
 import "./styles/intro.css"
 
-const HERO_IMG_DESKTOP = "/images/tools.webp";
-const HERO_IMG_MOBILE = "/images/tools-960.webp";
+const HERO_IMG_DESKTOP = "/images/hero-hilo-dental.webp";
+const HERO_IMG_MOBILE = "/images/hero-hilo-dental-960.webp";
 const PARALLAX_RANGE = 30;
 
 function Intro () {
     const { whatsapp, mapsUrl } = useClinic();
     const photoRef = useRef(null);
+    const magneticRef = useRef(null);
 
     const [heroImg, setHeroImg] = useState(
         () => (typeof window !== "undefined" && window.innerWidth <= 960 ? HERO_IMG_MOBILE : HERO_IMG_DESKTOP)
@@ -49,14 +50,44 @@ function Intro () {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
+    const magneticEnabled =
+        typeof window !== "undefined" &&
+        window.matchMedia("(pointer: fine)").matches &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const onMagneticMove = (event) => {
+        if (!magneticEnabled) return;
+        const el = magneticRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const relX = event.clientX - (rect.left + rect.width / 2);
+        const relY = event.clientY - (rect.top + rect.height / 2);
+        el.style.transform = `translate(${relX * 0.25}px, ${relY * 0.25}px)`;
+    };
+
+    const onMagneticLeave = () => {
+        const el = magneticRef.current;
+        if (el) el.style.transform = "";
+    };
+
     return (
         <section className="intro">
-            <h1 className="intro-title reveal">Aura Odontología<span className="intro-h1-sub">Clínica odontológica</span></h1>
+            <h1 className="intro-title reveal reveal-focus">Aura Odontología<span className="intro-h1-sub">Clínica odontológica</span></h1>
             <p className="lead reveal" style={{ "--reveal-delay": "0.12s" }}>
                 Tratamiento de conducto, extracciones, implantes, ortodoncia y odontopediatría con un enfoque cercano y profesional.
             </p>
             <div className="intro-actions reveal" style={{ "--reveal-delay": "0.22s" }}>
-                <a className="intro-action primary" href={`https://api.whatsapp.com/send?phone=${whatsapp}`} target="_blank" rel="noreferrer">Reservar turno &gt;</a>
+                <a
+                    ref={magneticRef}
+                    className="intro-action primary"
+                    href={`https://api.whatsapp.com/send?phone=${whatsapp}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onMouseMove={onMagneticMove}
+                    onMouseLeave={onMagneticLeave}
+                >
+                    Reservar turno &gt;
+                </a>
                 <a className="intro-action secondary" href={mapsUrl} target="_blank" rel="noreferrer">Ver ubicación &gt;</a>
             </div>
             <div className="intro-photo-wrap reveal reveal-scale" style={{ "--reveal-delay": "0.3s" }}>
@@ -64,7 +95,7 @@ function Intro () {
                     ref={photoRef}
                     className="intro-photo"
                     src={heroImg}
-                    alt="Instrumental odontológico en el consultorio de Aura Odontología"
+                    alt="Profesional de Aura Odontología realizando un tratamiento con hilo dental"
                     fetchpriority="high"
                     width="1920"
                     height="460"

@@ -1,4 +1,4 @@
-function IconBase({ children, size = 20 }) {
+function IconBase({ children, size = 20, className, style }) {
   return (
     <svg
       width={size}
@@ -10,6 +10,8 @@ function IconBase({ children, size = 20 }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
+      className={className}
+      style={style}
     >
       {children}
     </svg>
@@ -57,6 +59,14 @@ export function MoonIcon(props) {
   return (
     <IconBase {...props}>
       <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z" />
+    </IconBase>
+  );
+}
+
+export function CheckIcon(props) {
+  return (
+    <IconBase {...props}>
+      <path d="M5 12.5 9.5 17 19 6.5" />
     </IconBase>
   );
 }

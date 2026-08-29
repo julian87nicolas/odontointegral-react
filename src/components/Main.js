@@ -3,6 +3,7 @@ import Intro from "./Intro"
 
 const Insurers = lazy(() => import("./Insurers"));
 const Content = lazy(() => import("./Content"));
+const Gallery = lazy(() => import("./Gallery"));
 const Specialties = lazy(() => import("./Specialties"));
 const Testimonials = lazy(() => import("./Testimonials"));
 const ContactForm = lazy(() => import("./ContactForm"));
@@ -14,6 +15,7 @@ function Main () {
             <Suspense fallback={null}>
                 <Insurers />
                 <Content />
+                <Gallery />
                 <Specialties />
                 <Testimonials />
                 <ContactForm />

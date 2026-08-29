@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useClinic } from "../context/ClinicContext";
-import { WhatsappIcon, InstagramIcon, MailIcon, SunIcon, MoonIcon } from "./Icons";
+import { WhatsappIcon, InstagramIcon, MailIcon, SunIcon, MoonIcon, CheckIcon } from "./Icons";
 
 import "./styles/nav.css"
 
@@ -12,13 +12,24 @@ function Nav () {
     const [scrolled, setScrolled] = useState(false);
     const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
     const [emailCopied, setEmailCopied] = useState(false);
+    const [scrollProgress, setScrollProgress] = useState(0);
 
     useEffect(() => {
+        let ticking = false;
+
         const onScroll = () => {
             setScrolled(window.pageYOffset > 4);
+
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                setScrollProgress(docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0);
+                ticking = false;
+            });
         };
 
-        window.addEventListener("scroll", onScroll);
+        window.addEventListener("scroll", onScroll, { passive: true });
         onScroll();
 
         return () => window.removeEventListener("scroll", onScroll);
@@ -88,15 +99,22 @@ function Nav () {
                         aria-label={emailCopied ? "Email copiado" : "Copiar email"}
                         onClick={copyEmail}
                     >
-                        <MailIcon />
+                        <span className="icon-swap">
+                            <MailIcon className={`icon-swap-item${emailCopied ? "" : " is-active"}`} />
+                            <CheckIcon className={`icon-swap-item${emailCopied ? " is-active" : ""}`} />
+                        </span>
                     </button>
                     <button type="button" className="nav-icon" title="Alternar tema" aria-label="Alternar tema claro u oscuro" onClick={toggleTheme}>
-                        {theme === "light" ? <MoonIcon /> : <SunIcon />}
+                        <span className="icon-swap">
+                            <SunIcon className={`icon-swap-item${theme === "light" ? " is-active" : ""}`} />
+                            <MoonIcon className={`icon-swap-item${theme === "dark" ? " is-active" : ""}`} />
+                        </span>
                     </button>
 
                     <a href={`https://api.whatsapp.com/send?phone=${whatsapp}`} target="_blank" rel="noreferrer" className="nav-cta">Reservar turno</a>
                 </nav>
             </div>
+            <div className="scroll-progress" style={{ transform: `scaleX(${scrollProgress})` }} aria-hidden="true"></div>
         </div>
         </>
     )

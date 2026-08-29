@@ -22,7 +22,7 @@ function Specialties() {
                 {services.map((service, index) => (
                     <div
                         className="specialty reveal"
-                        style={{ "--reveal-delay": `${Math.min(index, 7) * 0.06}s` }}
+                        style={{ "--reveal-delay": `${Math.floor(index / 4) * 0.12}s` }}
                         key={service.id}
                     >
                         <h3>{service.title}</h3>
