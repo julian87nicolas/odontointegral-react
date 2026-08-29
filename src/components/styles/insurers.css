@@ -1,0 +1,152 @@
+/*-------------------------Insurers (Obras sociales)-------------------------*/
+
+.insurers{
+    width: 100%;
+    background: var(--surface-soft);
+    padding: 4.5rem 1.5rem;
+    text-align: center;
+}
+
+.insurers h2{
+    margin: 0;
+    font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+}
+
+.insurers .content-lead{
+    margin: 0.5rem 0 0;
+    color: var(--ink-soft);
+}
+
+.insurers-search-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 420px;
+    margin: 1.75rem auto 0;
+}
+
+.insurers-search-wrap{
+    position: relative;
+}
+
+.insurers-search-wrap input{
+    flex: 1;
+    min-width: 0;
+    border: none;
+    border-bottom: 1px solid var(--line-strong);
+    background: transparent;
+    padding: 0.6rem 0.2rem;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    text-align: center;
+    transition: border-color var(--transition-fast);
+}
+
+.insurers-search-wrap input:focus-visible{
+    outline: none;
+}
+
+.insurers-search-wrap::after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    height: 2px;
+    background: var(--brand);
+    transition: left var(--transition-base), right var(--transition-base);
+}
+
+.insurers-search-wrap:focus-within::after{
+    left: 0;
+    right: 0;
+}
+
+.insurers-clear{
+    border: none;
+    background: transparent;
+    color: var(--brand-strong);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.4rem;
+}
+
+.insurers-clear:hover{
+    color: var(--brand);
+}
+
+.insurers-count{
+    margin: 0.6rem 0 0;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    animation: pop-in 0.3s ease;
+}
+
+.insurers-grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    max-width: 900px;
+    margin: 1.75rem auto 0;
+    padding: 0;
+    list-style: none;
+}
+
+.insurers-item{
+    padding: 0.45rem 1rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    opacity: 1;
+    /* No per-pill mount animation here on purpose: a CSS `animation` on this
+       rule gets torn down and restarted by Chromium whenever the element's
+       matched class list changes (e.g. gaining is-match/is-dim) even if the
+       animation's own value is unchanged — that restart was cancelling the
+       opacity/color transition below mid-search, making it snap instead of
+       fade. The parent section's `.reveal` already animates the whole block
+       in on scroll, so pills don't need their own entrance effect too. */
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease,
+        background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+.insurers-item:hover{
+    transform: translateY(-2px);
+    border-color: var(--brand);
+    color: var(--brand-strong);
+}
+
+.insurers-item.is-match{
+    border-color: var(--brand);
+    background: color-mix(in srgb, var(--brand) 14%, var(--surface));
+    color: var(--brand-strong);
+    font-weight: 600;
+}
+
+.insurers-item.is-dim{
+    opacity: 0.32;
+}
+
+.insurers-row-break{
+    flex-basis: 100%;
+    height: 1px;
+    margin: 0.15rem 0;
+    background: var(--line);
+}
+
+.insurers-empty{
+    margin-top: 1.5rem;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 640px){
+    .insurers{
+        padding: 3.5rem 1.25rem;
+    }
+}

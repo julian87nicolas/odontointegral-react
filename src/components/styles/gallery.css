@@ -1,0 +1,110 @@
+/*-------------------------Gallery-------------------------*/
+
+.gallery{
+    width: min(1100px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 3.5rem 0;
+    border-top: 1px solid var(--line);
+}
+
+.gallery-heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.gallery-heading h2{
+    margin: 0;
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+
+.gallery-nav{
+    display: flex;
+    gap: 0.6rem;
+}
+
+.gallery-nav-btn{
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.gallery-nav-btn:hover{
+    border-color: var(--brand);
+    color: var(--brand-strong);
+    transform: translateY(-1px);
+}
+
+.gallery-nav-btn:focus-visible{
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+}
+
+.gallery-track{
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 1.5rem 0.5rem;
+    scrollbar-width: none;
+}
+
+.gallery-track::-webkit-scrollbar{
+    display: none;
+}
+
+.gallery-item{
+    flex: 0 0 min(420px, 78vw);
+    margin: 0;
+    scroll-snap-align: start;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--surface-soft);
+    position: relative;
+}
+
+.gallery-item img{
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.gallery-item figcaption{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.6rem 1.1rem 0.9rem;
+    color: var(--text-on-image);
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: linear-gradient(to top, rgba(11, 24, 34, 0.72), transparent);
+}
+
+@media (max-width: 640px){
+    .gallery{
+        padding: 2.75rem 0;
+    }
+
+    .gallery-heading{
+        padding: 0 1.25rem;
+    }
+
+    .gallery-nav{
+        display: none;
+    }
+
+    .gallery-track{
+        padding: 0 1.25rem 0.5rem;
+    }
+}

@@ -18,11 +18,6 @@ const clinicData = {
     "OSPJN", "OSSACRA", "OSTV", "OSAPM", "OSSEG", "Prevencion Salud",
     "Swiss Medical", "Sancor Salud", "SCIS", "SADAIC", "Unimed", "Nobis", "OSADEF",
   ].sort(),
-  treatments: [
-    "Extracciones", "Tratamiento de conducto", "Blanqueamiento", "Limpieza dental",
-    "Urgencias", "Caries", "Placas de relajación", "Protesis", "Implantes", "Perno-coronas", "Ortodoncia",
-    "Odontopediatría", "Muelas de juicio", "Gingivitis",
-  ].sort(),
   testimonials: [
     {
       id: 1,

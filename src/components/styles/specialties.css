@@ -1,0 +1,57 @@
+/*-------------------------Specialties-------------------------*/
+
+.specialties{
+    width: min(1100px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 4.5rem;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+
+.specialties h2{
+    margin: 0 0 2.5rem;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.specialties-grid{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.75rem;
+    text-align: left;
+}
+
+.specialty{
+    padding-top: 1.1rem;
+    border-top: 2px solid var(--ink);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.specialty:hover{
+    transform: translateY(-3px);
+    border-color: var(--brand);
+}
+
+.specialty h3{
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.specialty p{
+    margin: 0.5rem 0 0;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+}
+
+@media (max-width: 900px){
+    .specialties-grid{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px){
+    .specialties-grid{
+        grid-template-columns: 1fr;
+    }
+}

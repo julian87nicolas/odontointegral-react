@@ -58,7 +58,7 @@ npm run build
 
 - [src/App.js](src/App.js): composición principal de layout y secciones.
 - [src/components/Main.js](src/components/Main.js): contenedor de la página principal.
-- [src/components/ServicesCarousel.js](src/components/ServicesCarousel.js): carrusel horizontal con animación continua y controles.
+- [src/components/Specialties.js](src/components/Specialties.js): grilla estática de especialidades/tratamientos.
 - [src/components/ContactForm.js](src/components/ContactForm.js): formulario con validación de campos y flujos de envío.
 - [src/context/ClinicContext.js](src/context/ClinicContext.js): datos compartidos consumidos por componentes.
 - [src/index.css](src/index.css): tokens globales de diseño (variables, tipografía, base responsive).

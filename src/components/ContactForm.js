@@ -6,6 +6,7 @@ const initialForm = {
   name: "",
   phone: "",
   message: "",
+  _honey: "",
 };
 
 const buildDefaultMessage = (name) => {
@@ -14,7 +15,7 @@ const buildDefaultMessage = (name) => {
 };
 
 function ContactForm() {
-  const { whatsapp, email } = useClinic();
+  const { whatsapp, email, phone, address } = useClinic();
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [sent, setSent] = useState(false);
@@ -105,6 +106,7 @@ function ContactForm() {
           _subject: "Consulta desde la web - Aura Odontologia",
           _template: "table",
           _captcha: "false",
+          _honey: formData._honey,
         }),
       });
 
@@ -146,11 +148,32 @@ function ContactForm() {
   };
 
   return (
-    <section className="contact-section reveal" id="contacto" aria-label="Formulario de contacto">
+    <section id="contacto" aria-label="Formulario de contacto">
+      <div className="cta-band reveal">
+        <h2>Pedí tu turno hoy.</h2>
+        <p>{address} · {phone}</p>
+        <a className="cta-band-button" href={`https://api.whatsapp.com/send?phone=${whatsapp}`} target="_blank" rel="noreferrer">Reservar turno</a>
+      </div>
+
+      <div className="contact-section reveal">
       <h2>Solicita tu turno</h2>
       <p className="contact-lead">Completa el formulario y te contactamos por WhatsApp.</p>
 
       <form className="contact-form" onSubmit={onSubmit} noValidate>
+        {/* Campo honeypot anti-spam: invisible para personas, pero los bots que autocompletan
+            todos los campos lo llenan. FormSubmit descarta en silencio cualquier envio con
+            "_honey" no vacio (ver https://formsubmit.co/documentation, seccion "Honeypot"). */}
+        <input
+          type="text"
+          name="_honey"
+          value={formData._honey}
+          onChange={onChange}
+          style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden", opacity: 0 }}
+          aria-hidden="true"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+
         <label htmlFor="name">Nombre</label>
         <input id="name" name="name" type="text" value={formData.name} onChange={onChange} autoComplete="name" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} />
         {errors.name && <span id="name-error" className="field-error">{errors.name}</span>}
@@ -174,6 +197,7 @@ function ContactForm() {
       {sent && <p className="contact-success" role="status" aria-live="polite">Mensaje enviado. Te responderemos a la brevedad.</p>}
       {emailSent && <p className="contact-success" role="status" aria-live="polite">Email enviado correctamente. Te responderemos a la brevedad.</p>}
       {errors.form && <p className="field-error" role="alert" aria-live="assertive">{errors.form}</p>}
+      </div>
     </section>
   );
 }
