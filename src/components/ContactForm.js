@@ -15,7 +15,7 @@ const buildDefaultMessage = (name) => {
 };
 
 function ContactForm() {
-  const { whatsapp, email } = useClinic();
+  const { whatsapp, email, phone, address } = useClinic();
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [sent, setSent] = useState(false);
@@ -148,7 +148,14 @@ function ContactForm() {
   };
 
   return (
-    <section className="contact-section reveal" id="contacto" aria-label="Formulario de contacto">
+    <section id="contacto" aria-label="Formulario de contacto">
+      <div className="cta-band reveal">
+        <h2>Pedí tu turno hoy.</h2>
+        <p>{address} · {phone}</p>
+        <a className="cta-band-button" href={`https://api.whatsapp.com/send?phone=${whatsapp}`} target="_blank" rel="noreferrer">Reservar turno</a>
+      </div>
+
+      <div className="contact-section reveal">
       <h2>Solicita tu turno</h2>
       <p className="contact-lead">Completa el formulario y te contactamos por WhatsApp.</p>
 
@@ -190,6 +197,7 @@ function ContactForm() {
       {sent && <p className="contact-success" role="status" aria-live="polite">Mensaje enviado. Te responderemos a la brevedad.</p>}
       {emailSent && <p className="contact-success" role="status" aria-live="polite">Email enviado correctamente. Te responderemos a la brevedad.</p>}
       {errors.form && <p className="field-error" role="alert" aria-live="assertive">{errors.form}</p>}
+      </div>
     </section>
   );
 }

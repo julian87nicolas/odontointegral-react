@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./styles/content.css"
 import { useClinic } from "../context/ClinicContext";
-import ServicesCarousel from "./ServicesCarousel";
 
 function Content () {
     const { address, phone } = useClinic();
@@ -98,70 +97,55 @@ function Content () {
 
     return (
         <>
-            <section className="content first reveal">
-                <article>
-                    <h2>Atención odontológica en Mendoza</h2>
-                    <hr/ >
-                    <p className="content-lead">Tratamiento odontológico general para:</p>
-                    <ul>
-                        <li>Niños (odontopediatría)</li>
-                        <li>Adolescentes</li>
-                        <li>Adultos</li>
-                        <li>Embarazadas</li>
-                    </ul>  
-                </article>    
+            <section className="statement reveal">
+                <h2>Una sonrisa cuidada, sin vueltas.</h2>
+                <p className="statement-lead">Tratamiento odontológico general para niños, adolescentes, adultos y embarazadas, con seguimiento cercano en cada etapa.</p>
+                <ul className="statement-list">
+                    <li>Niños (odontopediatría)</li>
+                    <li>Adolescentes</li>
+                    <li>Adultos</li>
+                    <li>Embarazadas</li>
+                </ul>
             </section>
 
-            <div className="sep rev"></div>
-            <section className="services-section reveal" id="servicios">
-                <h2>Servicios y tratamientos</h2>
-                <hr />
-                <p className="content-lead">Amplia variedad de tratamientos dentales:</p>
-                <ServicesCarousel />
-            </section>
-
-            <div className="sep"></div>
-            <section className="content has-image reveal" id="ubicacion">
-                <article>
-                    <h2>Ubicación</h2>
-                    <hr />
-                    <ul>
-                        <li>
-                            <address>{address}</address>
-                            <a className="maps" href="https://maps.app.goo.gl/yNnJ3mpCqJ4SXjDF9" target="_blank" rel="noreferrer">Ver mapa</a>
-                        </li>
-                    </ul>
-                    
-                </article>
-                <div className="map-embed" aria-hidden="true" ref={mapContainerRef}>
-                    {mapVisible && (
-                        <iframe
-                            title="Mapa de ubicación de Aura Odontología en Godoy Cruz, Mendoza"
-                            src={mapEmbedSrc}
-                            referrerPolicy="no-referrer-when-downgrade"
-                        />
-                    )}
+            <section className="content-block reveal" id="ubicacion">
+                <div className="content-block-inner">
+                    <div>
+                        <h2>Ubicación</h2>
+                        <address>{address}</address>
+                        <a className="text-link" href="https://maps.app.goo.gl/yNnJ3mpCqJ4SXjDF9" target="_blank" rel="noreferrer">Ver mapa &gt;</a>
+                    </div>
+                    <div className="map-embed" aria-hidden="true" ref={mapContainerRef}>
+                        {mapVisible && (
+                            <iframe
+                                title="Mapa de ubicación de Aura Odontología en Godoy Cruz, Mendoza"
+                                src={mapEmbedSrc}
+                                referrerPolicy="no-referrer-when-downgrade"
+                            />
+                        )}
+                    </div>
                 </div>
             </section>
-            <div className="sep"></div>
-            <section className="content reveal" id="horarios">
-                <article>
-                    <h2>Días y horarios</h2>
-                    <hr />
-                    <ul>
-                        <li>Lunes a Viernes de 9:00 a 20:00hs</li>
-                        <li>
-                            Turnos:
+
+            <section className="content-block reveal" id="horarios">
+                <h2>Días y horarios</h2>
+                <dl className="hours-list">
+                    <div className="hours-row">
+                        <dt>Atención</dt>
+                        <dd>Lunes a Viernes de 9:00 a 20:00hs</dd>
+                    </div>
+                    <div className="hours-row">
+                        <dt>Turnos</dt>
+                        <dd className="content-phone-row">
                             <button type="button" className="copy-phone-btn" onClick={onCopyPhone}>
                                 {phone}
                             </button>
                             {phoneCopied && <span className="copy-phone-status" role="status" aria-live="polite">Copiado</span>}
                             {copyError && <span className="copy-phone-status copy-phone-error" role="alert" aria-live="assertive">No se pudo copiar</span>}
-                        </li>
-                    </ul>
-                </article>
+                        </dd>
+                    </div>
+                </dl>
             </section>
-            <div className="sep"></div>
         </>
     )
 }

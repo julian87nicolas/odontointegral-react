@@ -129,8 +129,8 @@ function Testimonials() {
             ))}
           </>
         ) : (
-          visibleTestimonials.map((item) => (
-            <article className="testimonial-card" key={item.id}>
+          visibleTestimonials.map((item, index) => (
+            <article className="testimonial-card reveal" style={{ "--reveal-delay": `${index * 0.08}s` }} key={item.id}>
               <p className="testimonial-text">"{item.text}"</p>
               <p className="testimonial-author">- {item.author}</p>
               <p className="testimonial-rating" aria-label={`${item.rating} de 5 estrellas`}>

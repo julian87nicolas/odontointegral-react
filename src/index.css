@@ -11,9 +11,10 @@
   --line: rgba(20, 48, 65, 0.14);
   --line-strong: rgba(20, 48, 65, 0.28);
   --text-on-image: #f9feff;
+  --band-dark: #0b1822;
 
-  --sans: 'Plus Jakarta Sans', sans-serif;
-  --display: 'Outfit', sans-serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+  --display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
   --mono: 'Oxygen Mono', monospace;
 
   --font-size-sm: 0.875rem;
@@ -74,6 +75,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body,
 #root,
@@ -81,14 +86,17 @@ body,
   min-height: 100%;
 }
 
+@media (prefers-reduced-motion: reduce){
+  html{
+    scroll-behavior: auto;
+  }
+}
+
 body{
   font-family: var(--sans);
   margin: 0;
   color: var(--ink);
-  background:
-    radial-gradient(circle at 10% 10%, rgba(10, 177, 191, 0.13), transparent 34%),
-    radial-gradient(circle at 85% 5%, rgba(251, 137, 117, 0.11), transparent 36%),
-    var(--canvas);
+  background: var(--surface);
   transition: background-color var(--transition-base), color var(--transition-base);
 }
 
@@ -96,7 +104,8 @@ h1,
 h2,
 h3 {
   font-family: var(--display);
-  letter-spacing: 0.01em;
+  letter-spacing: -0.02em;
+  font-weight: 600;
 }
 
 p,
@@ -126,6 +135,7 @@ a {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.7s ease, transform 0.7s ease;
+  transition-delay: var(--reveal-delay, 0s);
   will-change: opacity, transform;
 }
 
@@ -135,10 +145,24 @@ a {
   will-change: auto;
 }
 
+.reveal-scale.reveal-pending{
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-scale.is-visible{
+  opacity: 1;
+  transform: scale(1);
+}
+
 @media (prefers-reduced-motion: reduce){
   .reveal,
   .reveal.reveal-pending,
-  .reveal.is-visible{
+  .reveal.is-visible,
+  .reveal-scale.reveal-pending,
+  .reveal-scale.is-visible{
     opacity: 1;
     transform: none;
     transition: none;
@@ -155,6 +179,19 @@ a {
 
 .sep.rev{
   background: linear-gradient(90deg, transparent, var(--brand), transparent);
+}
+
+@keyframes pop-in{
+  from{ opacity: 0; transform: translateY(4px) scale(0.94); }
+  to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 
