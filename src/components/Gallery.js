@@ -5,20 +5,14 @@ const photos = [
     {
         id: "equipo",
         src: "/images/equipo.webp",
-        alt: "Equipo de Aura Odontología en la entrada del consultorio",
+        alt: "Equipo de Aura Odontología en el consultorio",
         caption: "Nuestro equipo",
     },
     {
         id: "atencion",
         src: "/images/atencion-real.webp",
-        alt: "Profesional de Aura Odontología atendiendo a un paciente",
+        alt: "Profesional de Aura Odontología explicando un tratamiento a una paciente",
         caption: "Atención profesional",
-    },
-    {
-        id: "instrumental",
-        src: "/images/instrumental.webp",
-        alt: "Instrumental dental esterilizado listo para un tratamiento",
-        caption: "Bioseguridad e instrumental",
     },
     {
         id: "modelo",
